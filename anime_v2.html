@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>苏州世必得科技 - 让网络连接更简单，让安全防护更可靠</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: #F0F2EF; font-family: "Microsoft YaHei", "PingFang SC", sans-serif; color: #3D4B47; }
+a { text-decoration: none; color: inherit; }
+
+/* Header */
+header { background: rgba(240,242,239,0.95); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 16px rgba(0,0,0,0.04); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(61,75,71,0.06); }
+.header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; }
+.logo-wrap { display: flex; align-items: center; gap: 10px; }
+.logo-img { height: 48px; width: auto; }
+.logo-text h1 { font-size: 16px; color: #3D4B47; letter-spacing: 3px; font-weight: 700; }
+.logo-text p { font-size: 10px; color: #8A9B96; margin-top: 2px; }
+nav { display: flex; gap: 4px; align-items: center; }
+nav a { font-size: 12px; color: #7A8B86; padding: 6px 12px; border-radius: 20px; transition: all 0.25s; }
+nav a:hover { background: rgba(74,85,82,0.08); color: #3D4B47; }
+.nav-cta { background: rgba(139,168,154,0.15); border: 1px solid rgba(139,168,154,0.3); color: #5A7068 !important; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+.nav-cta:hover { background: rgba(139,168,154,0.25); }
+
+/* Hero */
+.hero { background: linear-gradient(160deg, #EEF1EE, #F0F2EF, #F4F5F3); position: relative; min-height: 92vh; display: flex; align-items: center; overflow: hidden; }
+.hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60px; background: linear-gradient(to top, #E8EDE9, transparent); }
+.hero-img { position: absolute; right: 0; top: 0; width: 58%; height: 100%; object-fit: cover; opacity: 0.4; filter: brightness(1.1) saturate(0.5) hue-rotate(10deg); }
+.hero-inner { max-width: 1200px; margin: 0 auto; padding: 60px 24px 80px; position: relative; z-index: 1; }
+.hero-badge { display: inline-block; background: rgba(139,168,154,0.12); border: 1px solid rgba(139,168,154,0.25); color: #6A8578; font-size: 10px; letter-spacing: 3px; padding: 4px 12px; border-radius: 14px; margin-bottom: 16px; }
+.hero h2 { font-size: 42px; color: #3D4B47; line-height: 1.4; margin-bottom: 16px; font-weight: 800; letter-spacing: 2px; }
+.hero h2 span { color: #6A8578; }
+.hero-desc { font-size: 15px; color: #6A756E; line-height: 1.9; max-width: 520px; margin-bottom: 28px; }
+.hero-btns { display: flex; gap: 12px; }
+.btn-primary { background: rgba(139,168,154,0.15); border: 1px solid rgba(139,168,154,0.3); color: #4A6558; padding: 12px 26px; border-radius: 22px; font-size: 14px; font-weight: 600; transition: all 0.3s; display: inline-block; }
+.btn-primary:hover { background: rgba(139,168,154,0.25); transform: translateY(-2px); }
+.btn-outline { border: 1px solid rgba(74,85,82,0.2); color: #5A6560; padding: 11px 24px; border-radius: 22px; font-size: 14px; transition: all 0.3s; display: inline-block; }
+.btn-outline:hover { border-color: rgba(74,85,82,0.35); background: rgba(74,85,82,0.05); }
+
+/* Sections */
+section { padding: 80px 24px; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.section-label { font-size: 10px; color: #8BA89A; font-weight: 700; letter-spacing: 4px; margin-bottom: 8px; text-transform: uppercase; }
+.section-title { font-size: 28px; color: #3D4B47; margin-bottom: 12px; font-weight: 800; }
+.section-title::after { content: ''; display: block; width: 44px; height: 2px; background: rgba(139,168,154,0.4); margin-top: 10px; border-radius: 2px; }
+.section-desc { font-size: 14px; color: #7A8B86; line-height: 1.85; max-width: 560px; margin-bottom: 40px; }
+
+/* Illus split */
+.illus-split { display: grid; grid-template-columns: 1fr 1fr; min-height: 520px; }
+.illus-split .img-side { position: relative; overflow: hidden; }
+.illus-split .img-side img { width: 100%; height: 100%; object-fit: cover; filter: brightness(1.05) saturate(0.55) hue-rotate(8deg); }
+.illus-split .text-side { background: #EEF1EE; display: flex; flex-direction: column; justify-content: center; padding: 60px 50px; }
+.illus-split .text-side .sec-label { font-size: 10px; color: #8BA89A; font-weight: 700; letter-spacing: 3px; margin-bottom: 10px; text-transform: uppercase; }
+.illus-split .text-side h2 { font-size: 26px; color: #3D4B47; margin-bottom: 14px; font-weight: 800; line-height: 1.4; }
+.illus-split .text-side p { font-size: 14px; color: #6A756E; line-height: 1.9; margin-bottom: 22px; }
+.feature-list { list-style: none; }
+.feature-list li { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; font-size: 14px; color: #5A6560; line-height: 1.6; }
+.feature-list li::before { content: '✓'; flex-shrink: 0; width: 18px; height: 18px; background: rgba(139,168,154,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #7A9A8A; margin-top: 2px; }
+
+/* Cards */
+.cards-section { background: #EEF1EE; }
+.card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 28px; }
+.card { background: rgba(255,255,255,0.6); border: 1px solid rgba(139,168,154,0.15); border-radius: 18px; padding: 28px 22px; transition: all 0.3s; }
+.card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.8); border-color: rgba(139,168,154,0.3); box-shadow: 0 8px 24px rgba(0,0,0,0.04); }
+.card-icon { width: 50px; height: 50px; background: rgba(139,168,154,0.1); border: 1px solid rgba(139,168,154,0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 16px; }
+.card h3 { font-size: 16px; color: #3D4B47; margin-bottom: 10px; font-weight: 700; }
+.card p { font-size: 13px; color: #7A8B86; line-height: 1.85; }
+
+/* CTA */
+.cta { background: linear-gradient(160deg, #ECEEEC, #F0F2EF); text-align: center; padding: 90px 24px; }
+.cta h2 { font-size: 30px; color: #3D4B47; margin-bottom: 14px; font-weight: 800; }
+.cta p { font-size: 15px; color: #7A8B86; margin-bottom: 34px; }
+.cta-btn { background: rgba(139,168,154,0.2); border: 1px solid rgba(139,168,154,0.35); color: #4A6558; padding: 14px 42px; border-radius: 26px; font-size: 15px; font-weight: 600; display: inline-block; transition: all 0.3s; }
+.cta-btn:hover { transform: translateY(-3px); background: rgba(139,168,154,0.3); }
+
+/* Footer */
+footer { background: #ECEEEC; color: #8A9B96; padding: 40px 24px 28px; }
+.footer-inner { max-width: 1200px; margin: 0 auto; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 36px; padding-bottom: 28px; border-bottom: 1px solid rgba(74,85,82,0.08); margin-bottom: 22px; }
+.footer-brand h3 { color: #5A6560; font-size: 15px; margin-bottom: 12px; letter-spacing: 3px; }
+.footer-brand p { font-size: 12px; color: #8A9B96; line-height: 1.85; }
+.footer-col h4 { color: #7A8B86; font-size: 13px; margin-bottom: 14px; }
+.footer-col a { display: block; font-size: 12px; color: #8A9B96; margin-bottom: 10px; transition: color 0.3s; }
+.footer-col a:hover { color: #6A8578; }
+.footer-bottom { text-align: center; font-size: 11px; }
+
+@media (max-width: 900px) {
+  nav { display: none; }
+  .illus-split { grid-template-columns: 1fr; }
+  .illus-split .img-side { height: 300px; }
+  .illus-split .text-side { padding: 40px 30px; }
+  .card-grid { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+  .hero h2 { font-size: 28px; }
+  section { padding: 60px 24px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-wrap">
+      <img src="logo.png" alt="SPEEDER" class="logo-img">
+      <div class="logo-text">
+        <h1>苏州世必得科技</h1>
+        <p>让网络连接更简单，让安全防护更可靠</p>
+      </div>
+    </div>
+    <nav>
+      <a href="#hero">首页</a>
+      <a href="#sdwan">SD-WAN</a>
+      <a href="#pool">线路融合池</a>
+      <a href="#security">安全堆栈</a>
+      <a href="#global">全球服务</a>
+      <a href="#contact" class="nav-cta">立即咨询</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="hero">
+  <img class="hero-img" src="anime_sdwan_v2_1.png" alt="">
+  <div class="hero-inner">
+    <div class="hero-badge">企业网络 × 安全防护 × 全球互联</div>
+    <h2>让网络连接更简单<br><span>让安全防护更可靠</span></h2>
+    <p class="hero-desc">世必得科技专注于企业网络与安全领域，为多分支企业提供 SD-WAN 组网、带宽融合调度、安全融合（SASE）整体解决方案。28座城市7×24本地化服务。</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">获取方案报价</a>
+      <a href="#sdwan" class="btn-outline">了解更多</a>
+    </div>
+  </div>
+</section>
+
+<section class="cards-section" id="sdwan">
+  <div class="section-inner">
+    <div class="section-label">SD-WAN · 多分支组网</div>
+    <h2 class="section-title">多分支组网解决方案</h2>
+    <p class="section-desc">基于SD-WAN技术提供多线路融合解决方案，智能调度分流，带宽利用率最大化。支持全球600+ POP节点，让企业分支联网既快又稳。</p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">🌏</div>
+        <h3>多线路智能融合</h3>
+        <p>同时接入多家运营商宽带，智能选路自动规避故障链路，带宽利用率从40%提升至85%以上。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h3>关键应用加速</h3>
+        <p>对SAP、Oracle、CRM等关键业务应用进行深度优化，跨国访问延迟降低50%以上。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔗</div>
+        <h3>即插即用部署</h3>
+        <p>分支设备快递到场即插即用，零接触开局，配置自动下发，300节点可在1周内全部上线。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="illus-split" id="pool">
+  <div class="img-side"><img src="anime_pool_1.png" alt="线路融合池"></div>
+  <div class="text-side">
+    <div class="sec-label">线路融合池 · LINE POOL</div>
+    <h2>线路融合池<br>多协议统一接入</h2>
+    <p>线路融合池是SD-WAN的核心能力，将不同运营商、不同带宽大小的线路打包成一个逻辑通道，按需分配、动态调度。</p>
+    <ul class="feature-list">
+      <li>多线路智能融合，提升带宽利用率</li>
+      <li>支持MPLS、互联网、4G/5G多协议统一接入</li>
+      <li>跨国应用加速，站点间无缝互联</li>
+      <li>关键应用主动实时监控，SLA保障</li>
+      <li>可视化集中管控，运维效率提升80%</li>
+    </ul>
+  </div>
+</div>
+
+<section class="cards-section" id="security">
+  <div class="section-inner">
+    <div class="section-label">安全堆栈 · SECURITY STACK</div>
+    <h2 class="section-title">立体化安全防护体系</h2>
+    <p class="section-desc">安全与网络融合（SASE），从端到云构建全方位防护体系，保障数据传输安全，满足等保合规要求。</p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">🛡️</div>
+        <h3>端到端安全加密</h3>
+        <p>端到端IPSec加密，传输数据安全无忧，告别网络窃听和数据泄露风险。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔍</div>
+        <h3>可视化集中管控</h3>
+        <p>配置自动下发，实时监控告警，全网安全状态一目了然，运维效率大幅提升。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📋</div>
+        <h3>等保合规保障</h3>
+        <p>满足等保2.0要求，从网络边界到应用层全方位安全防护，合规无忧。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="illus-split" id="global">
+  <div class="img-side"><img src="anime_global_1.png" alt="全球服务"></div>
+  <div class="text-side">
+    <div class="sec-label">全球服务 · GLOBAL SERVICE</div>
+    <h2>全球互联<br>600+ POP节点覆盖</h2>
+    <p>世必得在全球范围内部署600+ POP节点，覆盖150+全球骨干网节点，为跨国企业提供稳定、高速的网络连接。</p>
+    <ul class="feature-list">
+      <li>全球600+ POP节点覆盖</li>
+      <li>150+全球骨干网节点</li>
+      <li>28座城市7×24本地化服务</li>
+      <li>关键应用SLA 99.9%可用率保障</li>
+      <li>原厂工程师快速响应</li>
+    </ul>
+  </div>
+</div>
+
+<div class="cta" id="contact">
+  <h2>想了解SD-WAN能为你省多少？</h2>
+  <p>留下联系方式，我们的工程师30分钟内与你联系，免费评估网络现状</p>
+  <a href="tel:13771706800" class="cta-btn">立即咨询 SD-WAN 方案</a>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h3>苏州世必得科技</h3>
+        <p>专注企业网络与安全领域，为多分支企业提供 SD-WAN 组网、网络安全融合（SASE）、带宽融合调度整体解决方案。</p>
+      </div>
+      <div class="footer-col">
+        <h4>解决方案</h4>
+        <a href="#sdwan">SD-WAN 多分支组网</a>
+        <a href="#security">UniSASE 安全融合</a>
+        <a href="#">AI 服务</a>
+      </div>
+      <div class="footer-col">
+        <h4>服务保障</h4>
+        <a href="#">原厂工程师</a>
+        <a href="#">7×24 响应</a>
+        <a href="#">备件先行</a>
+      </div>
+      <div class="footer-col">
+        <h4>联系我们</h4>
+        <a href="tel:13771706800">+86 13771706800</a>
+        <a href="mailto:bally.su@speeder.net.cn">bally.su@speeder.net.cn</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2024 苏州世必得科技 SPEEDER NETWORKS · 苏ICP备2024120577号-1
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
