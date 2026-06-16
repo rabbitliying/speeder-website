@@ -7,151 +7,107 @@
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { background: #0a1418; font-family: "Microsoft YaHei", "PingFang SC", sans-serif; color: #E6EBFF; overflow-x: hidden; }
-a { text-decoration: none; color: inherit; }
+body { background: rgba(232,237,233,0.75); font-family: "Microsoft YaHei", "PingFang SC", sans-serif; color: #002D24; }
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #0a1418; }
-::-webkit-scrollbar-thumb { background: rgba(0,180,130,0.4); border-radius: 3px; }
+/* Glass card base */
+.glass { background: rgba(232,237,233,0.55); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(0,45,36,0.08); }
 
 /* Header */
-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,20,24,0.82); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,180,130,0.1); }
+header { background: rgba(232,237,233,0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,45,36,0.06); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 16px rgba(0,0,0,0.04); }
 .header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; }
 .logo-wrap { display: flex; align-items: center; gap: 10px; }
-.logo-img { height: 40px; width: auto; }
-.logo-text { margin-left: 10px; }
-.logo-text h1 { font-size: 14px; color: #E6EBFF; letter-spacing: 3px; font-weight: 700; }
-.logo-text p { font-size: 9px; color: rgba(0,180,130,0.6); letter-spacing: 2px; }
-nav { display: flex; gap: 28px; align-items: center; }
-nav a { font-size: 13px; color: rgba(230,235,255,0.6); transition: all 0.3s; letter-spacing: 1px; }
-nav a:hover { color: #00c896; }
-.nav-cta { background: rgba(0,45,36,0.6); border: 1px solid rgba(0,180,130,0.35); color: #00c896; padding: 7px 18px; border-radius: 20px; font-size: 13px; transition: all 0.3s; }
-.nav-cta:hover { background: rgba(0,120,90,0.4); border-color: rgba(0,200,150,0.7); }
+.logo-img { height: 48px; width: auto; }
+.logo-text h1 { font-size: 16px; color: #002D24; letter-spacing: 3px; font-weight: 700; }
+.logo-text p { font-size: 10px; color: rgba(0,45,36,0.45); margin-top: 2px; }
+nav { display: flex; gap: 4px; align-items: center; }
+nav a { font-size: 12px; color: rgba(0,45,36,0.55); padding: 6px 12px; border-radius: 20px; transition: all 0.25s; }
+nav a:hover { background: rgba(0,45,36,0.06); color: #002D24; }
+.nav-cta { background: rgba(0,45,36,0.06); border: 1px solid rgba(0,45,36,0.12); color: #002D24 !important; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+.nav-cta:hover { background: rgba(0,45,36,0.1); }
 
 /* Hero */
-#hero { position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden; }
-.hero-bg { position: absolute; inset: 0; background: url('hero_bg.png') center top / cover no-repeat; filter: brightness(0.45) saturate(0.5); }
-.hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,20,24,0.2) 0%, rgba(10,20,24,0.05) 40%, rgba(10,20,24,0.6) 100%); }
-.hero-inner { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 100px 24px 80px; width: 100%; display: flex; align-items: center; gap: 60px; }
-.hero-left { flex: 1; }
-.hero-badge { display: inline-block; background: rgba(0,180,130,0.1); border: 1px solid rgba(0,180,130,0.3); color: #00c896; font-size: 10px; letter-spacing: 3px; padding: 5px 14px; border-radius: 14px; margin-bottom: 20px; }
-.hero h2 { font-size: 44px; color: #E6EBFF; line-height: 1.5; margin-bottom: 18px; letter-spacing: 4px; font-weight: 700; text-shadow: 0 4px 30px rgba(0,0,0,0.6); }
-.hero h2 span { color: #00c896; }
-.hero-desc { font-size: 15px; color: rgba(230,235,255,0.7); line-height: 2; margin-bottom: 32px; max-width: 520px; letter-spacing: 0.5px; }
-.hero-btns { display: flex; gap: 14px; }
-.btn-primary { background: linear-gradient(135deg, rgba(0,100,70,0.8), rgba(0,60,50,0.9)); border: 1px solid rgba(0,200,150,0.4); color: #E6EBFF; padding: 13px 32px; border-radius: 26px; font-size: 14px; font-weight: 600; backdrop-filter: blur(12px); transition: all 0.3s; display: inline-block; letter-spacing: 1px; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
-.btn-primary:hover { background: linear-gradient(135deg, rgba(0,140,100,0.8), rgba(0,80,60,0.9)); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,180,130,0.2); }
-.btn-secondary { border: 1px solid rgba(230,235,255,0.2); color: rgba(230,235,255,0.85); padding: 12px 28px; border-radius: 26px; font-size: 14px; backdrop-filter: blur(8px); transition: all 0.3s; display: inline-block; }
-.btn-secondary:hover { border-color: rgba(230,235,255,0.45); background: rgba(230,235,255,0.06); }
-.hero-right { width: 340px; display: flex; flex-direction: column; gap: 14px; }
-.stat-card { background: rgba(10,20,24,0.55); backdrop-filter: blur(20px); border: 1px solid rgba(0,180,130,0.12); border-radius: 16px; padding: 20px 22px; display: flex; align-items: center; gap: 18px; transition: all 0.3s; }
-.stat-card:hover { border-color: rgba(0,180,130,0.3); background: rgba(10,20,24,0.7); }
-.stat-icon { width: 44px; height: 44px; background: rgba(0,180,130,0.1); border: 1px solid rgba(0,180,130,0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
-.stat-num { font-size: 28px; font-weight: 800; color: #00c896; line-height: 1; }
-.stat-label { font-size: 13px; color: rgba(230,235,255,0.8); line-height: 1.6; }
-.stat-sub { font-size: 11px; color: rgba(0,180,130,0.6); }
+.hero { background: linear-gradient(160deg, rgba(221,229,223,0.6), rgba(228,235,230,0.7), rgba(232,237,233,0.75)); position: relative; min-height: 92vh; display: flex; align-items: center; overflow: hidden; }
+.hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60px; background: linear-gradient(to top, rgba(232,237,233,0.9), transparent); pointer-events: none; }
+.hero-img { position: absolute; right: 0; top: 0; width: 58%; height: 100%; object-fit: cover; opacity: 0.35; filter: brightness(1.1) saturate(0.45) hue-rotate(5deg); mix-blend-mode: multiply; }
+.hero-inner { max-width: 1200px; margin: 0 auto; padding: 60px 24px 80px; position: relative; z-index: 1; }
+.hero-badge { display: inline-block; background: rgba(0,45,36,0.06); border: 1px solid rgba(0,45,36,0.12); color: rgba(0,45,36,0.6); font-size: 10px; letter-spacing: 3px; padding: 4px 12px; border-radius: 14px; margin-bottom: 16px; }
+.hero h2 { font-size: 42px; color: #002D24; line-height: 1.4; margin-bottom: 16px; font-weight: 800; letter-spacing: 2px; }
+.hero h2 span { color: rgba(0,45,36,0.6); }
+.hero-desc { font-size: 15px; color: rgba(0,45,36,0.55); line-height: 1.9; max-width: 520px; margin-bottom: 28px; }
+.hero-btns { display: flex; gap: 12px; }
+.btn-primary { background: rgba(0,45,36,0.08); border: 1px solid rgba(0,45,36,0.15); color: #002D24; padding: 12px 26px; border-radius: 22px; font-size: 14px; font-weight: 600; transition: all 0.3s; display: inline-block; }
+.btn-primary:hover { background: rgba(0,45,36,0.14); transform: translateY(-2px); }
+.btn-outline { border: 1px solid rgba(0,45,36,0.15); color: rgba(0,45,36,0.6); padding: 11px 24px; border-radius: 22px; font-size: 14px; transition: all 0.3s; display: inline-block; }
+.btn-outline:hover { border-color: rgba(0,45,36,0.28); background: rgba(0,45,36,0.04); }
 
-/* Section common */
-.section { padding: 100px 24px; }
+/* Sections */
+section { padding: 80px 24px; }
 .section-inner { max-width: 1200px; margin: 0 auto; }
-.section-label { font-size: 10px; letter-spacing: 4px; color: rgba(0,180,130,0.7); text-transform: uppercase; margin-bottom: 14px; }
-.section-title { font-size: 34px; color: #E6EBFF; letter-spacing: 3px; margin-bottom: 14px; font-weight: 700; }
-.section-sub { font-size: 14px; color: rgba(230,235,255,0.45); line-height: 1.9; max-width: 580px; margin-bottom: 50px; }
-.section-divider { width: 60px; height: 2px; background: linear-gradient(90deg, #00c896, transparent); margin-bottom: 40px; }
+.section-label { font-size: 10px; color: rgba(0,45,36,0.4); font-weight: 700; letter-spacing: 4px; margin-bottom: 8px; text-transform: uppercase; }
+.section-title { font-size: 28px; color: #002D24; margin-bottom: 12px; font-weight: 800; }
+.section-title::after { content: ''; display: block; width: 44px; height: 2px; background: rgba(0,45,36,0.18); margin-top: 10px; border-radius: 2px; }
+.section-desc { font-size: 14px; color: rgba(0,45,36,0.45); line-height: 1.85; max-width: 560px; margin-bottom: 40px; }
 
-/* SD-WAN Section */
-#sdwan { background: #0a1418; }
-.sdwan-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-.sdwan-text { }
-.sdwan-text h3 { font-size: 20px; color: #E6EBFF; margin-bottom: 16px; letter-spacing: 1px; }
-.sdwan-text p { font-size: 13px; color: rgba(230,235,255,0.55); line-height: 2; margin-bottom: 24px; }
-.sdwan-features { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
-.sdwan-feature { display: flex; align-items: center; gap: 10px; font-size: 13px; color: rgba(230,235,255,0.7); }
-.sdwan-feature::before { content: '◆'; color: #00c896; font-size: 8px; }
-.sdwan-img-wrap { border-radius: 18px; overflow: hidden; border: 1px solid rgba(0,180,130,0.1); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
-.sdwan-img-wrap img { width: 100%; display: block; filter: saturate(0.6) brightness(0.85); }
+/* Illus split */
+.illus-split { display: grid; grid-template-columns: 1fr 1fr; min-height: 520px; }
+.illus-split .img-side { position: relative; overflow: hidden; }
+.illus-split .img-side img { width: 100%; height: 100%; object-fit: cover; filter: brightness(1.05) saturate(0.5) hue-rotate(5deg); mix-blend-mode: multiply; }
+.illus-split .text-side { background: rgba(221,229,223,0.6); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(0,45,36,0.06); display: flex; flex-direction: column; justify-content: center; padding: 60px 50px; }
+.illus-split .text-side .sec-label { font-size: 10px; color: rgba(0,45,36,0.4); font-weight: 700; letter-spacing: 3px; margin-bottom: 10px; text-transform: uppercase; }
+.illus-split .text-side h2 { font-size: 26px; color: #002D24; margin-bottom: 14px; font-weight: 800; line-height: 1.4; }
+.illus-split .text-side p { font-size: 14px; color: rgba(0,45,36,0.5); line-height: 1.9; margin-bottom: 22px; }
+.feature-list { list-style: none; }
+.feature-list li { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; font-size: 14px; color: rgba(0,45,36,0.55); line-height: 1.6; }
+.feature-list li::before { content: '✓'; flex-shrink: 0; width: 18px; height: 18px; background: rgba(0,45,36,0.08); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; color: rgba(0,45,36,0.45); margin-top: 2px; }
 
-/* Pool Section */
-#pool { background: linear-gradient(180deg, rgba(0,45,36,0.08) 0%, rgba(10,20,24,0) 100%); }
-.pool-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-.pool-img-wrap { border-radius: 18px; overflow: hidden; border: 1px solid rgba(0,180,130,0.1); box-shadow: 0 20px 60px rgba(0,0,0,0.5); order: 0; }
-.pool-img-wrap img { width: 100%; display: block; filter: saturate(0.6) brightness(0.85); }
-.pool-text { }
-.pool-text h3 { font-size: 20px; color: #E6EBFF; margin-bottom: 16px; letter-spacing: 1px; }
-.pool-text p { font-size: 13px; color: rgba(230,235,255,0.55); line-height: 2; margin-bottom: 24px; }
-.pool-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 28px; }
-.pool-metric { background: rgba(0,45,36,0.2); border: 1px solid rgba(0,180,130,0.1); border-radius: 12px; padding: 16px; }
-.pool-metric .num { font-size: 22px; font-weight: 800; color: #00c896; margin-bottom: 4px; }
-.pool-metric .label { font-size: 11px; color: rgba(230,235,255,0.5); }
-
-/* Security Section */
-#security { background: #0a1418; }
-.security-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-.security-text h3 { font-size: 20px; color: #E6EBFF; margin-bottom: 16px; letter-spacing: 1px; }
-.security-text p { font-size: 13px; color: rgba(230,235,255,0.55); line-height: 2; margin-bottom: 24px; }
-.security-modules { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
-.sec-module { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: rgba(0,45,36,0.15); border: 1px solid rgba(0,180,130,0.08); border-radius: 10px; }
-.sec-module-icon { width: 32px; height: 32px; background: rgba(0,180,130,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
-.sec-module-text { font-size: 13px; color: rgba(230,235,255,0.75); }
-.sec-module-text strong { color: #E6EBFF; display: block; margin-bottom: 2px; }
-.security-img-wrap { border-radius: 18px; overflow: hidden; border: 1px solid rgba(0,180,130,0.1); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
-.security-img-wrap img { width: 100%; display: block; filter: saturate(0.6) brightness(0.85); }
-
-/* Global Section */
-#global { background: linear-gradient(180deg, rgba(0,45,36,0.06) 0%, rgba(10,20,24,0) 100%); }
-.global-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-.global-img-wrap { border-radius: 18px; overflow: hidden; border: 1px solid rgba(0,180,130,0.1); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
-.global-img-wrap img { width: 100%; display: block; filter: saturate(0.6) brightness(0.85); }
-.global-text h3 { font-size: 20px; color: #E6EBFF; margin-bottom: 16px; letter-spacing: 1px; }
-.global-text p { font-size: 13px; color: rgba(230,235,255,0.55); line-height: 2; margin-bottom: 24px; }
-.global-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 28px; }
-.global-stat { text-align: center; padding: 18px 12px; background: rgba(0,45,36,0.15); border: 1px solid rgba(0,180,130,0.1); border-radius: 12px; }
-.global-stat .num { font-size: 24px; font-weight: 800; color: #00c896; margin-bottom: 4px; }
-.global-stat .label { font-size: 11px; color: rgba(230,235,255,0.5); }
+/* Cards */
+.cards-section { background: transparent; }
+.card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 28px; }
+.card { background: rgba(255,255,255,0.6); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(0,45,36,0.08); border-radius: 18px; padding: 28px 22px; transition: all 0.3s; }
+.card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.8); border-color: rgba(0,45,36,0.15); box-shadow: 0 8px 28px rgba(0,45,36,0.06); }
+.card-icon { width: 50px; height: 50px; background: rgba(0,45,36,0.05); border: 1px solid rgba(0,45,36,0.1); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 16px; }
+.card h3 { font-size: 16px; color: #002D24; margin-bottom: 10px; font-weight: 700; }
+.card p { font-size: 13px; color: rgba(0,45,36,0.45); line-height: 1.85; }
 
 /* CTA */
-#cta { padding: 100px 24px; background: linear-gradient(180deg, rgba(0,45,36,0.12) 0%, rgba(10,20,24,0) 100%); text-align: center; }
-#cta h2 { font-size: 36px; color: #E6EBFF; letter-spacing: 3px; margin-bottom: 14px; font-weight: 700; }
-#cta p { font-size: 14px; color: rgba(230,235,255,0.45); margin-bottom: 36px; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.9; }
-.cta-btns { display: flex; gap: 14px; justify-content: center; }
+.cta { background: rgba(221,229,223,0.6); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(0,45,36,0.06); text-align: center; padding: 90px 24px; }
+.cta h2 { font-size: 30px; color: #002D24; margin-bottom: 14px; font-weight: 800; }
+.cta p { font-size: 15px; color: rgba(0,45,36,0.5); margin-bottom: 34px; }
+.cta-btn { background: rgba(0,45,36,0.08); border: 1px solid rgba(0,45,36,0.15); color: #002D24; padding: 14px 42px; border-radius: 26px; font-size: 15px; font-weight: 600; display: inline-block; transition: all 0.3s; }
+.cta-btn:hover { transform: translateY(-3px); background: rgba(0,45,36,0.14); }
 
 /* Footer */
-footer { background: rgba(5,10,12,0.9); padding: 50px 24px 30px; border-top: 1px solid rgba(0,180,130,0.06); }
-.footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; }
-.footer-brand h3 { font-size: 14px; color: #E6EBFF; letter-spacing: 3px; margin-bottom: 12px; }
-.footer-brand p { font-size: 12px; color: rgba(230,235,255,0.35); line-height: 1.9; max-width: 300px; }
-.footer-col h4 { font-size: 10px; letter-spacing: 3px; color: rgba(0,180,130,0.6); margin-bottom: 16px; text-transform: uppercase; }
-.footer-col ul { list-style: none; }
-.footer-col ul li { margin-bottom: 10px; }
-.footer-col ul li a { font-size: 12px; color: rgba(230,235,255,0.4); transition: color 0.3s; }
-.footer-col ul li a:hover { color: #00c896; }
-.footer-contact li { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: rgba(230,235,255,0.4); margin-bottom: 10px; line-height: 1.6; }
-.footer-bottom { max-width: 1200px; margin: 30px auto 0; padding-top: 20px; border-top: 1px solid rgba(230,235,255,0.05); display: flex; justify-content: space-between; align-items: center; }
-.footer-bottom p { font-size: 11px; color: rgba(230,235,255,0.25); }
-.footer-bottom a { font-size: 11px; color: rgba(230,235,255,0.25); margin-left: 20px; transition: color 0.3s; }
-.footer-bottom a:hover { color: #00c896; }
+footer { background: rgba(221,229,223,0.6); border-top: 1px solid rgba(0,45,36,0.06); color: rgba(0,45,36,0.4); padding: 40px 24px 28px; }
+.footer-inner { max-width: 1200px; margin: 0 auto; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 36px; padding-bottom: 28px; border-bottom: 1px solid rgba(0,45,36,0.06); margin-bottom: 22px; }
+.footer-brand h3 { color: #002D24; font-size: 15px; margin-bottom: 12px; letter-spacing: 3px; }
+.footer-brand p { font-size: 12px; color: rgba(0,45,36,0.4); line-height: 1.85; }
+.footer-col h4 { color: rgba(0,45,36,0.45); font-size: 13px; margin-bottom: 14px; }
+.footer-col a { display: block; font-size: 12px; color: rgba(0,45,36,0.4); margin-bottom: 10px; transition: color 0.3s; }
+.footer-col a:hover { color: #002D24; }
+.footer-bottom { text-align: center; font-size: 11px; }
 
-/* Responsive */
 @media (max-width: 900px) {
-.sdwan-layout, .pool-layout, .security-layout, .global-layout { grid-template-columns: 1fr; gap: 30px; }
-.pool-img-wrap { order: -1; }
-.hero-right { width: 100%; }
-.hero h2 { font-size: 32px; }
-.footer-inner { grid-template-columns: 1fr 1fr; }
+  nav { display: none; }
+  .illus-split { grid-template-columns: 1fr; }
+  .illus-split .img-side { height: 300px; }
+  .illus-split .text-side { padding: 40px 30px; }
+  .card-grid { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+  .hero h2 { font-size: 28px; }
+  section { padding: 60px 24px; }
 }
 </style>
 </head>
 <body>
 
-<!-- Header -->
 <header>
   <div class="header-inner">
     <div class="logo-wrap">
-      <img src="logo.png" class="logo-img" alt="SPEEDER">
+      <img src="logo.png" alt="SPEEDER" class="logo-img">
       <div class="logo-text">
-        <h1>SPEEDER NETWORKS</h1>
-        <p>INTERNET CONNECTION & SECURITY</p>
+        <h1>苏州世必得科技</h1>
+        <p>让网络连接更简单，让安全防护更可靠</p>
       </div>
     </div>
     <nav>
@@ -165,220 +121,135 @@ footer { background: rgba(5,10,12,0.9); padding: 50px 24px 30px; border-top: 1px
   </div>
 </header>
 
-<!-- Hero -->
-<section id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
+<section class="hero" id="hero">
+  <img class="hero-img" src="anime_sdwan_v2_1.png" alt="">
   <div class="hero-inner">
-    <div class="hero-left">
-      <div class="hero-badge">专线接入 · 安全组网 · 全球互联</div>
-      <h2>让网络连接<span>更简单</span><br>让安全防护<span>更可靠</span></h2>
-      <p class="hero-desc">世必得科技专注互联网联接优化及联线安全，为客户提供先进的网络访问整体解决方案。线路融合池 · 应用暨安全堆栈池 · SD-WAN组网，助力企业在竞争激烈的市场中取得成功。</p>
-      <div class="hero-btns">
-        <a href="#sdwan" class="btn-primary">探索方案</a>
-        <a href="#contact" class="btn-secondary">联系我们</a>
-      </div>
-    </div>
-    <div class="hero-right">
-      <div class="stat-card">
-        <div class="stat-icon">🌐</div>
-        <div>
-          <div class="stat-num">28</div>
-          <div class="stat-label">城市覆盖</div>
-          <div class="stat-sub">全国服务网络</div>
-        </div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">⚡</div>
-        <div>
-          <div class="stat-num">7×24</div>
-          <div class="stat-label">服务支撑</div>
-          <div class="stat-sub">实时监控保障</div>
-        </div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">🛡️</div>
-        <div>
-          <div class="stat-num">SLA</div>
-          <div class="stat-label">服务保障</div>
-          <div class="stat-sub">关键应用主动监控</div>
-        </div>
-      </div>
+    <div class="hero-badge">企业网络 × 安全防护 × 全球互联</div>
+    <h2>让网络连接更简单<br><span>让安全防护更可靠</span></h2>
+    <p class="hero-desc">世必得科技专注于企业网络与安全领域，为多分支企业提供 SD-WAN 组网、带宽融合调度、安全融合（SASE）整体解决方案。28座城市7×24本地化服务。</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">获取方案报价</a>
+      <a href="#sdwan" class="btn-outline">了解更多</a>
     </div>
   </div>
 </section>
 
-<!-- SD-WAN -->
-<section class="section" id="sdwan">
+<section class="cards-section" id="sdwan">
   <div class="section-inner">
-    <div class="sdwan-layout">
-      <div class="sdwan-text">
-        <div class="section-label">SD-WAN SOLUTION</div>
-        <h2 class="section-title">SD-WAN 多外点组网</h2>
-        <div class="section-divider"></div>
-        <h3>企业站点间互联互通，全球一张网</h3>
-        <p>通过 SD-WAN 技术实现企业各站点间的互联互访，跨国应用加速、私有云对公有云间连接。无论是分支办公室还是数据中心，都能获得最优的网络路径和稳定的访问体验。</p>
-        <div class="sdwan-features">
-          <div class="sdwan-feature">企业站点间安全互联</div>
-          <div class="sdwan-feature">跨国应用访问加速</div>
-          <div class="sdwan-feature">私有云 / 公有云无缝连接</div>
-          <div class="sdwan-feature">集中可视化管控</div>
-        </div>
-        <a href="#contact" class="btn-primary">了解更多</a>
+    <div class="section-label">SD-WAN · 多分支组网</div>
+    <h2 class="section-title">多分支组网解决方案</h2>
+    <p class="section-desc">基于SD-WAN技术提供多线路融合解决方案，智能调度分流，带宽利用率最大化。支持全球600+ POP节点，让企业分支联网既快又稳。</p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">🌏</div>
+        <h3>多线路智能融合</h3>
+        <p>同时接入多家运营商宽带，智能选路自动规避故障链路，带宽利用率从40%提升至85%以上。</p>
       </div>
-      <div class="sdwan-img-wrap">
-        <img src="img_sdwan_2.png" alt="SD-WAN 全球组网">
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h3>关键应用加速</h3>
+        <p>对SAP、Oracle、CRM等关键业务应用进行深度优化，跨国访问延迟降低50%以上。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔗</div>
+        <h3>即插即用部署</h3>
+        <p>分支设备快递到场即插即用，零接触开局，配置自动下发，300节点可在1周内全部上线。</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Pool -->
-<section class="section" id="pool">
+<div class="illus-split" id="pool">
+  <div class="img-side"><img src="anime_pool_1.png" alt="线路融合池"></div>
+  <div class="text-side">
+    <div class="sec-label">线路融合池 · LINE POOL</div>
+    <h2>线路融合池<br>多协议统一接入</h2>
+    <p>线路融合池是SD-WAN的核心能力，将不同运营商、不同带宽大小的线路打包成一个逻辑通道，按需分配、动态调度。</p>
+    <ul class="feature-list">
+      <li>多线路智能融合，提升带宽利用率</li>
+      <li>支持MPLS、互联网、4G/5G多协议统一接入</li>
+      <li>跨国应用加速，站点间无缝互联</li>
+      <li>关键应用主动实时监控，SLA保障</li>
+      <li>可视化集中管控，运维效率提升80%</li>
+    </ul>
+  </div>
+</div>
+
+<section class="cards-section" id="security">
   <div class="section-inner">
-    <div class="pool-layout">
-      <div class="pool-img-wrap">
-        <img src="img_pool_1.png" alt="线路融合池">
+    <div class="section-label">安全堆栈 · SECURITY STACK</div>
+    <h2 class="section-title">立体化安全防护体系</h2>
+    <p class="section-desc">安全与网络融合（SASE），从端到云构建全方位防护体系，保障数据传输安全，满足等保合规要求。</p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">🛡️</div>
+        <h3>端到端安全加密</h3>
+        <p>端到端IPSec加密，传输数据安全无忧，告别网络窃听和数据泄露风险。</p>
       </div>
-      <div class="pool-text">
-        <div class="section-label">LINE INTEGRATION POOL</div>
-        <h2 class="section-title">线路融合池</h2>
-        <div class="section-divider"></div>
-        <h3>多类型宽带整合，智能调度分流</h3>
-        <p>在互联点间建立不同等级的通道，依据人员、应用和时段进行灵活的调度和分流，从而最大程度地优化资源利用率。支持多运营商宽带混合接入，消除单线故障风险。</p>
-        <div class="pool-metrics">
-          <div class="pool-metric">
-            <div class="num">多运营商</div>
-            <div class="label">宽带混合接入</div>
-          </div>
-          <div class="pool-metric">
-            <div class="num">智能调度</div>
-            <div class="label">按人 / 应用 / 时段分流</div>
-          </div>
-          <div class="pool-metric">
-            <div class="num">可用性</div>
-            <div class="label">消除单线故障</div>
-          </div>
-          <div class="pool-metric">
-            <div class="num">弹性扩展</div>
-            <div class="label">按需灵活扩容</div>
-          </div>
-        </div>
-        <a href="#contact" class="btn-primary">了解更多</a>
+      <div class="card">
+        <div class="card-icon">🔍</div>
+        <h3>可视化集中管控</h3>
+        <p>配置自动下发，实时监控告警，全网安全状态一目了然，运维效率大幅提升。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📋</div>
+        <h3>等保合规保障</h3>
+        <p>满足等保2.0要求，从网络边界到应用层全方位安全防护，合规无忧。</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Security -->
-<section class="section" id="security">
-  <div class="section-inner">
-    <div class="security-layout">
-      <div class="security-text">
-        <div class="section-label">SECURITY STACK</div>
-        <h2 class="section-title">应用暨安全堆栈池</h2>
-        <div class="section-divider"></div>
-        <h3>互联网边缘算力，一站式安全守护</h3>
-        <p>运用互联网边缘算力，选配安全和应用模块，构建完整的网络安全防护体系。从防火墙到上网行为管理，从 WAF 到 DDoS 防护，全方位保障企业网络安全。</p>
-        <div class="security-modules">
-          <div class="sec-module">
-            <div class="sec-module-icon">🔥</div>
-            <div class="sec-module-text"><strong>下一代防火墙</strong>深度包检测与应用识别</div>
-          </div>
-          <div class="sec-module">
-            <div class="sec-module-icon">🔍</div>
-            <div class="sec-module-text"><strong>上网行为管理</strong>精细化带宽管理与审计</div>
-          </div>
-          <div class="sec-module">
-            <div class="sec-module-icon">🛡️</div>
-            <div class="sec-module-text"><strong>WAF / DDoS 防护</strong>Web 应用防火墙与攻击防护</div>
-          </div>
-        </div>
-        <a href="#contact" class="btn-primary">了解更多</a>
-      </div>
-      <div class="security-img-wrap">
-        <img src="img_security_1.png" alt="安全堆栈池">
-      </div>
-    </div>
+<div class="illus-split" id="global">
+  <div class="img-side"><img src="anime_global_1.png" alt="全球服务"></div>
+  <div class="text-side">
+    <div class="sec-label">全球服务 · GLOBAL SERVICE</div>
+    <h2>全球互联<br>600+ POP节点覆盖</h2>
+    <p>世必得在全球范围内部署600+ POP节点，覆盖150+全球骨干网节点，为跨国企业提供稳定、高速的网络连接。</p>
+    <ul class="feature-list">
+      <li>全球600+ POP节点覆盖</li>
+      <li>150+全球骨干网节点</li>
+      <li>28座城市7×24本地化服务</li>
+      <li>关键应用SLA 99.9%可用率保障</li>
+      <li>原厂工程师快速响应</li>
+    </ul>
   </div>
-</section>
+</div>
 
-<!-- Global -->
-<section class="section" id="global">
-  <div class="section-inner">
-    <div class="global-layout">
-      <div class="global-img-wrap">
-        <img src="img_global_1.png" alt="全球服务网络">
-      </div>
-      <div class="global-text">
-        <div class="section-label">GLOBAL SERVICE</div>
-        <h2 class="section-title">全球服务网络</h2>
-        <div class="section-divider"></div>
-        <h3>28 城市服务覆盖，7×24 实时保障</h3>
-        <p>世必得科技拥有覆盖全国的服务网络，在 28 个重点城市设有专业工程师团队，提供 7×24 小时不间断服务支撑。针对关键应用主动实时监控，支撑服务 SLA 保障。</p>
-        <div class="global-stats">
-          <div class="global-stat">
-            <div class="num">28</div>
-            <div class="label">城市服务网络</div>
-          </div>
-          <div class="global-stat">
-            <div class="num">7×24</div>
-            <div class="label">实时监控</div>
-          </div>
-          <div class="global-stat">
-            <div class="num">150+</div>
-            <div class="label">全球节点</div>
-          </div>
-        </div>
-        <a href="#contact" class="btn-primary">了解更多</a>
-      </div>
-    </div>
-  </div>
-</section>
+<div class="cta" id="contact">
+  <h2>想了解SD-WAN能为你省多少？</h2>
+  <p>留下联系方式，我们的工程师30分钟内与你联系，免费评估网络现状</p>
+  <a href="tel:13771706800" class="cta-btn">立即咨询 SD-WAN 方案</a>
+</div>
 
-<!-- CTA -->
-<section id="cta">
-  <div class="section-inner">
-    <div class="section-label">CONTACT US</div>
-    <h2>准备好升级您的网络了吗？</h2>
-    <p>从今天开始，让世必得科技为您的企业提供稳定、快速、安全的网络连接整体解决方案。</p>
-    <div class="cta-btns">
-      <a href="tel:13771706800" class="btn-primary">📞 立即致电</a>
-      <a href="http://www.speeder.net.cn" class="btn-secondary" target="_blank">访问官网</a>
-    </div>
-  </div>
-</section>
-
-<!-- Footer -->
-<footer id="contact">
+<footer>
   <div class="footer-inner">
-    <div class="footer-brand">
-      <h3>SPEEDER NETWORKS</h3>
-      <p>苏州世必得科技有限公司，专注互联网联接优化及联线安全，为客户提供先进的网络访问整体解决方案。</p>
-      <p style="margin-top:10px; font-size:11px; color:rgba(0,180,130,0.4);">苏ICP备2024120577号-1</p>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h3>苏州世必得科技</h3>
+        <p>专注企业网络与安全领域，为多分支企业提供 SD-WAN 组网、网络安全融合（SASE）、带宽融合调度整体解决方案。</p>
+      </div>
+      <div class="footer-col">
+        <h4>解决方案</h4>
+        <a href="#sdwan">SD-WAN 多分支组网</a>
+        <a href="#security">UniSASE 安全融合</a>
+        <a href="#">AI 服务</a>
+      </div>
+      <div class="footer-col">
+        <h4>服务保障</h4>
+        <a href="#">原厂工程师</a>
+        <a href="#">7×24 响应</a>
+        <a href="#">备件先行</a>
+      </div>
+      <div class="footer-col">
+        <h4>联系我们</h4>
+        <a href="tel:13771706800">+86 13771706800</a>
+        <a href="mailto:bally.su@speeder.net.cn">bally.su@speeder.net.cn</a>
+      </div>
     </div>
-    <div class="footer-col">
-      <h4>解决方案</h4>
-      <ul>
-        <li><a href="#sdwan">SD-WAN 多外点组网</a></li>
-        <li><a href="#pool">线路融合池</a></li>
-        <li><a href="#security">应用暨安全堆栈池</a></li>
-        <li><a href="#global">全球服务网络</a></li>
-      </ul>
+    <div class="footer-bottom">
+      © 2024 苏州世必得科技 SPEEDER NETWORKS · 苏ICP备2024120577号-1
     </div>
-    <div class="footer-col">
-      <h4>联系我们</h4>
-      <ul class="footer-contact">
-        <li>📞 +86 13771706800</li>
-        <li>📞 +886 0910599758（台湾）</li>
-        <li>📍 苏州市工业园区苏惠路88号<br>环球财富广场1幢2709室</li>
-        <li style="margin-top:8px;"><a href="http://www.speeder.net.cn" target="_blank">www.speeder.net.cn</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2024 苏州世必得科技有限公司 版权所有</p>
-    <a href="http://www.speeder.net.cn" target="_blank">www.speeder.net.cn</a>
   </div>
 </footer>
 
