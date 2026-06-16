@@ -6,151 +6,81 @@
 <title>苏州世必得科技 - 让网络连接更简单，让安全防护更可靠</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: #f0f5f3; font-family: "Microsoft YaHei", "PingFang SC", sans-serif; color: #133D33; }
+body { background: #1E232D; font-family: "Microsoft YaHei", "PingFang SC", sans-serif; color: #E6EBFF; overflow-x: hidden; }
 a { text-decoration: none; color: inherit; }
 
 /* Header */
-header { background: linear-gradient(160deg, #0A2018, #133D33); position: sticky; top: 0; z-index: 100; }
-.header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; }
+header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(30,35,45,0.7); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(230,235,255,0.08); }
+.header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; }
 .logo-wrap { display: flex; align-items: center; gap: 10px; }
-.logo-img { height: 48px; width: auto; }
+.logo-img { height: 42px; width: auto; }
 .logo-text { margin-left: 10px; }
-.logo-text h1 { font-size: 17px; color: #fff; letter-spacing: 2px; }
-.logo-text p { font-size: 10px; color: rgba(200,230,201,0.7); }
-nav { display: flex; gap: 24px; }
-nav a { font-size: 14px; color: rgba(200,230,201,0.8); transition: color 0.3s; }
-nav a:hover { color: #fff; }
-.nav-cta { background: #fff; color: #133D33; padding: 7px 18px; border-radius: 18px; font-size: 13px; font-weight: bold; }
-.nav-cta:hover { background: #E8F2EC; }
+.logo-text h1 { font-size: 15px; color: #E6EBFF; letter-spacing: 3px; font-weight: 700; }
+.logo-text p { font-size: 9px; color: rgba(230,235,255,0.5); letter-spacing: 2px; }
+nav { display: flex; gap: 28px; }
+nav a { font-size: 13px; color: rgba(230,235,255,0.65); transition: color 0.3s; letter-spacing: 1px; }
+nav a:hover { color: #E6EBFF; }
+.nav-cta { background: rgba(0,45,36,0.6); border: 1px solid rgba(0,200,150,0.3); color: #E6EBFF; padding: 7px 18px; border-radius: 20px; font-size: 13px; backdrop-filter: blur(8px); transition: all 0.3s; }
+.nav-cta:hover { background: rgba(0,120,90,0.4); border-color: rgba(0,200,150,0.6); }
 
 /* Hero */
-.hero { background: linear-gradient(160deg, #0A2018 0%, #133D33 50%, #1A4A3A 100%); position: relative; overflow: hidden; min-height: 90vh; display: flex; align-items: center; }
-.hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,32,24,0.5) 0%, transparent 60%); }
-.hero-inner { max-width: 1200px; margin: 0 auto; padding: 70px 24px 80px; position: relative; z-index: 1; width: 100%; }
-.hero-top { display: flex; align-items: center; gap: 50px; }
+.hero { position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; background: url('hero_bg.png') center top / cover no-repeat; filter: brightness(0.5) saturate(0.6); }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(30,35,45,0.3) 0%, rgba(30,35,45,0.1) 50%, rgba(30,35,45,0.7) 100%); }
+.hero-inner { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 120px 24px 80px; width: 100%; display: flex; align-items: center; gap: 60px; }
 .hero-left { flex: 1; }
-.hero-badge { display: inline-block; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: rgba(200,230,201,0.9); font-size: 10px; letter-spacing: 3px; padding: 4px 12px; border-radius: 12px; margin-bottom: 14px; }
-.hero h2 { font-size: 42px; color: #fff; line-height: 1.4; margin-bottom: 16px; letter-spacing: 3px; font-weight: 700; }
-.hero h2 span { color: #5A8C6A; }
-.hero-desc { font-size: 15px; color: rgba(200,230,201,0.85); line-height: 1.9; margin-bottom: 28px; max-width: 500px; }
-.hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 30px; }
-.hero-tag { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); color: rgba(200,230,201,0.9); font-size: 12px; padding: 4px 12px; border-radius: 14px; }
-.hero-btns { display: flex; gap: 12px; }
-.btn-primary { background: #fff; color: #133D33; padding: 12px 28px; border-radius: 22px; font-size: 14px; font-weight: bold; transition: all 0.3s; display: inline-block; }
-.btn-primary:hover { background: #E8F2EC; transform: translateY(-1px); }
-.btn-secondary { border: 1.5px solid rgba(255,255,255,0.4); color: #fff; padding: 11px 26px; border-radius: 22px; font-size: 14px; transition: all 0.3s; display: inline-block; }
-.btn-secondary:hover { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.08); }
-.hero-right { display: flex; flex-direction: column; gap: 12px; width: 320px; }
-.stat-card { background: rgba(255,255,255,0.08); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 18px 20px; display: flex; align-items: center; gap: 16px; }
-.stat-num { font-size: 34px; font-weight: 800; color: #5A8C6A; line-height: 1; }
-.stat-label { font-size: 13px; color: rgba(200,230,201,0.85); line-height: 1.5; }
-.stat-sub { font-size: 11px; color: rgba(200,230,201,0.5); }
-.hero-img { position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 55%; height: 100%; object-fit: cover; opacity: 0.35; }
+.hero-badge { display: inline-block; background: rgba(85,95,80,0.3); border: 1px solid rgba(85,95,80,0.4); color: rgba(230,235,255,0.8); font-size: 10px; letter-spacing: 3px; padding: 5px 14px; border-radius: 14px; margin-bottom: 20px; }
+.hero h2 { font-size: 44px; color: #E6EBFF; line-height: 1.5; margin-bottom: 18px; letter-spacing: 4px; font-weight: 700; text-shadow: 0 2px 20px rgba(0,0,0,0.5); }
+.hero h2 span { color: #7ab89a; }
+.hero-desc { font-size: 15px; color: rgba(230,235,255,0.75); line-height: 2; margin-bottom: 32px; max-width: 520px; letter-spacing: 0.5px; }
+.hero-btns { display: flex; gap: 14px; }
+.btn-primary { background: rgba(0,45,36,0.7); border: 1px solid rgba(0,180,130,0.4); color: #E6EBFF; padding: 12px 30px; border-radius: 24px; font-size: 14px; font-weight: 600; backdrop-filter: blur(12px); transition: all 0.3s; display: inline-block; letter-spacing: 1px; }
+.btn-primary:hover { background: rgba(0,120,90,0.5); border-color: rgba(0,200,150,0.7); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+.btn-secondary { border: 1px solid rgba(230,235,255,0.25); color: rgba(230,235,255,0.85); padding: 11px 28px; border-radius: 24px; font-size: 14px; backdrop-filter: blur(8px); transition: all 0.3s; display: inline-block; }
+.btn-secondary:hover { border-color: rgba(230,235,255,0.5); background: rgba(230,235,255,0.05); }
 
-/* Section common */
-section { padding: 70px 24px; }
-.section-inner { max-width: 1200px; margin: 0 auto; }
-.section-label { font-size: 11px; color: #2D5A4A; font-weight: 600; letter-spacing: 3px; margin-bottom: 6px; text-transform: uppercase; }
-.section-title { font-size: 26px; color: #133D33; margin-bottom: 10px; font-weight: bold; }
-.section-title::after { content: ''; display: block; width: 40px; height: 3px; background: linear-gradient(90deg, #133D33, #5A8C6A); margin-top: 8px; border-radius: 2px; }
-.section-desc { font-size: 14px; color: #777; line-height: 1.8; max-width: 560px; margin-bottom: 36px; }
+.hero-right { width: 340px; display: flex; flex-direction: column; gap: 14px; }
+.stat-card { background: rgba(30,35,45,0.5); backdrop-filter: blur(16px); border: 1px solid rgba(230,235,255,0.1); border-radius: 16px; padding: 20px 22px; display: flex; align-items: center; gap: 18px; }
+.stat-icon { width: 44px; height: 44px; background: rgba(85,95,80,0.25); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.stat-num { font-size: 30px; font-weight: 800; color: #7ab89a; line-height: 1; }
+.stat-label { font-size: 13px; color: rgba(230,235,255,0.8); line-height: 1.6; }
+.stat-sub { font-size: 11px; color: rgba(230,235,255,0.45); }
 
-/* Solutions */
-.solutions { background: #fff; }
-.solution-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; }
-.solution-card { background: #F2FAF4; border: 1.5px solid #B8D4BE; border-radius: 16px; padding: 28px 22px; transition: transform 0.25s, box-shadow 0.25s; }
-.solution-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(19,61,51,0.1); }
-.sol-icon { width: 52px; height: 52px; background: linear-gradient(135deg, #133D33, #2A5248); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 18px; }
-.solution-card h3 { font-size: 17px; color: #133D33; margin-bottom: 10px; font-weight: bold; }
-.solution-card p { font-size: 13px; color: #555; line-height: 1.8; margin-bottom: 16px; }
-.sol-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.sol-tag { background: #E8F2EC; border: 1px solid #B8D4BE; color: #2A5248; font-size: 11px; padding: 3px 10px; border-radius: 10px; }
+/* Services */
+.services { padding: 100px 24px; background: #1E232D; }
+.section-label { font-size: 11px; letter-spacing: 4px; color: rgba(122,184,154,0.8); text-transform: uppercase; margin-bottom: 14px; }
+.section-title { font-size: 32px; color: #E6EBFF; letter-spacing: 3px; margin-bottom: 12px; }
+.section-sub { font-size: 14px; color: rgba(230,235,255,0.5); line-height: 1.9; max-width: 560px; margin-bottom: 50px; }
+.services-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.service-card { background: rgba(38,54,82,0.2); backdrop-filter: blur(12px); border: 1px solid rgba(230,235,255,0.07); border-radius: 18px; padding: 32px 28px; transition: all 0.3s; }
+.service-card:hover { background: rgba(38,54,82,0.35); border-color: rgba(122,184,154,0.25); transform: translateY(-4px); }
+.service-icon { width: 52px; height: 52px; background: rgba(85,95,80,0.2); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 20px; }
+.service-card h3 { font-size: 17px; color: #E6EBFF; margin-bottom: 12px; letter-spacing: 1px; }
+.service-card p { font-size: 13px; color: rgba(230,235,255,0.55); line-height: 1.9; }
+.service-card .service-tag { display: inline-block; margin-top: 14px; font-size: 11px; color: rgba(122,184,154,0.7); letter-spacing: 1px; padding: 3px 10px; border: 1px solid rgba(122,184,154,0.3); border-radius: 10px; }
 
-/* Illus Section */
-.illus-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 520px; }
-.illus-section.reverse { direction: rtl; }
-.illus-section.reverse .illus-text { direction: ltr; }
-.illus-img-wrap { position: relative; overflow: hidden; }
-.illus-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.82) saturate(1.2); }
-.illus-text { background: #0A2018; display: flex; flex-direction: column; justify-content: center; padding: 70px 60px; direction: ltr; }
-.illus-text .sec-label { font-size: 11px; color: #5A8C6A; font-weight: 600; letter-spacing: 3px; margin-bottom: 10px; text-transform: uppercase; }
-.illus-text h2 { font-size: 26px; color: #fff; margin-bottom: 14px; font-weight: bold; line-height: 1.4; }
-.illus-text p { font-size: 14px; color: rgba(200,230,201,0.75); line-height: 1.9; margin-bottom: 24px; }
-.illus-text ul { list-style: none; }
-.illus-text ul li { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; font-size: 14px; color: rgba(200,230,201,0.8); line-height: 1.6; }
-.illus-text ul li::before { content: '✓'; flex-shrink: 0; width: 20px; height: 20px; background: rgba(90,140,106,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #5A8C6A; margin-top: 2px; }
-
-/* Stats bar */
-.stats-bar { background: linear-gradient(135deg, #0A2018, #133D33); padding: 50px 24px; }
-.stats-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-.stat-item { text-align: center; }
-.stat-item .num { font-size: 40px; font-weight: 800; color: #5A8C6A; }
-.stat-item .unit { font-size: 14px; color: rgba(255,255,255,0.5); }
-.stat-item .label { font-size: 13px; color: rgba(200,230,201,0.75); margin-top: 4px; }
-
-/* AI Section */
-.ai-section { background: #fff; }
-.ai-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; }
-.ai-item { background: #F2FAF4; border: 1.5px solid #B8D4BE; border-radius: 16px; padding: 30px 24px; text-align: center; transition: transform 0.25s; }
-.ai-item:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(19,61,51,0.08); }
-.ai-icon { width: 60px; height: 60px; margin: 0 auto 16px; background: linear-gradient(135deg, #0A2018, #133D33); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; }
-.ai-item h3 { font-size: 17px; color: #133D33; margin-bottom: 10px; font-weight: bold; }
-.ai-item p { font-size: 13px; color: #666; line-height: 1.8; }
-
-/* Support */
-.support { background: #f0f5f3; }
-.support-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 28px; align-items: center; }
-.support-features { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.support-feat { display: flex; gap: 12px; align-items: flex-start; background: #fff; border: 1.5px solid #B8D4BE; border-radius: 12px; padding: 16px; transition: box-shadow 0.25s; }
-.support-feat:hover { box-shadow: 0 4px 16px rgba(19,61,51,0.08); }
-.feat-icon { width: 38px; height: 38px; background: #E8F2EC; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-.feat-text h4 { font-size: 13px; color: #133D33; font-weight: bold; margin-bottom: 4px; }
-.feat-text p { font-size: 12px; color: #888; line-height: 1.6; }
-.support-map { background: linear-gradient(135deg, #0A2018, #133D33); border-radius: 16px; padding: 28px; }
-.map-title { font-size: 15px; color: #fff; font-weight: bold; margin-bottom: 16px; }
-.map-cities { display: flex; flex-wrap: wrap; gap: 8px; }
-.city-dot { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: rgba(200,230,201,0.85); font-size: 12px; padding: 5px 12px; border-radius: 10px; }
-.city-dot.secondary { background: rgba(255,255,255,0.06); color: rgba(200,230,201,0.5); }
-.map-note { font-size: 11px; color: rgba(200,230,201,0.5); margin-top: 14px; }
-
-/* CTA */
-.cta { background: linear-gradient(160deg, #0A2018, #133D33); text-align: center; padding: 80px 24px; }
-.cta h2 { font-size: 28px; color: #fff; margin-bottom: 12px; font-weight: bold; }
-.cta p { font-size: 14px; color: rgba(200,230,201,0.75); margin-bottom: 30px; }
-.cta-btn { background: #fff; color: #133D33; padding: 14px 40px; border-radius: 24px; font-size: 15px; font-weight: bold; display: inline-block; transition: all 0.3s; }
-.cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+/* Stats */
+.stats { padding: 80px 24px; background: linear-gradient(180deg, rgba(38,54,82,0.15) 0%, rgba(30,35,45,0) 100%); }
+.stats-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.stat-item { text-align: center; padding: 30px 20px; background: rgba(30,35,45,0.4); backdrop-filter: blur(12px); border: 1px solid rgba(230,235,255,0.06); border-radius: 16px; }
+.stat-item .num { font-size: 36px; font-weight: 800; color: #7ab89a; margin-bottom: 8px; }
+.stat-item .label { font-size: 13px; color: rgba(230,235,255,0.65); }
+.stat-item .sub-label { font-size: 11px; color: rgba(230,235,255,0.35); margin-top: 4px; }
 
 /* Footer */
-footer { background: #0A2018; color: rgba(200,230,201,0.5); padding: 36px 24px 28px; }
-.footer-inner { max-width: 1200px; margin: 0 auto; }
-.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 20px; }
-.footer-brand h3 { color: #fff; font-size: 16px; margin-bottom: 10px; letter-spacing: 2px; }
-.footer-brand p { font-size: 12px; color: rgba(200,230,201,0.5); line-height: 1.8; }
-.footer-col h4 { color: rgba(200,230,201,0.8); font-size: 13px; margin-bottom: 12px; }
-.footer-col a { display: block; font-size: 12px; color: rgba(200,230,201,0.5); margin-bottom: 9px; transition: color 0.3s; }
-.footer-col a:hover { color: #5A8C6A; }
-.footer-bottom { text-align: center; font-size: 11px; }
-
-/* Divider */
-.divider { height: 1px; background: linear-gradient(90deg, transparent, #B8D4BE, transparent); }
-
-/* Responsive */
-@media (max-width: 900px) {
-  nav { display: none; }
-  .hero-top { flex-direction: column; }
-  .hero-right { width: 100%; }
-  .hero-img { width: 100%; opacity: 0.2; }
-  .illus-section { grid-template-columns: 1fr; }
-  .illus-section.reverse { direction: ltr; }
-  .illus-img-wrap { height: 280px; }
-  .illus-text { padding: 50px 30px; }
-  .solution-grid { grid-template-columns: 1fr; }
-  .ai-grid { grid-template-columns: 1fr; }
-  .stats-inner { grid-template-columns: repeat(2, 1fr); }
-  .support-grid { grid-template-columns: 1fr; }
-  .footer-top { grid-template-columns: 1fr 1fr; }
-  .section-title { font-size: 22px; }
-}
+footer { background: rgba(10,14,18,0.8); padding: 50px 24px 30px; border-top: 1px solid rgba(230,235,255,0.06); }
+.footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; }
+.footer-brand h3 { font-size: 15px; color: #E6EBFF; letter-spacing: 3px; margin-bottom: 12px; }
+.footer-brand p { font-size: 12px; color: rgba(230,235,255,0.4); line-height: 1.9; max-width: 300px; }
+.footer-col h4 { font-size: 11px; letter-spacing: 3px; color: rgba(122,184,154,0.7); margin-bottom: 16px; text-transform: uppercase; }
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 10px; }
+.footer-col ul li a { font-size: 12px; color: rgba(230,235,255,0.5); transition: color 0.3s; }
+.footer-col ul li a:hover { color: #7ab89a; }
+.footer-contact li { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(230,235,255,0.5); margin-bottom: 8px; }
+.footer-bottom { max-width: 1200px; margin: 30px auto 0; padding-top: 20px; border-top: 1px solid rgba(230,235,255,0.06); display: flex; justify-content: space-between; align-items: center; }
+.footer-bottom p { font-size: 11px; color: rgba(230,235,255,0.3); }
+.footer-bottom a { font-size: 11px; color: rgba(230,235,255,0.3); margin-left: 20px; }
 </style>
 </head>
 <body>
@@ -159,287 +89,146 @@ footer { background: #0A2018; color: rgba(200,230,201,0.5); padding: 36px 24px 2
 <header>
   <div class="header-inner">
     <div class="logo-wrap">
-      <img src="speeder_logo_doubao.png" alt="SPEEDER" class="logo-img">
+      <img src="logo.png" class="logo-img" alt="SPEEDER">
       <div class="logo-text">
-        <h1>苏州世必得科技</h1>
-        <p>让网络连接更简单，让安全防护更可靠</p>
+        <h1>SPEEDER NETWORKS</h1>
+        <p>INTERNET CONNECTION & SECURITY</p>
       </div>
     </div>
     <nav>
-      <a href="#sdwan">SD-WAN</a>
-      <a href="#unisase">UniSASE</a>
-      <a href="#ai">AI服务</a>
-      <a href="#support">服务保障</a>
-      <a href="#contact" class="nav-cta">立即咨询</a>
+      <a href="#services">解决方案</a>
+      <a href="#about">关于我们</a>
+      <a href="#contact">联系我们</a>
+      <a href="tel:13771706800" class="nav-cta">立即咨询</a>
     </nav>
   </div>
 </header>
 
 <!-- Hero -->
 <section class="hero">
-  <img class="hero-img" src="speeder_homepage_v2.png" alt="">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
   <div class="hero-inner">
-    <div class="hero-top">
-      <div class="hero-left">
-        <div class="hero-badge">企业网络与安全 · ENTERPRISE NETWORK & SECURITY</div>
-        <h2>企业网络与安全<br><span>整体解决方案商</span></h2>
-        <p class="hero-desc">世必得科技专注互联网联接优化及联线安全，为多分支企业提供 SD-WAN 组网、网络安全融合（SASE）、带宽融合调度整套解决方案，让网络变快、让访问变安全。</p>
-        <div class="hero-tags">
-          <span class="hero-tag">SD-WAN 组网</span>
-          <span class="hero-tag">SASE 安全融合</span>
-          <span class="hero-tag">带宽融合调度</span>
-          <span class="hero-tag">AI 智能运维</span>
-          <span class="hero-tag">7×24 服务响应</span>
-        </div>
-        <div class="hero-btns">
-          <a href="#sdwan" class="btn-primary">探索方案</a>
-          <a href="#contact" class="btn-secondary">联系我们</a>
-        </div>
+    <div class="hero-left">
+      <div class="hero-badge">专线接入 · 安全组网 · 全球互联</div>
+      <h2>让网络连接<span>更简单</span><br>让安全防护<span>更可靠</span></h2>
+      <p class="hero-desc">世必得科技专注互联网联接优化及联线安全，为客户提供先进的网络访问整体解决方案。线路融合池 · 应用暨安全堆栈池 · SD-WAN组网，助力企业在竞争激烈的市场中取得成功。</p>
+      <div class="hero-btns">
+        <a href="#services" class="btn-primary">探索方案</a>
+        <a href="#contact" class="btn-secondary">联系我们</a>
       </div>
-      <div class="hero-right">
-        <div class="stat-card">
-          <div class="stat-num">1500<span style="font-size:18px">+</span></div>
-          <div class="stat-label">大型企业集团<div class="stat-sub">包括多家世界五百强企业</div></div>
-        </div>
-        <div class="stat-card">
+    </div>
+    <div class="hero-right">
+      <div class="stat-card">
+        <div class="stat-icon">🌐</div>
+        <div>
           <div class="stat-num">28</div>
-          <div class="stat-label">城市原厂工程师<div class="stat-sub">覆盖全国主要经济区域</div></div>
+          <div class="stat-label">城市覆盖</div>
+          <div class="stat-sub">全国服务网络</div>
         </div>
-        <div class="stat-card">
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⚡</div>
+        <div>
           <div class="stat-num">7×24</div>
-          <div class="stat-label">全天候服务响应<div class="stat-sub">远程诊断 + 现场支援</div></div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">30<span style="font-size:18px">%</span></div>
-          <div class="stat-label">带宽成本节省<div class="stat-sub">同比例带宽 vs 传统专线</div></div>
+          <div class="stat-label">服务支撑</div>
+          <div class="stat-sub">实时监控保障</div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- SD-WAN -->
-<div class="illus-section" id="sdwan">
-  <div class="illus-img-wrap"><img src="speeder_sdwann_v2.png" alt="SD-WAN"></div>
-  <div class="illus-text">
-    <div class="sec-label">线路融合池 · SD-WAN</div>
-    <h2>多分支组网<br>专线品质 · 互联网成本</h2>
-    <p>基于SD-WAN技术提供多线路融合解决方案，智能调度分流，带宽利用率最大化。</p>
-    <ul>
-      <li>多线路智能融合，提升带宽利用率</li>
-      <li>支持多种网络协议统一接入与管理</li>
-      <li>跨国应用加速，站点间无缝互联</li>
-      <li>关键应用主动实时监控，SLA保障</li>
-    </ul>
-  </div>
-</div>
-
-<!-- UniSASE -->
-<div class="illus-section reverse" id="unisase">
-  <div class="illus-img-wrap"><img src="speeder_unisase_v2.png" alt="UniSASE"></div>
-  <div class="illus-text">
-    <div class="sec-label">安全路由 · UniSASE</div>
-    <h2>零信任安全架构<br>身份驱动 · 持续验证</h2>
-    <p>基于身份及应用访问的路由和安全方案，构建零信任安全架构，细粒度访问控制策略。</p>
-    <ul>
-      <li>零信任安全架构，持续验证</li>
-      <li>细粒度访问控制策略，按需授权</li>
-      <li>搭配UniSASE形成完整防护体系</li>
-      <li>SD-WAN集成，安全与效率兼得</li>
-    </ul>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- AI -->
-<section class="ai-section" id="ai">
-  <div class="section-inner">
-    <div class="section-label">AI 服务 · AI SERVICE</div>
-    <h2 class="section-title">AI驱动企业智能化转型</h2>
-    <p class="section-desc">从Token代购到大模型应用开发，AI服务全链路支持企业智能化落地。</p>
-    <div class="ai-grid">
-      <div class="ai-item">
-        <div class="ai-icon">💰</div>
-        <h3>AI Token 代购</h3>
-        <p>提供ChatGPT、Gemini、OpenAI等主流大模型API Token代购，含国内发票，加速企业AI应用落地。</p>
-      </div>
-      <div class="ai-item">
-        <div class="ai-icon">🛠️</div>
-        <h3>Relay 管理平台</h3>
-        <p>Token管理、报表统计、海外大模型访问加速，多模型统一调度，降低使用成本。</p>
-      </div>
-      <div class="ai-item">
-        <div class="ai-icon">🤖</div>
-        <h3>企业 AI Agent</h3>
-        <p>基于企业需求定制AI Agent技能开发，赋能业务场景，实现降本增效的AI落地应用。</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- OMS + IT -->
-<section class="solutions" id="oms">
-  <div class="section-inner">
-    <div class="section-label">智能运维 · OMS + IT OUTSOURCING</div>
-    <h2 class="section-title">自研OMS + IT外包服务</h2>
-    <p class="section-desc">AI驱动无人值守，7×24专业运维支持，保障业务连续性。</p>
-    <div class="solution-grid">
-      <div class="solution-card">
-        <div class="sol-icon">🖥️</div>
-        <h3>OMS 智能运维平台</h3>
-        <p>自研OMS平台对应用及网络进行主动监控，及时预警、快速响应，AI驱动降低人工依赖。</p>
-        <div class="sol-tags">
-          <span class="sol-tag">AI驱动</span>
-          <span class="sol-tag">主动监控</span>
-          <span class="sol-tag">快速响应</span>
-        </div>
-      </div>
-      <div class="solution-card">
-        <div class="sol-icon">🛡️</div>
-        <h3>安全服务</h3>
-        <p>搭配UniSASE及Acronis安全服务，形成完整防护体系，覆盖备份、灾备、DLP等场景。</p>
-        <div class="sol-tags">
-          <span class="sol-tag">UniSASE</span>
-          <span class="sol-tag">Acronis</span>
-          <span class="sol-tag">完整防护</span>
-        </div>
-      </div>
-      <div class="solution-card">
-        <div class="sol-icon">🔧</div>
-        <h3>7×24 专业运维</h3>
-        <p>全年无休专业运维支持，关键应用主动实时监控，SLA保障，保障业务连续性。</p>
-        <div class="sol-tags">
-          <span class="sol-tag">7×24</span>
-          <span class="sol-tag">SLA保障</span>
-          <span class="sol-tag">业务连续性</span>
+      <div class="stat-card">
+        <div class="stat-icon">🛡️</div>
+        <div>
+          <div class="stat-num">SLA</div>
+          <div class="stat-label">服务保障</div>
+          <div class="stat-sub">关键应用主动监控</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Stats bar -->
-<div class="stats-bar">
+<!-- Services -->
+<section class="services" id="services">
+  <div class="section-label">OUR SOLUTIONS</div>
+  <h2 class="section-title">核心解决方案</h2>
+  <p class="section-sub">从线路融合到安全防护，提供完整的网络访问整体解决方案</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🌐</div>
+      <h3>SD-WAN 多外点组网</h3>
+      <p>企业站点间互联、私有云与公有云连接加速。跨国应用加速，助力企业各站点间互联互访。</p>
+      <span class="service-tag">全球互联</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">⚙️</div>
+      <h3>线路融合池</h3>
+      <p>多类型宽带整合，按人员、应用、时段智能调度分流，最大化优化资源利用率。</p>
+      <span class="service-tag">智能调度</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔒</div>
+      <h3>应用暨安全堆栈池</h3>
+      <p>互联网边缘算力，选配安全和应用模块。防火墙、上网行为管理、WAF一站式守护。</p>
+      <span class="service-tag">安全防护</span>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<section class="stats">
   <div class="stats-inner">
     <div class="stat-item">
-      <div class="num">600<span class="unit">+</span></div>
-      <div class="label">全球 POP 节点覆盖</div>
+      <div class="num">2020</div>
+      <div class="label">公司成立</div>
+      <div class="sub-label">苏州工业园区</div>
     </div>
     <div class="stat-item">
-      <div class="num">150<span class="unit">+</span></div>
-      <div class="label">全球骨干网节点</div>
+      <div class="num">28</div>
+      <div class="label">城市服务网络</div>
+      <div class="sub-label">全国覆盖</div>
     </div>
     <div class="stat-item">
-      <div class="num">当天</div>
-      <div class="label">设备开通上线</div>
+      <div class="num">7×24</div>
+      <div class="label">实时监控</div>
+      <div class="sub-label">关键应用保障</div>
     </div>
     <div class="stat-item">
-      <div class="num">11</div>
-      <div class="label">城市备件中心</div>
-    </div>
-  </div>
-</div>
-
-<!-- Support -->
-<section class="support" id="support">
-  <div class="section-inner">
-    <div class="section-label">服务保障 · SERVICE SUPPORT</div>
-    <h2 class="section-title">全国覆盖，有问题马上到</h2>
-    <p class="section-desc">原厂工程师遍布全国主要经济区域，设备故障快速响应，备件中心先行替换。</p>
-    <div class="support-grid">
-      <div class="support-features">
-        <div class="support-feat">
-          <div class="feat-icon">🏅</div>
-          <div class="feat-text">
-            <h4>原厂服务</h4>
-            <p>原厂认证工程师，覆盖28城市，持有多厂商认证资质</p>
-          </div>
-        </div>
-        <div class="support-feat">
-          <div class="feat-icon">🔧</div>
-          <div class="feat-text">
-            <h4>快速响应</h4>
-            <p>7×24小时受理，核心城市4小时到场，远程诊断先行</p>
-          </div>
-        </div>
-        <div class="support-feat">
-          <div class="feat-icon">🛡️</div>
-          <div class="feat-text">
-            <h4>备件先行</h4>
-            <p>11个城市备件中心，故障设备即换即用，业务不中断</p>
-          </div>
-        </div>
-        <div class="support-feat">
-          <div class="feat-icon">📊</div>
-          <div class="feat-text">
-            <h4>定期报告</h4>
-            <p>月度网络运行报告，故障分析优化建议，SLA透明可查</p>
-          </div>
-        </div>
-      </div>
-      <div class="support-map">
-        <div class="map-title">覆盖全国主要经济区域</div>
-        <div class="map-cities">
-          <span class="city-dot">北京</span>
-          <span class="city-dot">上海</span>
-          <span class="city-dot">广州</span>
-          <span class="city-dot">深圳</span>
-          <span class="city-dot">杭州</span>
-          <span class="city-dot">南京</span>
-          <span class="city-dot">成都</span>
-          <span class="city-dot">重庆</span>
-          <span class="city-dot">西安</span>
-          <span class="city-dot">武汉</span>
-          <span class="city-dot">天津</span>
-          <span class="city-dot">苏州</span>
-          <span class="city-dot secondary">更多城市…</span>
-        </div>
-        <div class="map-note">* 覆盖范围持续扩展中，具体可来电确认</div>
-      </div>
+      <div class="num">150+</div>
+      <div class="label">全球节点</div>
+      <div class="sub-label">UniSASE 覆盖</div>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<div class="cta" id="contact">
-  <h2>想了解世必得能为你做什么？</h2>
-  <p>留下联系方式，我们的工程师30分钟内与你联系</p>
-  <a href="tel:13771706800" class="cta-btn">立即拨打 13771706800</a>
-</div>
-
 <!-- Footer -->
-<footer>
+<footer id="contact">
   <div class="footer-inner">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <h3>苏州世必得科技</h3>
-        <p>专注企业网络与安全领域，为多分支企业提供 SD-WAN 组网、网络安全融合（SASE）、带宽融合调度整体解决方案。</p>
-      </div>
-      <div class="footer-col">
-        <h4>解决方案</h4>
-        <a href="#sdwan">SD-WAN 多分支组网</a>
-        <a href="#unisase">UniSASE 安全融合</a>
-        <a href="#ai">AI 服务</a>
-      </div>
-      <div class="footer-col">
-        <h4>服务保障</h4>
-        <a href="#support">原厂工程师</a>
-        <a href="#support">7×24 响应</a>
-        <a href="#support">备件先行</a>
-      </div>
-      <div class="footer-col">
-        <h4>联系我们</h4>
-        <a href="tel:13771706800">+86 13771706800</a>
-        <a href="mailto:bally.su@speeder.net.cn">bally.su@speeder.net.cn</a>
-        <a href="#">www.speeder.net.cn</a>
-      </div>
+    <div class="footer-brand">
+      <h3>SPEEDER NETWORKS</h3>
+      <p>苏州世必得科技有限公司，专注互联网联接优化及联线安全，为客户提供先进的网络访问整体解决方案。</p>
+      <p style="margin-top:12px;">苏ICP备2024120577号-1</p>
     </div>
-    <div class="footer-bottom">
-      © 2024 苏州世必得科技 SPEEDER NETWORKS · 苏ICP备2024120577号-1
+    <div class="footer-col">
+      <h4>解决方案</h4>
+      <ul>
+        <li><a href="#">SD-WAN 多外点组网</a></li>
+        <li><a href="#">线路融合池</a></li>
+        <li><a href="#">应用暨安全堆栈池</a></li>
+        <li><a href="#">UniSASE 安全方案</a></li>
+      </ul>
     </div>
+    <div class="footer-col">
+      <h4>联系我们</h4>
+      <ul class="footer-contact">
+        <li>📞 +86 13771706800</li>
+        <li>📞 +886 0910599758（台湾）</li>
+        <li>📍 苏州市工业园区苏惠路88号<br>环球财富广场1幢2709室</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 苏州世必得科技有限公司 版权所有</p>
+    <a href="http://www.speeder.net.cn">www.speeder.net.cn</a>
   </div>
 </footer>
 
