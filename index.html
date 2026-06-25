@@ -343,6 +343,15 @@ section {
   overflow: hidden;
   will-change: transform;
 }
+
+#lightFollowCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+}
 .hero-light-flow svg {
   position: absolute;
   inset: 0;
@@ -1262,7 +1271,7 @@ body { animation: page-fade-in 0.8s ease forwards; }
   <div class="hero-overlay"></div>
   <!-- Layer 3: 光弧长桥 SVG — 全屏纵向比例，增强流动感 -->
   <div class="hero-light-flow">
-    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" id="lightArcSvg">
       <defs>
         <linearGradient id="lg1" x1="0%" y1="100%" x2="100%" y2="0%">
           <stop offset="0%" style="stop-color:#5D6D56;stop-opacity:0"/>
@@ -1369,6 +1378,8 @@ body { animation: page-fade-in 0.8s ease forwards; }
       </circle>
     </svg>
   </div>
+  <!-- 光弧跟随鼠标 Canvas -->
+  <canvas id="lightFollowCanvas"></canvas>
   <!-- Layer 4: anime_dark streaming particles -->
   <div class="hero-particles" id="particles"></div>
   <!-- Layer 5: network canvas -->
@@ -2079,6 +2090,109 @@ function initHeroParallax() {
     requestAnimationFrame(animate);
   }
   animate();
+
+  /* ── 光弧跟随鼠标 Canvas ─────────────────────────────── */
+  (function initLightFollow() {
+    var canvas = document.getElementById('lightFollowCanvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var W = 0, H = 0;
+
+    // 弹簧跟踪鼠标
+    var tx = 0, ty = 0;  // 目标位置（鼠标相对偏移）
+    var cx2 = 0, cy2 = 0; // 当前平滑位置
+    var vx2 = 0, vy2 = 0;
+
+    var heroRect = hero.getBoundingClientRect();
+
+    function resize() {
+      W = canvas.width = hero.offsetWidth;
+      H = canvas.height = hero.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    hero.addEventListener('mousemove', function(e) {
+      var rect = hero.getBoundingClientRect();
+      tx = (e.clientX - rect.left - W / 2) / W;
+      ty = (e.clientY - rect.top - H / 2) / H;
+    });
+
+    hero.addEventListener('mouseleave', function() {
+      tx = 0; ty = 0;
+    });
+
+    // 定义多条跟随鼠标的光弧
+    var arcs = [
+      { color: '150,186,150', width: 2.5, alpha: 0.5, amp: 0.35, phase: 0 },
+      { color: '180,210,180', width: 1.5, alpha: 0.35, amp: 0.25, phase: Math.PI / 3 },
+      { color: '120,160,120', width: 3, alpha: 0.3, amp: 0.45, phase: Math.PI / 2 },
+      { color: '200,230,200', width: 1, alpha: 0.4, amp: 0.2, phase: Math.PI },
+    ];
+
+    var t = 0;
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      t += 0.016;
+
+      // 平滑跟随鼠标
+      cx2 += (tx - cx2) * 0.06;
+      cy2 += (ty - cy2) * 0.06;
+      var mx = cx2 * W * 0.4;
+      var my = cy2 * H * 0.4;
+
+      var cx3 = W / 2 + mx;
+      var cy3 = H * 0.85 + my * 0.3;
+      var ex = W * 0.88 + mx * 1.5;
+      var ey = H * 0.12 + my * 0.8;
+
+      arcs.forEach(function(arc, i) {
+        var wobble = Math.sin(t * 0.8 + arc.phase) * H * 0.04;
+        var cp1x = W * 0.25 + mx * 0.8;
+        var cp1y = H * 0.55 + my * 0.5 + wobble;
+        var cp2x = W * 0.7 + mx * 1.2;
+        var cp2y = H * 0.3 + my * 0.7 - wobble;
+
+        var gradient = ctx.createLinearGradient(cx3, cy3, ex, ey);
+        gradient.addColorStop(0, 'rgba(' + arc.color + ',0)');
+        gradient.addColorStop(0.4, 'rgba(' + arc.color + ',' + arc.alpha + ')');
+        gradient.addColorStop(1, 'rgba(' + arc.color + ',0.05)');
+
+        ctx.beginPath();
+        ctx.moveTo(cx3, cy3);
+        ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, ex, ey);
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = arc.width;
+        ctx.shadowColor = 'rgba(100,160,100,0.4)';
+        ctx.shadowBlur = 8;
+        ctx.stroke();
+        ctx.shadowBlur = 0;
+      });
+
+      // 高光弧（更亮更细）
+      var hx = W * 0.3 + mx * 0.9;
+      var hy = H * 0.6 + my * 0.4;
+      var hex = W * 0.92 + mx * 1.6;
+      var hey = H * 0.08 + my * 0.9;
+      var hcp1x = W * 0.2 + mx;
+      var hcp1y = H * 0.35 + my * 0.6;
+      var hcp2x = W * 0.75 + mx * 1.4;
+      var hcp2y = H * 0.18 + my * 0.75;
+
+      ctx.beginPath();
+      ctx.moveTo(hx, hy);
+      ctx.bezierCurveTo(hcp1x, hcp1y, hcp2x, hcp2y, hex, hey);
+      ctx.strokeStyle = 'rgba(220,255,220,0.25)';
+      ctx.lineWidth = 0.8;
+      ctx.shadowColor = '#96b896';
+      ctx.shadowBlur = 12;
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
 }
 
 /* ── 3. Hero文案3D倾斜 ─────────────────────────────────── */
