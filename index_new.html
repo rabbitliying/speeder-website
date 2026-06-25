@@ -3,255 +3,2166 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>苏州世必得科技 - 让网络连接更简单，让安全防护更可靠</title>
+<title>苏州世必得科技 | SPEEDER NETWORKS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { background: rgba(232,237,233,0.75); font-family: "Microsoft YaHei", "PingFang SC", sans-serif; color: #002D24; }
+:root {
+  --bg: #042018;
+  --bg-mid: #0a2820;
+  --green-dark: #1a2e28;
+  --green-mid: #48564e;
+  --primary: #5D6D56;
+  --secondary: #7a9a78;
+  --light: #96b896;
+  --soft: #b8ccb4;
+  --text-primary: #d8e8dc;
+  --text-secondary: rgba(150,186,150,0.6);
+  --highlight: #A6B58F;
+  --section-h: 100vh;
+}
 
-/* Glass card base */
-.glass { background: rgba(232,237,233,0.55); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(0,45,36,0.08); }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* Header */
-header { background: rgba(232,237,233,0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,45,36,0.06); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 16px rgba(0,0,0,0.04); }
-.header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; }
-.logo-wrap { display: flex; align-items: center; gap: 10px; }
-.logo-img { height: 48px; width: auto; }
-.logo-text h1 { font-size: 16px; color: #002D24; letter-spacing: 3px; font-weight: 700; }
-.logo-text p { font-size: 10px; color: rgba(0,45,36,0.45); margin-top: 2px; }
-nav { display: flex; gap: 4px; align-items: center; }
-nav a { font-size: 12px; color: rgba(0,45,36,0.55); padding: 6px 12px; border-radius: 20px; transition: all 0.25s; }
-nav a:hover { background: rgba(0,45,36,0.06); color: #002D24; }
-.nav-cta { background: rgba(0,45,36,0.06); border: 1px solid rgba(0,45,36,0.12); color: #002D24 !important; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; }
-.nav-cta:hover { background: rgba(0,45,36,0.1); }
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+}
 
-/* Hero */
-.hero { background: linear-gradient(160deg, rgba(221,229,223,0.6), rgba(228,235,230,0.7), rgba(232,237,233,0.75)); position: relative; min-height: 92vh; display: flex; align-items: center; overflow: hidden; }
-.hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60px; background: linear-gradient(to top, rgba(232,237,233,0.9), transparent); pointer-events: none; }
-.hero-img { position: absolute; right: 0; top: 0; width: 58%; height: 100%; object-fit: cover; opacity: 0.35; filter: brightness(1.1) saturate(0.45) hue-rotate(5deg); mix-blend-mode: multiply; }
-.hero-inner { max-width: 1200px; margin: 0 auto; padding: 60px 24px 80px; position: relative; z-index: 1; }
-.hero-badge { display: inline-block; background: rgba(0,45,36,0.06); border: 1px solid rgba(0,45,36,0.12); color: rgba(0,45,36,0.6); font-size: 10px; letter-spacing: 3px; padding: 4px 12px; border-radius: 14px; margin-bottom: 16px; }
-.hero h2 { font-size: 42px; color: #002D24; line-height: 1.4; margin-bottom: 16px; font-weight: 800; letter-spacing: 2px; }
-.hero h2 span { color: rgba(0,45,36,0.6); }
-.hero-desc { font-size: 15px; color: rgba(0,45,36,0.55); line-height: 1.9; max-width: 520px; margin-bottom: 28px; }
-.hero-btns { display: flex; gap: 12px; }
-.btn-primary { background: rgba(0,45,36,0.08); border: 1px solid rgba(0,45,36,0.15); color: #002D24; padding: 12px 26px; border-radius: 22px; font-size: 14px; font-weight: 600; transition: all 0.3s; display: inline-block; }
-.btn-primary:hover { background: rgba(0,45,36,0.14); transform: translateY(-2px); }
-.btn-outline { border: 1px solid rgba(0,45,36,0.15); color: rgba(0,45,36,0.6); padding: 11px 24px; border-radius: 22px; font-size: 14px; transition: all 0.3s; display: inline-block; }
-.btn-outline:hover { border-color: rgba(0,45,36,0.28); background: rgba(0,45,36,0.04); }
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: 'Noto Sans SC', sans-serif;
+  font-weight: 400;
+  overflow-x: hidden;
+}
 
-/* Sections */
-section { padding: 80px 24px; }
-.section-inner { max-width: 1200px; margin: 0 auto; }
-.section-label { font-size: 10px; color: rgba(0,45,36,0.4); font-weight: 700; letter-spacing: 4px; margin-bottom: 8px; text-transform: uppercase; }
-.section-title { font-size: 28px; color: #002D24; margin-bottom: 12px; font-weight: 800; }
-.section-title::after { content: ''; display: block; width: 44px; height: 2px; background: rgba(0,45,36,0.18); margin-top: 10px; border-radius: 2px; }
-.section-desc { font-size: 14px; color: rgba(0,45,36,0.45); line-height: 1.85; max-width: 560px; margin-bottom: 40px; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #042018; }
+::-webkit-scrollbar-thumb { background: #5D6D56; border-radius: 2px; }
 
-/* Illus split */
-.illus-split { display: grid; grid-template-columns: 1fr 1fr; min-height: 520px; }
-.illus-split .img-side { position: relative; overflow: hidden; }
-.illus-split .img-side img { width: 100%; height: 100%; object-fit: cover; filter: brightness(1.05) saturate(0.5) hue-rotate(5deg); mix-blend-mode: multiply; }
-.illus-split .text-side { background: rgba(221,229,223,0.6); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(0,45,36,0.06); display: flex; flex-direction: column; justify-content: center; padding: 60px 50px; }
-.illus-split .text-side .sec-label { font-size: 10px; color: rgba(0,45,36,0.4); font-weight: 700; letter-spacing: 3px; margin-bottom: 10px; text-transform: uppercase; }
-.illus-split .text-side h2 { font-size: 26px; color: #002D24; margin-bottom: 14px; font-weight: 800; line-height: 1.4; }
-.illus-split .text-side p { font-size: 14px; color: rgba(0,45,36,0.5); line-height: 1.9; margin-bottom: 22px; }
-.feature-list { list-style: none; }
-.feature-list li { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; font-size: 14px; color: rgba(0,45,36,0.55); line-height: 1.6; }
-.feature-list li::before { content: '✓'; flex-shrink: 0; width: 18px; height: 18px; background: rgba(0,45,36,0.08); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; color: rgba(0,45,36,0.45); margin-top: 2px; }
+/* ══════════════════════════════════════════
+   自定义光标（仅Hero区域）
+══════════════════════════════════════════ */
+#hero { cursor: none; }
+#hero * { cursor: none !important; }
 
-/* Cards */
-.cards-section { background: transparent; }
-.card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 28px; }
-.card { background: rgba(255,255,255,0.6); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(0,45,36,0.08); border-radius: 18px; padding: 28px 22px; transition: all 0.3s; }
-.card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.8); border-color: rgba(0,45,36,0.15); box-shadow: 0 8px 28px rgba(0,45,36,0.06); }
-.card-icon { width: 50px; height: 50px; background: rgba(0,45,36,0.05); border: 1px solid rgba(0,45,36,0.1); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 16px; }
-.card h3 { font-size: 16px; color: #002D24; margin-bottom: 10px; font-weight: 700; }
-.card p { font-size: 13px; color: rgba(0,45,36,0.45); line-height: 1.85; }
+#cursor-ring {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(150,220,180,0.6);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.25s cubic-bezier(0.34,1.56,0.64,1),
+              height 0.25s cubic-bezier(0.34,1.56,0.64,1),
+              border-color 0.25s,
+              background 0.25s;
+  mix-blend-mode: difference;
+  will-change: transform;
+}
+#cursor-ring.in-hero {
+  width: 50px;
+  height: 50px;
+  border-color: rgba(150,220,180,0.3);
+  background: rgba(150,220,180,0.05);
+}
+#cursor-ring.in-card {
+  width: 60px;
+  height: 60px;
+  border-color: rgba(150,220,180,0.4);
+  background: rgba(150,220,180,0.08);
+}
+#cursor-dot {
+  position: fixed;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #96dcb4;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+}
 
-/* CTA */
-.cta { background: rgba(221,229,223,0.6); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(0,45,36,0.06); text-align: center; padding: 90px 24px; }
-.cta h2 { font-size: 30px; color: #002D24; margin-bottom: 14px; font-weight: 800; }
-.cta p { font-size: 15px; color: rgba(0,45,36,0.5); margin-bottom: 34px; }
-.cta-btn { background: rgba(0,45,36,0.08); border: 1px solid rgba(0,45,36,0.15); color: #002D24; padding: 14px 42px; border-radius: 26px; font-size: 15px; font-weight: 600; display: inline-block; transition: all 0.3s; }
-.cta-btn:hover { transform: translateY(-3px); background: rgba(0,45,36,0.14); }
+/* ══════════════════════════════════════════
+   SPLASH SCREEN
+══════════════════════════════════════════ */
+.splash {
+  position: fixed; inset: 0; z-index: 9999;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: linear-gradient(160deg, #042018 0%, #0a2820 40%, #1a2e28 65%, #042018 100%);
+  transition: opacity 1.2s ease;
+}
+.splash.fade-out { opacity: 0; pointer-events: none; }
 
-/* Footer */
-footer { background: rgba(221,229,223,0.6); border-top: 1px solid rgba(0,45,36,0.06); color: rgba(0,45,36,0.4); padding: 40px 24px 28px; }
-.footer-inner { max-width: 1200px; margin: 0 auto; }
-.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 36px; padding-bottom: 28px; border-bottom: 1px solid rgba(0,45,36,0.06); margin-bottom: 22px; }
-.footer-brand h3 { color: #002D24; font-size: 15px; margin-bottom: 12px; letter-spacing: 3px; }
-.footer-brand p { font-size: 12px; color: rgba(0,45,36,0.4); line-height: 1.85; }
-.footer-col h4 { color: rgba(0,45,36,0.45); font-size: 13px; margin-bottom: 14px; }
-.footer-col a { display: block; font-size: 12px; color: rgba(0,45,36,0.4); margin-bottom: 10px; transition: color 0.3s; }
-.footer-col a:hover { color: #002D24; }
-.footer-bottom { text-align: center; font-size: 11px; }
+/* 所有页面内容 - 初始隐藏，等splash结束后再显示 */
+#mainNav, #hero, #stats-strip, #sdwan, #sase, #oms, #ai-relay, #products, #contact, footer {
+  display: none !important;
+}
+body.page-ready #mainNav,
+body.page-ready #stats-strip,
+body.page-ready #sdwan,
+body.page-ready #sase,
+body.page-ready #oms,
+body.page-ready #ai-relay,
+body.page-ready #products,
+body.page-ready #contact {
+  display: flex !important;
+}
+body.page-ready #mainNav { display: flex !important; }
+body.page-ready #hero { display: flex !important; }
+.splash-bg-stars { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.splash-star { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: rgba(150,186,150,0.8); animation: twinkle var(--dur) ease-in-out infinite; animation-delay: var(--delay); }
+@keyframes twinkle { 0%,100% { opacity: 0.2; transform: scale(1); } 50% { opacity: 1; transform: scale(1.5); } }
+.splash-countdown-wrap { position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; }
+.countdown-number { font-family: 'JetBrains Mono', monospace; font-size: clamp(80px, 15vw, 140px); font-weight: 300; color: rgba(150,186,150,0.85); -webkit-text-stroke: 0; opacity: 1; transform: scale(1); display: block; transition: opacity 0.4s ease, transform 0.4s ease; }
+.countdown-number.fade-out { opacity: 0; transform: scale(0.8); }
+.countdown-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 6px; color: rgba(150,186,150,0.5); text-transform: uppercase; margin-top: 8px; }
 
-@media (max-width: 900px) {
-  nav { display: none; }
-  .illus-split { grid-template-columns: 1fr; }
-  .illus-split .img-side { height: 300px; }
-  .illus-split .text-side { padding: 40px 30px; }
-  .card-grid { grid-template-columns: 1fr; }
-  .footer-top { grid-template-columns: 1fr 1fr; }
-  .hero h2 { font-size: 28px; }
-  section { padding: 60px 24px; }
+/* Welcome screen with node canvas behind text */
+.splash-welcome {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.2s ease;
+  z-index: 10;
+}
+.splash-welcome.show {
+  opacity: 1;
+  pointer-events: all;
+}
+.welcome-canvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+}
+.welcome-text {
+  position: relative; z-index: 1;
+  text-align: center;
+}
+.welcome-line1 { font-size: clamp(12px, 1.5vw, 16px); letter-spacing: 8px; color: rgba(150,186,150,0.5); text-transform: uppercase; margin-bottom: 20px; font-family: 'JetBrains Mono', monospace; }
+.welcome-title { font-size: clamp(32px, 5vw, 60px); font-weight: 800; color: var(--soft); text-shadow: 0 0 40px rgba(150,186,150,0.8), 0 0 80px rgba(150,186,150,0.4); letter-spacing: 4px; margin-bottom: 20px; line-height: 1.2; }
+.welcome-line2 { font-size: clamp(11px, 1.2vw, 14px); letter-spacing: 4px; color: rgba(150,186,150,0.35); font-family: 'JetBrains Mono', monospace; }
+
+/* ══════════════════════════════════════════
+   NAV
+══════════════════════════════════════════ */
+header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 64px;
+  background: rgba(4,32,24,0.97);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(93,109,86,0.12);
+}
+.logo-wrap { display: flex; align-items: center; height: 64px; }
+.logo-img { height: 100px; width: auto; }
+.nav-links {
+  display: flex;
+  gap: 4px;
+  list-style: none;
+  align-items: center;
+}
+.nav-links a {
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 400;
+  color: rgba(150,186,150,0.5);
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: all 0.25s;
+  white-space: nowrap;
+}
+.nav-links a:hover { color: var(--light); background: rgba(93,109,86,0.12); }
+.nav-btn-outline {
+  background: rgba(93,109,86,0.1) !important;
+  border: 1px solid rgba(150,186,150,0.15) !important;
+  color: var(--light) !important;
+}
+.nav-btn-outline:hover { background: rgba(93,109,86,0.2) !important; }
+.nav-cta {
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  color: var(--bg) !important;
+  background: var(--primary);
+  padding: 8px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.3s, transform 0.2s;
+}
+.nav-cta:hover { background: var(--secondary); transform: scale(1.02); }
+
+/* ── 下拉子目录 ── */
+.nav-has-sub { position: relative; }
+.nav-arrow { font-size: 9px; margin-left: 4px; transition: transform 0.2s; }
+.nav-has-sub:hover .nav-arrow { transform: rotate(180deg); }
+.nav-sub {
+  position: absolute;
+  top: 100%; left: 50%; transform: translateX(-50%);
+  min-width: 160px;
+  background: rgba(4,32,24,0.97);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(93,109,86,0.15);
+  border-radius: 12px;
+  padding: 8px;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.25s, transform 0.25s, visibility 0.25s;
+  transform: translateX(-50%) translateY(-6px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+  z-index: 100;
+  list-style: none;
+}
+.nav-has-sub:hover .nav-sub {
+  opacity: 1; visibility: visible;
+  transform: translateX(-50%) translateY(4px);
+}
+.nav-sub li {}
+.nav-sub a {
+  display: block;
+  padding: 9px 16px !important;
+  font-size: 12px !important;
+  color: rgba(150,186,150,0.6) !important;
+  border-radius: 8px;
+  transition: all 0.15s;
+}
+.nav-sub a:hover {
+  color: var(--light) !important;
+  background: rgba(93,109,86,0.15) !important;
+}
+
+/* ══════════════════════════════════════════
+   SECTION BASE
+══════════════════════════════════════════ */
+section {
+  min-height: var(--section-h);
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 80px 80px 60px;
+}
+
+/* ── REVEAL ANIMATION ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* ══════════════════════════════════════════
+   HERO — 4层叠加
+══════════════════════════════════════════ */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0;
+  position: relative;
+}
+
+/* Layer 1: new cyber city background + zoom */
+.hero-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url('hero_cyber_city.jpg') center center / cover no-repeat;
+  z-index: 0;
+  filter: brightness(0.55) saturate(1.1) contrast(1.05);
+  transform-origin: center center;
+  will-change: transform;
+}
+@keyframes heroZoom {
+  0%   { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+
+/* Layer 2: gradient overlay */
+.hero-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: 
+    /* 底部渐变：柔和过渡到深色，隐藏图片硬边缘 */
+    linear-gradient(to bottom, transparent 40%, rgba(4,32,24,0.7) 75%, rgba(4,32,24,0.95) 100%),
+    /* 四角到中心的微弱渐变 */
+    radial-gradient(ellipse at 50% 30%, rgba(4,32,24,0.2) 0%, transparent 60%),
+    /* 顶部轻微暗角 */
+    linear-gradient(160deg, rgba(4,32,24,0.5) 0%, transparent 30%);
+  z-index: 1;
+  will-change: transform;
+}
+
+/* anime_dark hero right-side glow (missing!) */
+#hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 80%;
+  height: 200%;
+  background: radial-gradient(ellipse, rgba(166,181,143,0.1) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+#hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0; height: 200px;
+  background: linear-gradient(to top, rgba(4,32,24,0.8), transparent);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Layer 3: guardian_v5 光弧长桥 SVG (SMIL动画) */
+.hero-light-flow {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+  will-change: transform;
+}
+.hero-light-flow svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Layer 4: anime_dark streaming particles */
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+  will-change: transform;
+}
+.particle {
+  position: absolute;
+  bottom: -10px;
+  width: 3px;
+  background: #5D6D56;
+  border-radius: 2px;
+  box-shadow: 0 0 8px #5D6D56, 0 0 20px rgba(93,109,86,0.5), 0 -8px 16px rgba(93,109,86,0.3);
+  animation: streamUp var(--dur) linear infinite;
+  animation-delay: var(--delay);
+}
+@keyframes streamUp {
+  0%   { transform: translateY(0) scale(1); opacity: 0; }
+  8%   { opacity: 1; }
+  85%  { opacity: 0.4; }
+  100% { transform: translateY(-100vh) scale(0.6); opacity: 0; }
+}
+
+/* Layer 5: anime_dark network canvas */
+.network-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0.65;
+  will-change: transform;
+}
+
+/* Layer 6: Hero — 标语 + 三卡片 */
+.hero-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  padding: 0 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.hero-text-block {
+  flex: 0 0 auto;
+  width: 38%;
+  animation: heroSpringIn 1s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+.hero-cards {
+  flex: 0 0 auto;
+  width: 52%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+/* 玻璃拟态卡片 */
+.hero-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 22px 24px;
+  background: rgba(15,45,30,0.55);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(150,220,180,0.18);
+  border-radius: 18px;
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  transform-style: preserve-3d;
+  perspective: 800px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(150,220,180,0.04) inset;
+  animation: cardSpringIn 0.7s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+.hero-card:nth-child(1){animation-delay:0.15s}
+.hero-card:nth-child(2){animation-delay:0.3s}
+.hero-card:nth-child(3){animation-delay:0.45s}
+.hero-card:hover{
+  border-color: rgba(150,220,180,0.4);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.4), 0 0 40px rgba(150,220,180,0.08);
+}
+.hero-card .hc-icon{
+  width:48px;height:48px;flex-shrink:0;
+  background:rgba(93,109,86,0.35);
+  border-radius:14px;display:flex;align-items:center;justify-content:center;
+  font-size:22px;
+}
+.hero-card .hc-body{flex:1;min-width:0}
+.hero-card h3{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:17px;font-weight:700;margin-bottom:6px;
+  color:var(--text-primary);
+}
+.hero-card p{
+  font-size:12px;color:rgba(150,186,150,0.7);line-height:1.6;margin-bottom:8px;
+}
+.hero-card .hc-tags{display:flex;flex-wrap:wrap;gap:5px}
+.hero-card .hc-tags span{
+  padding:3px 10px;
+  background:rgba(150,220,180,0.1);
+  border:1px solid rgba(150,220,180,0.15);
+  border-radius:20px;font-size:10px;color:var(--light);
+}
+.hero-card .hc-arrow{
+  font-size:20px;color:rgba(150,186,150,0.4);
+  flex-shrink:0;transition:transform 0.3s,color 0.3s;
+}
+.hero-card:hover .hc-arrow{transform:translateX(4px);color:var(--light);}
+
+@keyframes heroSpringIn {
+  0%   { opacity: 0; transform: translateX(-60px) translateY(40px) scale(0.9); }
+  50%  { transform: translateX(10px) translateY(-10px) scale(1.03); opacity: 1; }
+  70%  { transform: translateX(-5px) translateY(5px) scale(0.99); }
+  85%  { transform: translateX(3px) translateY(-3px) scale(1.01); }
+  100% { transform: translateX(0) translateY(0) scale(1); }
+}
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: rgba(150,186,150,0.7);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  animation: fadeInLeft 0.7s ease-out 0.3s both;
+  text-align: left;
+}
+.hero-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(36px, 5vw, 68px);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+  animation: fadeInLeft 0.7s ease-out 0.5s both;
+  text-shadow: 0 4px 30px rgba(0,0,0,0.5);
+  text-align: left;
+}
+.hero-title .accent {
+  color: var(--light);
+  text-shadow: 0 0 40px rgba(150,186,150,0.6), 0 0 80px rgba(150,186,150,0.3);
+}
+@keyframes fadeInUp {
+  0%   { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInLeft {
+  0%   { opacity: 0; transform: translateX(-40px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes floatSub {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-5px); }
+}
+.hero-sub {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: clamp(15px, 1.8vw, 20px);
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 48px;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+  background: rgba(15,45,30,0.45);
+  backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
+  padding: 20px 28px; border-radius: 16px;
+  border: 1px solid rgba(150,220,180,0.18);
+  box-shadow: 
+    0 0 0 1px rgba(150,220,180,0.04) inset,
+    0 8px 32px rgba(0,0,0,0.25),
+    0 0 50px rgba(100,180,140,0.07) inset;
+  animation: fadeInLeft 0.7s ease-out 0.7s both;
+  max-width: 520px;
+  margin-left: 0;
+  line-height: 1.85;
+  text-align: left;
+}
+.hero-stats {
+  display: flex;
+  justify-content: flex-start;
+  gap: 48px;
+  margin-bottom: 48px;
+  animation: fadeInLeft 0.7s ease-out 1.1s both;
+}
+.hero-stat { text-align: center; }
+.hero-stat-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--light);
+  line-height: 1;
+  text-shadow: 0 0 20px rgba(150,186,150,0.3);
+}
+.hero-stat-label {
+  font-size: 12px;
+  color: rgba(150,186,150,0.4);
+  margin-top: 6px;
+  letter-spacing: 1px;
+}
+.hero-actions {
+  display: flex;
+  justify-content: flex-start;
+  gap: 16px;
+  animation: fadeInLeft 0.7s ease-out 0.9s both;
+}
+.btn-primary {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 14px 32px;
+  border-radius: 30px;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-primary.filled {
+  background: rgba(26,58,40,0.9);
+  color: #fff;
+  border: 1px solid rgba(150,186,150,0.25);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 20px rgba(93,109,86,0.15);
+}
+.btn-primary.filled:hover { background: rgba(36,78,55,0.95); transform: translateY(-2px); }
+.btn-primary.outline {
+  background: transparent;
+  color: var(--light);
+  border: 1px solid rgba(150,186,150,0.3);
+}
+.btn-primary.outline:hover { border-color: var(--light); background: rgba(150,186,150,0.05); }
+
+/* ══════════════════════════════════════════
+   STATS STRIP
+══════════════════════════════════════════ */
+#stats-strip {
+  min-height: auto;
+  scroll-snap-align: start;
+  padding: 48px 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  border-top: 1px solid rgba(93,109,86,0.1);
+  border-bottom: 1px solid rgba(93,109,86,0.1);
+  background: rgba(93,109,86,0.03);
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  width: 100%;
+  max-width: 1100px;
+}
+.stat-item {
+  text-align: center;
+  padding: 24px 32px;
+  position: relative;
+}
+.stat-item + .stat-item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 20%; bottom: 20%;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--primary), transparent);
+  opacity: 0.4;
+}
+.stat-number {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--light);
+  line-height: 1;
+}
+.stat-number em { font-style: normal; color: var(--primary); }
+.stat-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 8px;
+  letter-spacing: 1px;
+}
+
+/* ══════════════════════════════════════════
+   MODULE LAYOUT (shared)
+══════════════════════════════════════════ */
+.module-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+.module-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 480px;
+  /* 3D卡片容器 */
+  perspective: 1000px;
+}
+
+/* 3D悬浮卡片基础 */
+.tilt-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.1s linear;
+  border-radius: 16px;
+  position: relative;
+}
+
+/* 3D卡片光泽层 */
+.tilt-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle 200px at var(--mx, 50%) var(--my, 50%),
+    rgba(255,255,255,0.12),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+.tilt-card:hover::before { opacity: 1; }
+
+/* 卡片入场时回弹 */
+@keyframes cardSpringIn {
+  0%   { transform: translateY(40px) scale(0.95); opacity: 0; }
+  60%  { transform: translateY(-8px) scale(1.02); opacity: 1; }
+  80%  { transform: translateY(4px) scale(0.99); }
+  100% { transform: translateY(0) scale(1); }
+}
+.tilt-card { animation: cardSpringIn 0.7s cubic-bezier(0.34,1.56,0.64,1) both; }
+.tilt-card:nth-child(2) { animation-delay: 0.1s; }
+.tilt-card:nth-child(3) { animation-delay: 0.2s; }
+.module-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--primary);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.module-title-zh {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.module-title-en {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--primary);
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+.module-tagline {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 18px;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+  font-style: italic;
+}
+.module-points {
+  list-style: none;
+  margin-bottom: 36px;
+}
+.module-points li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+  font-size: 15px;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+.module-points li::before {
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  background: var(--primary);
+  border-radius: 50%;
+  margin-top: 8px;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px var(--primary);
+}
+.module-stats-row {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.module-stat-badge {
+  background: rgba(93,109,86,0.1);
+  border: 1px solid rgba(93,109,86,0.2);
+  border-radius: 6px;
+  padding: 10px 18px;
+}
+.module-stat-badge-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--light);
+}
+.module-stat-badge-num em { font-style: normal; color: var(--primary); }
+.module-stat-badge-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+}
+
+/* ══════════════════════════════════════════
+   SECTION 3 — SD-WAN
+══════════════════════════════════════════ */
+#sdwan {
+  background:
+    radial-gradient(ellipse 70% 60% at 10% 50%, rgba(93,109,86,0.06) 0%, transparent 70%),
+    var(--bg);
+}
+.world-map-svg { width: 100%; height: 100%; }
+.light-beam {
+  stroke-dasharray: 20 280;
+  animation: light-travel 2s linear infinite;
+}
+@keyframes light-travel {
+  0%   { stroke-dashoffset: 300; }
+  100% { stroke-dashoffset: 0; }
+}
+
+/* ══════════════════════════════════════════
+   SECTION 4 — UniSASE
+══════════════════════════════════════════ */
+#sase {
+  background:
+    radial-gradient(ellipse 60% 50% at 90% 50%, rgba(150,186,150,0.05) 0%, transparent 70%),
+    var(--bg);
+}
+.shield-container {
+  position: relative;
+  width: 360px;
+  height: 420px;
+}
+.shield-layer {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(93,109,86,0.3);
+}
+.shield-layer-1 {
+  width: 360px; height: 360px;
+  top: 30px; left: 0;
+  animation: shield-rotate 20s linear infinite;
+  border-style: dashed;
+}
+.shield-layer-2 {
+  width: 280px; height: 280px;
+  top: 70px; left: 40px;
+  animation: shield-rotate 15s linear infinite reverse;
+  opacity: 0.6;
+}
+.shield-layer-3 {
+  width: 200px; height: 200px;
+  top: 110px; left: 80px;
+  animation: shield-rotate 10s linear infinite;
+  opacity: 0.4;
+}
+@keyframes shield-rotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.shield-core {
+  position: absolute;
+  width: 120px; height: 120px;
+  top: 150px; left: 120px;
+  background: radial-gradient(circle, rgba(93,109,86,0.3), rgba(93,109,86,0.05));
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  animation: shield-pulse 3s ease-in-out infinite;
+}
+@keyframes shield-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(93,109,86,0.3); }
+  50%       { box-shadow: 0 0 60px rgba(93,109,86,0.6), 0 0 100px rgba(93,109,86,0.2); }
+}
+.shield-core-icon { font-size: 36px; }
+.shield-orbit-dot {
+  position: absolute;
+  width: 10px; height: 10px;
+  background: var(--primary);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--primary);
+  animation: orbit 6s linear infinite;
+}
+.shield-orbit-dot:nth-child(2) { animation-delay: 1s; animation-duration: 8s; }
+.shield-orbit-dot:nth-child(3) { animation-delay: 2s; animation-duration: 5s; }
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(140px) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(140px) rotate(-360deg); }
+}
+.sase-node {
+  position: absolute;
+  width: 8px; height: 8px;
+  background: var(--secondary);
+  border-radius: 50%;
+  animation: node-pulse 2s ease-in-out infinite;
+}
+@keyframes node-pulse {
+  0%, 100% { opacity: 0.3; }
+  50%       { opacity: 1; }
+}
+.sase-node:nth-child(5)  { top: 20px;  left: 80px;  animation-delay: 0.3s; }
+.sase-node:nth-child(6)  { top: 60px;  right: 60px; animation-delay: 0.7s; }
+.sase-node:nth-child(7)  { bottom: 80px; left: 40px; animation-delay: 1.1s; }
+.sase-node:nth-child(8)  { bottom: 40px; right: 100px; animation-delay: 0.5s; }
+.sase-node:nth-child(9)  { top: 180px; left: 10px;  animation-delay: 1.5s; }
+.sase-node:nth-child(10) { top: 180px; right: 10px; animation-delay: 0.9s; }
+
+/* ══════════════════════════════════════════
+   SECTION 5 — OMS
+══════════════════════════════════════════ */
+#oms {
+  background:
+    radial-gradient(ellipse 60% 50% at 10% 50%, rgba(166,181,143,0.05) 0%, transparent 70%),
+    var(--bg);
+}
+.dashboard-grid {
+  position: relative;
+  width: 380px;
+  height: 380px;
+}
+.dash-grid-lines {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  gap: 1px;
+}
+.dash-grid-cell { border: 1px solid rgba(93,109,86,0.08); }
+.dash-grid-cell:nth-child(3n) { border-color: rgba(93,109,86,0.15); }
+.dash-grid-cell:nth-child(5n) { border-color: rgba(93,109,86,0.25); animation: cell-flash 4s ease-in-out infinite; }
+@keyframes cell-flash {
+  0%, 90%, 100% { background: transparent; }
+  95%            { background: rgba(93,109,86,0.1); }
+}
+.dash-card {
+  position: absolute;
+  background: rgba(93,109,86,0.06);
+  border: 1px solid rgba(93,109,86,0.15);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.dash-card-1 { width: 140px; height: 90px; top: 40px;  left: 20px;  }
+.dash-card-2 { width: 100px; height: 70px; top: 40px;  right: 40px; }
+.dash-card-3 { width: 160px; height: 80px; bottom: 60px; left: 40px; }
+.dash-card-4 { width: 110px; height: 100px; bottom: 40px; right: 20px; }
+.dash-card-bar {
+  height: 3px;
+  background: var(--primary);
+  animation: bar-grow 2s ease-in-out infinite alternate;
+}
+.dash-card-bar:nth-child(2) { background: var(--secondary); animation-delay: 0.3s; width: 60%; }
+.dash-card-bar:nth-child(3) { background: var(--highlight); animation-delay: 0.6s; width: 40%; }
+@keyframes bar-grow {
+  from { width: 30%; }
+  to   { width: 80%; }
+}
+.dash-heartbeat {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex; align-items: center; gap: 4px;
+}
+.heartbeat-line {
+  width: 30px; height: 2px;
+  background: var(--primary);
+  border-radius: 1px;
+  animation: heartbeat-pulse 1.5s ease-in-out infinite;
+}
+.heartbeat-line:nth-child(1) { animation-delay: 0s; }
+.heartbeat-line:nth-child(2) { animation-delay: 0.1s; width: 12px; background: var(--secondary); }
+.heartbeat-line:nth-child(3) { animation-delay: 0.2s; }
+.heartbeat-line:nth-child(4) { animation-delay: 0.3s; width: 8px; background: var(--highlight); }
+.heartbeat-line:nth-child(5) { animation-delay: 0.4s; width: 20px; }
+@keyframes heartbeat-pulse {
+  0%, 100% { transform: scaleY(1); opacity: 0.5; }
+  50%       { transform: scaleY(3); opacity: 1; }
+}
+.dash-status-ring {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  border: 1px solid rgba(93,109,86,0.2);
+  animation: status-ring 3s ease-in-out infinite;
+}
+@keyframes status-ring {
+  0%, 100% { transform: translate(-50%,-50%) scale(1); opacity: 0.5; }
+  50%       { transform: translate(-50%,-50%) scale(1.1); opacity: 0.2; }
+}
+
+/* ══════════════════════════════════════════
+   SECTION 6 — AI RELAY
+══════════════════════════════════════════ */
+#ai-relay {
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 50%, rgba(93,109,86,0.07) 0%, transparent 70%),
+    var(--bg);
+}
+.api-flow {
+  position: relative;
+  width: 400px;
+  height: 400px;
+}
+.api-node {
+  position: absolute;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 6px;
+}
+.api-node-icon {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: rgba(93,109,86,0.1);
+  border: 1px solid rgba(93,109,86,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  animation: node-pulse 2s ease-in-out infinite;
+}
+.api-node-center .api-node-icon {
+  width: 72px; height: 72px;
+  background: rgba(93,109,86,0.2);
+  border-color: var(--primary);
+  box-shadow: 0 0 30px rgba(93,109,86,0.3);
+  font-size: 28px;
+}
+.api-node-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+.api-node-top    { top: 0;    left: 50%; transform: translateX(-50%); }
+.api-node-right  { top: 50%;  right: 0;  transform: translateY(-50%); }
+.api-node-bottom { bottom: 0; left: 50%; transform: translateX(-50%); }
+.api-node-left   { top: 50%;  left: 0;   transform: translateY(-50%); }
+.conn-dot {
+  position: absolute;
+  width: 4px; height: 4px;
+  background: var(--primary);
+  border-radius: 50%;
+  animation: dot-travel 3s linear infinite;
+  box-shadow: 0 0 6px var(--primary);
+}
+@keyframes dot-travel {
+  0%   { offset-distance: 0%;   opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+
+/* ══════════════════════════════════════════
+   SECTION 7 — PRODUCTS
+══════════════════════════════════════════ */
+#products { background: var(--bg); }
+.products-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+  align-items: center;
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+.products-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.products-table th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--primary);
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid rgba(93,109,86,0.2);
+  font-weight: 500;
+}
+.products-table td {
+  padding: 14px 16px;
+  color: var(--text-primary);
+  border-bottom: 1px solid rgba(93,109,86,0.06);
+  line-height: 1.5;
+}
+.products-table tr:hover td { background: rgba(93,109,86,0.05); }
+.td-highlight { color: var(--soft); font-weight: 500; }
+.td-mono { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-secondary); }
+.badge {
+  display: inline-block;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.badge-green  { background: rgba(93,109,86,0.2);  color: var(--secondary); }
+.badge-gold   { background: rgba(166,181,143,0.2); color: var(--highlight); }
+.badge-blue   { background: rgba(100,149,237,0.15); color: #6495ed; }
+
+/* ══════════════════════════════════════════
+   SECTION 8 — CONTACT
+══════════════════════════════════════════ */
+#contact {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 60%, rgba(93,109,86,0.07) 0%, transparent 70%),
+    var(--bg);
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+.contact-inner { max-width: 700px; }
+.contact-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+.contact-sub {
+  font-size: 18px;
+  color: var(--text-secondary);
+  margin-bottom: 48px;
+}
+.contact-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 56px;
+}
+.contact-info {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+}
+.contact-info-item {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 14px; color: var(--text-secondary);
+}
+.contact-info-item a { color: var(--text-secondary); text-decoration: none; transition: color 0.3s; }
+.contact-info-item a:hover { color: var(--light); }
+.contact-info-icon { font-size: 16px; opacity: 0.7; }
+
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+footer {
+  min-height: auto;
+  scroll-snap-align: start;
+  padding: 32px 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(93,109,86,0.1);
+  background: rgba(4,32,24,0.95);
+}
+.footer-left { font-size: 12px; color: var(--text-secondary); }
+.footer-left a { color: var(--text-secondary); text-decoration: none; }
+.footer-left a:hover { color: var(--light); }
+.footer-right {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: rgba(122,154,122,0.5);
+  letter-spacing: 1px;
+}
+
+/* ══════════════════════════════════════════
+   MISC
+══════════════════════════════════════════ */
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: rgba(93,109,86,0.5);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+@keyframes page-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+body { animation: page-fade-in 0.8s ease forwards; }
+
+@media (max-width: 1100px) {
+  section { padding: 80px 40px 60px; }
+  header { padding: 0 24px; }
+  .module-section { grid-template-columns: 1fr; gap: 40px; }
+  .module-visual { height: 300px; }
+  .products-layout { grid-template-columns: 1fr; }
+  .hero-stats { gap: 32px; }
+  .contact-info { flex-wrap: wrap; gap: 24px; }
+  footer { padding: 24px 40px; flex-direction: column; gap: 12px; text-align: center; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hero-stats { flex-wrap: wrap; gap: 24px; }
+  .hero-stat-num { font-size: 32px; }
+  .stat-number { font-size: 36px; }
+  .hero-actions { flex-direction: column; align-items: center; }
 }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="header-inner">
-    <div class="logo-wrap">
-      <img src="logo.png" alt="SPEEDER" class="logo-img">
-      <div class="logo-text">
-        <h1>苏州世必得科技</h1>
-        <p>让网络连接更简单，让安全防护更可靠</p>
-      </div>
-    </div>
-    <nav>
-      <a href="#hero">首页</a>
-      <a href="#sdwan">SD-WAN</a>
-      <a href="#pool">线路融合池</a>
-      <a href="#security">安全堆栈</a>
-      <a href="#global">全球服务</a>
-      <a href="#contact" class="nav-cta">立即咨询</a>
-    </nav>
+<!-- 自定义光标（仅Hero区域） -->
+<div id="cursor-ring"></div>
+<div id="cursor-dot"></div>
+
+<!-- ════════════════════════════════════════
+     SPLASH SCREEN
+════════════════════════════════════════ -->
+<div class="splash" id="splash">
+  <div class="splash-bg-stars" id="splashStars"></div>
+  <div class="splash-countdown-wrap" id="countdownWrap">
+    <div class="countdown-number" id="countdownNum">3</div>
+    <div class="countdown-label">INITIALIZING</div>
   </div>
+  <div class="splash-welcome" id="splashWelcome">
+    <canvas class="welcome-canvas" id="welcomeCanvas"></canvas>
+    <div class="welcome-text">
+      <div class="welcome-line1">WELCOME TO</div>
+      <div class="welcome-title">世必得宇宙</div>
+      <div class="welcome-line2">// YOUR NETWORK WILL BE GUARDIANED</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     NAVIGATION
+════════════════════════════════════════ -->
+<header id="mainNav">
+  <div class="logo-wrap">
+    <img src="logo_new.png" class="logo-img" alt="SPEEDER NETWORKS">
+  </div>
+  <ul class="nav-links">
+    <li class="nav-has-sub"><a href="speeder_v2_combined.html">首页</a></li>
+    <li class="nav-has-sub">
+      <a href="sdwan.html">线路融合池 <span class="nav-arrow">▼</span></a>
+      <ul class="nav-sub">
+        <li><a href="sdwan.html#sdwan-overview">产品概述</a></li>
+        <li><a href="sdwan.html#sdwan-tech">核心技术</a></li>
+        <li><a href="sdwan.html#sdwan-hardware">硬件型号</a></li>
+        <li><a href="sdwan.html#sdwan-cases">客户案例</a></li>
+      </ul>
+    </li>
+    <li class="nav-has-sub">
+      <a href="unisase.html">网络安全 <span class="nav-arrow">▼</span></a>
+      <ul class="nav-sub">
+        <li><a href="unisase.html#sase-overview">产品概述</a></li>
+        <li><a href="unisase.html#sase-security">安全架构</a></li>
+        <li><a href="unisase.html#sase-components">核心组件</a></li>
+        <li><a href="unisase.html#sase-cases">客户案例</a></li>
+      </ul>
+    </li>
+    <li class="nav-has-sub">
+      <a href="ai.html">AI智能运维 <span class="nav-arrow">▼</span></a>
+      <ul class="nav-sub">
+        <li><a href="ai.html#ai-overview">产品概述</a></li>
+        <li><a href="ai.html#ai-monitoring">主动监控</a></li>
+        <li><a href="ai.html#ai-capabilities">AI能力</a></li>
+        <li><a href="ai.html#ai-oms">数字化服务</a></li>
+      </ul>
+    </li>
+    <li class="nav-has-sub"><a href="products.html">代理产品</a></li>
+    <li class="nav-has-sub"><a href="about.html">关于我们</a></li>
+    <li><a href="about.html#contact" class="nav-cta">联系我们</a></li>
+  </ul>
 </header>
 
-<section class="hero" id="hero">
-  <img class="hero-img" src="anime_sdwan_v2_1.png" alt="">
-  <div class="hero-inner">
-    <div class="hero-badge">企业网络 × 安全防护 × 全球互联</div>
-    <h2>让网络连接更简单<br><span>让安全防护更可靠</span></h2>
-    <p class="hero-desc">世必得科技专注于企业网络与安全领域，为多分支企业提供 SD-WAN 组网、带宽融合调度、安全融合（SASE）整体解决方案。28座城市7×24本地化服务。</p>
-    <div class="hero-btns">
-      <a href="#contact" class="btn-primary">获取方案报价</a>
-      <a href="#sdwan" class="btn-outline">了解更多</a>
+<!-- ════════════════════════════════════════
+     SECTION 1 — HERO
+════════════════════════════════════════ -->
+<section id="hero">
+  <!-- Layer 1: anime_dark background image -->
+  <div class="hero-bg"></div>
+  <!-- Layer 2: gradient overlay -->
+  <div class="hero-overlay"></div>
+  <!-- Layer 3: 光弧长桥 SVG — 全屏纵向比例，增强流动感 -->
+  <div class="hero-light-flow">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="lg1" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:#5D6D56;stop-opacity:0"/>
+          <stop offset="40%" style="stop-color:#96b896;stop-opacity:0.9"/>
+          <stop offset="100%" style="stop-color:#A6B58F;stop-opacity:0.1"/>
+        </linearGradient>
+        <linearGradient id="lg2" x1="0%" y1="80%" x2="100%" y2="20%">
+          <stop offset="0%" style="stop-color:#48564e;stop-opacity:0"/>
+          <stop offset="50%" style="stop-color:#7a9a78;stop-opacity:0.7"/>
+          <stop offset="100%" style="stop-color:#b8ccb4;stop-opacity:0"/>
+        </linearGradient>
+        <filter id="sglow">
+          <feGaussianBlur stdDeviation="4" result="cb"/>
+          <feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="strongGlow">
+          <feGaussianBlur stdDeviation="6" result="cb"/>
+          <feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- 主光弧1 — 底部到右上，流光效果增强 -->
+      <path d="M-100,920 Q400,500 720,600 T1200,300 T1600,50" fill="none" stroke="url(#lg1)" stroke-width="3.5" stroke-dasharray="20,6" opacity="0.8" filter="url(#strongGlow)">
+        <animate attributeName="stroke-dashoffset" from="0" to="-156" dur="1.4s" repeatCount="indefinite"/>
+      </path>
+
+      <!-- 主光弧2 — 偏左到右上 -->
+      <path d="M-50,880 Q350,520 650,620 T1100,320 T1550,80" fill="none" stroke="url(#lg1)" stroke-width="2.8" stroke-dasharray="16,8" opacity="0.65" filter="url(#strongGlow)">
+        <animate attributeName="stroke-dashoffset" from="0" to="-144" dur="1.7s" repeatCount="indefinite"/>
+      </path>
+
+      <!-- 主光弧3 — 偏右到左上，超长弧 -->
+      <path d="M150,960 Q480,580 820,700 T1450,220 T1780,-80" fill="none" stroke="url(#lg2)" stroke-width="2.2" stroke-dasharray="18,7" opacity="0.6" filter="url(#strongGlow)">
+        <animate attributeName="stroke-dashoffset" from="0" to="-150" dur="2s" repeatCount="indefinite"/>
+      </path>
+
+      <!-- 副弧4 — 底部中央向上散开 -->
+      <path d="M300,920 Q580,580 750,660 T980,320 T1150,80" fill="none" stroke="url(#lg1)" stroke-width="2" stroke-dasharray="12,9" opacity="0.55" filter="url(#sglow)">
+        <animate attributeName="stroke-dashoffset" from="0" to="-126" dur="2.4s" repeatCount="indefinite"/>
+      </path>
+
+      <!-- 副弧5 — 更偏右的弧 -->
+      <path d="M600,950 Q850,620 1050,720 T1400,350 T1650,50" fill="none" stroke="url(#lg2)" stroke-width="1.6" stroke-dasharray="10,10" opacity="0.45" filter="url(#sglow)">
+        <animate attributeName="stroke-dashoffset" from="0" to="-120" dur="2.8s" repeatCount="indefinite"/>
+      </path>
+
+      <!-- 高光弧1 — 快速流动亮线 -->
+      <path d="M-80,910 Q380,480 720,580 T1180,280 T1580,20" fill="none" stroke="#b8ccb4" stroke-width="1.2" stroke-dasharray="6,14" opacity="1" filter="url(#strongGlow)">
+        <animate attributeName="stroke-dashoffset" from="0" to="-80" dur="0.9s" repeatCount="indefinite"/>
+      </path>
+
+      <!-- 高光弧2 -->
+      <path d="M50,940 Q450,530 780,630 T1300,300 T1680,10" fill="none" stroke="#96b896" stroke-width="1" stroke-dasharray="5,15" opacity="0.85" filter="url(#strongGlow)">
+        <animate attributeName="stroke-dashoffset" from="0" to="-100" dur="1.1s" repeatCount="indefinite"/>
+      </path>
+
+      <!-- 光点1 — 大亮点 -->
+      <circle cx="360" r="5" fill="#96b896" filter="url(#strongGlow)">
+        <animate attributeName="cy" values="920;500;50" dur="5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;1;0" dur="5s" repeatCount="indefinite"/>
+        <animate attributeName="r" values="4;6;4" dur="5s" repeatCount="indefinite"/>
+      </circle>
+      <!-- 光点2 -->
+      <circle cx="580" r="4" fill="#A6B58F" filter="url(#strongGlow)">
+        <animate attributeName="cy" values="880;520;80" dur="4.2s" repeatCount="indefinite" begin="0.6s"/>
+        <animate attributeName="opacity" values="0;1;1;0" dur="4.2s" repeatCount="indefinite" begin="0.6s"/>
+        <animate attributeName="r" values="3;5;3" dur="4.2s" repeatCount="indefinite" begin="0.6s"/>
+      </circle>
+      <!-- 光点3 — 主亮点 -->
+      <circle cx="720" r="6" fill="#b8ccb4" filter="url(#strongGlow)">
+        <animate attributeName="cy" values="900;550;120" dur="5.5s" repeatCount="indefinite" begin="1.2s"/>
+        <animate attributeName="opacity" values="0;1;1;0" dur="5.5s" repeatCount="indefinite" begin="1.2s"/>
+        <animate attributeName="r" values="5;7;5" dur="5.5s" repeatCount="indefinite" begin="1.2s"/>
+      </circle>
+      <!-- 光点4 -->
+      <circle cx="900" r="4" fill="#96b896" filter="url(#strongGlow)">
+        <animate attributeName="cy" values="870;480;60" dur="4s" repeatCount="indefinite" begin="0.3s"/>
+        <animate attributeName="opacity" values="0;1;1;0" dur="4s" repeatCount="indefinite" begin="0.3s"/>
+        <animate attributeName="r" values="3;5;3" dur="4s" repeatCount="indefinite" begin="0.3s"/>
+      </circle>
+      <!-- 光点5 -->
+      <circle cx="1100" r="5" fill="#7a9a78" filter="url(#strongGlow)">
+        <animate attributeName="cy" values="850;400;30" dur="5s" repeatCount="indefinite" begin="1.8s"/>
+        <animate attributeName="opacity" values="0;1;1;0" dur="5s" repeatCount="indefinite" begin="1.8s"/>
+        <animate attributeName="r" values="4;6;4" dur="5s" repeatCount="indefinite" begin="1.8s"/>
+      </circle>
+      <!-- 光点6 -->
+      <circle cx="1300" r="4" fill="#A6B58F" filter="url(#strongGlow)">
+        <animate attributeName="cy" values="820;350;0" dur="4.5s" repeatCount="indefinite" begin="0.9s"/>
+        <animate attributeName="opacity" values="0;1;1;0" dur="4.5s" repeatCount="indefinite" begin="0.9s"/>
+        <animate attributeName="r" values="3;5;3" dur="4.5s" repeatCount="indefinite" begin="0.9s"/>
+      </circle>
+      <!-- 光点7 -->
+      <circle cx="200" r="3.5" fill="#96b896" filter="url(#strongGlow)">
+        <animate attributeName="cy" values="950;580;100" dur="5.5s" repeatCount="indefinite" begin="2.2s"/>
+        <animate attributeName="opacity" values="0;1;1;0" dur="5.5s" repeatCount="indefinite" begin="2.2s"/>
+        <animate attributeName="r" values="3;4;3" dur="5.5s" repeatCount="indefinite" begin="2.2s"/>
+      </circle>
+      <!-- 光点8 — 新增右侧亮点 -->
+      <circle cx="1400" r="4.5" fill="#b8ccb4" filter="url(#strongGlow)">
+        <animate attributeName="cy" values="880;420;20" dur="4.8s" repeatCount="indefinite" begin="1.5s"/>
+        <animate attributeName="opacity" values="0;1;1;0" dur="4.8s" repeatCount="indefinite" begin="1.5s"/>
+        <animate attributeName="r" values="4;6;4" dur="4.8s" repeatCount="indefinite" begin="1.5s"/>
+      </circle>
+    </svg>
+  </div>
+  <!-- Layer 4: anime_dark streaming particles -->
+  <div class="hero-particles" id="particles"></div>
+  <!-- Layer 5: network canvas -->
+  <canvas class="network-canvas" id="networkCanvas"></canvas>
+  <!-- Layer 6: Hero 标语 + 三卡片 -->
+  <div class="hero-content">
+    <div class="hero-text-block">
+      <p class="hero-eyebrow">// 连接无忧，守护无虞</p>
+      <h1 class="hero-title">十年深耕<br/><span class="accent">一站式守护</span></h1>
+      <p class="hero-sub">专注跨国网络连接与安全一站式服务<br>让每一次连接，都值得信赖</p>
+      <div class="hero-actions">
+        <a href="sdwan.html" class="btn-primary filled">探索方案 →</a>
+        <a href="about.html#contact" class="btn-primary outline">联系我们</a>
+      </div>
+    </div>
+    <div class="hero-cards">
+      <a href="sdwan.html" class="hero-card tilt-card" id="hc-sdwan">
+        <div class="hc-icon">🌐</div>
+        <div class="hc-body">
+          <h3>线路融合池</h3>
+          <p>600+ POP · 多路径智能选路<br>节省30%线路成本，当天部署</p>
+          <div class="hc-tags"><span>SD-WAN</span><span>600+节点</span><span>30%节省</span></div>
+        </div>
+        <div class="hc-arrow">→</div>
+      </a>
+      <a href="unisase.html" class="hero-card tilt-card" id="hc-sase">
+        <div class="hc-icon">🔒</div>
+        <div class="hc-body">
+          <h3>网络安全</h3>
+          <p>ZTNA零信任 · 全球骨干网覆盖<br>统一身份策略，全量日志审计</p>
+          <div class="hc-tags"><span>UniSASE</span><span>ZTNA</span><span>全球骨干</span></div>
+        </div>
+        <div class="hc-arrow">→</div>
+      </a>
+      <a href="ai.html" class="hero-card tilt-card" id="hc-ai">
+        <div class="hc-icon">🤖</div>
+        <div class="hc-body">
+          <h3>AI智能运维</h3>
+          <p>1ms级响应 · 7×24主动监控<br>提前感知，提前排障</p>
+          <div class="hc-tags"><span>AI Relay</span><span>1ms响应</span><span>7×24保障</span></div>
+        </div>
+        <div class="hc-arrow">→</div>
+      </a>
     </div>
   </div>
 </section>
 
-<section class="cards-section" id="sdwan">
-  <div class="section-inner">
-    <div class="section-label">SD-WAN · 多分支组网</div>
-    <h2 class="section-title">多分支组网解决方案</h2>
-    <p class="section-desc">基于SD-WAN技术提供多线路融合解决方案，智能调度分流，带宽利用率最大化。支持全球600+ POP节点，让企业分支联网既快又稳。</p>
-    <div class="card-grid">
-      <div class="card">
-        <div class="card-icon">🌏</div>
-        <h3>多线路智能融合</h3>
-        <p>同时接入多家运营商宽带，智能选路自动规避故障链路，带宽利用率从40%提升至85%以上。</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">⚡</div>
-        <h3>关键应用加速</h3>
-        <p>对SAP、Oracle、CRM等关键业务应用进行深度优化，跨国访问延迟降低50%以上。</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">🔗</div>
-        <h3>即插即用部署</h3>
-        <p>分支设备快递到场即插即用，零接触开局，配置自动下发，300节点可在1周内全部上线。</p>
+<!-- ════════════════════════════════════════
+     SECTION 2 — STATS STRIP
+════════════════════════════════════════ -->
+<section id="stats-strip">
+  <div class="stats-grid">
+    <div class="stat-item reveal">
+      <div class="stat-number"><em>600</em>+</div>
+      <div class="stat-label">全球POP节点 / Global POP Nodes</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-1">
+      <div class="stat-number"><em>38</em></div>
+      <div class="stat-label">城市骨干网覆盖 / City Backbone Coverage</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-2">
+      <div class="stat-number"><em>150</em>+</div>
+      <div class="stat-label">安全威胁规则库 / Threat Rules</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-3">
+      <div class="stat-number"><em>&lt;1</em>ms</div>
+      <div class="stat-label">安全处理延时 / Security Latency</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 3 — SD-WAN
+════════════════════════════════════════ -->
+<section id="sdwan">
+  <div class="module-section">
+    <div class="module-visual reveal" data-3d-tilt>
+      <svg class="world-map-svg" viewBox="0 0 500 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M60,80 Q80,60 120,70 Q160,50 200,65 Q220,55 240,70 Q260,65 280,80 L260,120 Q220,140 180,130 Q140,145 100,125 Q70,140 60,120 Z" stroke="rgba(93,109,86,0.15)" stroke-width="0.5" fill="rgba(93,109,86,0.03)"/>
+        <path d="M280,60 Q320,45 360,55 Q400,40 440,60 Q450,80 440,100 Q400,110 360,105 Q320,115 280,100 Q260,85 280,60 Z" stroke="rgba(93,109,86,0.15)" stroke-width="0.5" fill="rgba(93,109,86,0.03)"/>
+        <path d="M300,140 Q340,125 380,135 Q420,130 450,150 Q460,175 440,195 Q400,210 360,200 Q320,215 300,195 Q280,170 300,140 Z" stroke="rgba(93,109,86,0.15)" stroke-width="0.5" fill="rgba(93,109,86,0.03)"/>
+        <path d="M80,200 Q100,185 140,190 Q180,180 220,195 Q250,188 270,210 Q275,240 255,260 Q220,275 180,268 Q140,278 100,260 Q70,245 80,220 Z" stroke="rgba(93,109,86,0.15)" stroke-width="0.5" fill="rgba(93,109,86,0.03)"/>
+        <path d="M300,240 Q340,225 380,235 Q420,228 450,250 Q455,275 435,295 Q395,310 355,302 Q315,315 300,290 Q280,265 300,240 Z" stroke="rgba(93,109,86,0.15)" stroke-width="0.5" fill="rgba(93,109,86,0.03)"/>
+        <path class="light-beam" d="M100,120 Q200,80 320,140 Q400,170 440,110" stroke="rgba(150,186,150,0.5)" stroke-width="1.5" fill="none" style="animation-delay:0s"/>
+        <path class="light-beam" d="M160,180 Q240,140 360,200 Q420,230 440,180" stroke="rgba(150,186,150,0.35)" stroke-width="1" fill="none" style="animation-delay:0.7s"/>
+        <path class="light-beam" d="M80,220 Q180,180 280,240 Q380,280 430,250" stroke="rgba(150,186,150,0.3)" stroke-width="1" fill="none" style="animation-delay:1.4s"/>
+        <circle cx="100" cy="120" r="5" fill="#5D6D56" opacity="0.9"><animate attributeName="opacity" values="0.4;1;0.4" dur="2.5s" repeatCount="indefinite"/><animate attributeName="r" values="4;7;4" dur="2.5s" repeatCount="indefinite"/></circle>
+        <circle cx="160" cy="180" r="4" fill="#7a9a78" opacity="0.7"><animate attributeName="opacity" values="0.3;1;0.3" dur="3s" repeatCount="indefinite"/></circle>
+        <circle cx="320" cy="140" r="6" fill="#5D6D56" opacity="0.9"><animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/></circle>
+        <circle cx="440" cy="110" r="4" fill="#96b896" opacity="0.7"><animate attributeName="opacity" values="0.3;0.9;0.3" dur="2.8s" repeatCount="indefinite"/></circle>
+        <circle cx="280" cy="240" r="5" fill="#5D6D56" opacity="0.8"><animate attributeName="opacity" values="0.4;1;0.4" dur="3.2s" repeatCount="indefinite"/></circle>
+        <circle cx="360" cy="200" r="4" fill="#7a9a78" opacity="0.6"><animate attributeName="opacity" values="0.3;0.8;0.3" dur="2.6s" repeatCount="indefinite"/></circle>
+        <circle cx="430" cy="250" r="5" fill="#96b896" opacity="0.7"><animate attributeName="opacity" values="0.3;0.9;0.3" dur="2.4s" repeatCount="indefinite"/></circle>
+        <circle cx="80" cy="220" r="4" fill="#5D6D56" opacity="0.6"><animate attributeName="opacity" values="0.2;0.7;0.2" dur="3s" repeatCount="indefinite"/></circle>
+        <circle cx="200" cy="150" r="8" fill="none" stroke="#A6B58F" stroke-width="1.5" opacity="0.8"><animate attributeName="r" values="8;16;8" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.8;0.2;0.8" dur="2s" repeatCount="indefinite"/></circle>
+        <circle cx="200" cy="150" r="3" fill="#A6B58F" opacity="0.9"/>
+        <text x="200" y="140" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#A6B58F" opacity="0.7">苏州 SUZHOU</text>
+      </svg>
+    </div>
+    <div class="module-content">
+      <p class="section-label">MODULE 01</p>
+      <p class="module-eyebrow">SD-WAN线路融合池 / LightWAN</p>
+      <h2 class="module-title-zh reveal">SD-WAN线路融合池</h2>
+      <p class="module-title-en reveal reveal-delay-1">SD-WAN LINE CONVERGENCE POOL</p>
+      <p class="module-tagline reveal reveal-delay-2">让每一次连接，都恰到好处</p>
+      <ul class="module-points reveal reveal-delay-3">
+        <li>全球<strong>600+ POP节点</strong>，38城市骨干网覆盖</li>
+        <li><strong>当天开通</strong>，传统专线需1-6个月</li>
+        <li>节省<strong>30%成本</strong>，无需额外国有资产</li>
+        <li>多路径保护，<strong>毫秒级切换</strong>，故障无感知</li>
+        <li>国产密码 + 等保合规，安全可控</li>
+      </ul>
+      <div class="module-stats-row reveal reveal-delay-4">
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>600+</em></div><div class="module-stat-badge-label">POP节点</div></div>
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>30</em>省</div><div class="module-stat-badge-label">覆盖</div></div>
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>当天</em></div><div class="module-stat-badge-label">开通</div></div>
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>-30</em>%</div><div class="module-stat-badge-label">成本</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="illus-split" id="pool">
-  <div class="img-side"><img src="anime_pool_1.png" alt="线路融合池"></div>
-  <div class="text-side">
-    <div class="sec-label">线路融合池 · LINE POOL</div>
-    <h2>线路融合池<br>多协议统一接入</h2>
-    <p>线路融合池是SD-WAN的核心能力，将不同运营商、不同带宽大小的线路打包成一个逻辑通道，按需分配、动态调度。</p>
-    <ul class="feature-list">
-      <li>多线路智能融合，提升带宽利用率</li>
-      <li>支持MPLS、互联网、4G/5G多协议统一接入</li>
-      <li>跨国应用加速，站点间无缝互联</li>
-      <li>关键应用主动实时监控，SLA保障</li>
-      <li>可视化集中管控，运维效率提升80%</li>
-    </ul>
-  </div>
-</div>
-
-<section class="cards-section" id="security">
-  <div class="section-inner">
-    <div class="section-label">安全堆栈 · SECURITY STACK</div>
-    <h2 class="section-title">立体化安全防护体系</h2>
-    <p class="section-desc">安全与网络融合（SASE），从端到云构建全方位防护体系，保障数据传输安全，满足等保合规要求。</p>
-    <div class="card-grid">
-      <div class="card">
-        <div class="card-icon">🛡️</div>
-        <h3>端到端安全加密</h3>
-        <p>端到端IPSec加密，传输数据安全无忧，告别网络窃听和数据泄露风险。</p>
+<!-- ════════════════════════════════════════
+     SECTION 4 — UniSASE
+════════════════════════════════════════ -->
+<section id="sase">
+  <div class="module-section">
+    <div class="module-content">
+      <p class="section-label">MODULE 02</p>
+      <p class="module-eyebrow">UniSASE安全栈 / Unified SASE</p>
+      <h2 class="module-title-zh reveal">UniSASE安全栈</h2>
+      <p class="module-title-en reveal reveal-delay-1">UNIFIED SASE SECURITY STACK</p>
+      <p class="module-tagline reveal reveal-delay-2">网络与安全，从不妥协</p>
+      <ul class="module-points reveal reveal-delay-3">
+        <li><strong>6大组件：</strong>UniAuth · UniCtrl · UniLog · UniPOP · UniGate · UniMobile</li>
+        <li><strong>150+全球节点</strong>，处理延时&lt;1ms</li>
+        <li>零信任网络隔离，微隔离分段防护</li>
+        <li><strong>180天全量会话日志</strong>，满足公安部151号令</li>
+        <li>DPI识别<strong>11大类、千种应用</strong>，精准管控</li>
+      </ul>
+      <div class="module-stats-row reveal reveal-delay-4">
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>&lt;1</em>ms</div><div class="module-stat-badge-label">处理延时</div></div>
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>150</em>万+</div><div class="module-stat-badge-label">威胁规则</div></div>
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>180</em>天</div><div class="module-stat-badge-label">日志保留</div></div>
       </div>
-      <div class="card">
-        <div class="card-icon">🔍</div>
-        <h3>可视化集中管控</h3>
-        <p>配置自动下发，实时监控告警，全网安全状态一目了然，运维效率大幅提升。</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">📋</div>
-        <h3>等保合规保障</h3>
-        <p>满足等保2.0要求，从网络边界到应用层全方位安全防护，合规无忧。</p>
+    </div>
+    <div class="module-visual reveal reveal-delay-2" data-3d-tilt>
+      <div class="shield-container">
+        <div class="shield-layer shield-layer-1"></div>
+        <div class="shield-layer shield-layer-2"></div>
+        <div class="shield-layer shield-layer-3"></div>
+        <div class="shield-core"><span class="shield-core-icon">🛡</span></div>
+        <div class="shield-orbit-dot"></div>
+        <div class="shield-orbit-dot"></div>
+        <div class="shield-orbit-dot"></div>
+        <div class="sase-node"></div>
+        <div class="sase-node"></div>
+        <div class="sase-node"></div>
+        <div class="sase-node"></div>
+        <div class="sase-node"></div>
+        <div class="sase-node"></div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="illus-split" id="global">
-  <div class="img-side"><img src="anime_global_1.png" alt="全球服务"></div>
-  <div class="text-side">
-    <div class="sec-label">全球服务 · GLOBAL SERVICE</div>
-    <h2>全球互联<br>600+ POP节点覆盖</h2>
-    <p>世必得在全球范围内部署600+ POP节点，覆盖150+全球骨干网节点，为跨国企业提供稳定、高速的网络连接。</p>
-    <ul class="feature-list">
-      <li>全球600+ POP节点覆盖</li>
-      <li>150+全球骨干网节点</li>
-      <li>28座城市7×24本地化服务</li>
-      <li>关键应用SLA 99.9%可用率保障</li>
-      <li>原厂工程师快速响应</li>
-    </ul>
+<!-- ════════════════════════════════════════
+     SECTION 5 — OMS
+════════════════════════════════════════ -->
+<section id="oms">
+  <div class="module-section">
+    <div class="module-visual reveal" data-3d-tilt>
+      <div class="dashboard-grid">
+        <div class="dash-grid-lines" id="dashGrid"></div>
+        <div class="dash-card dash-card-1"><div class="dash-card-bar"></div><div class="dash-card-bar"></div><div class="dash-card-bar"></div></div>
+        <div class="dash-card dash-card-2"><div class="dash-card-bar"></div><div class="dash-card-bar"></div></div>
+        <div class="dash-card dash-card-3"><div class="dash-card-bar"></div><div class="dash-card-bar"></div><div class="dash-card-bar"></div></div>
+        <div class="dash-card dash-card-4"><div class="dash-card-bar"></div><div class="dash-card-bar"></div></div>
+        <div class="dash-status-ring"></div>
+        <div class="dash-heartbeat">
+          <div class="heartbeat-line"></div><div class="heartbeat-line"></div><div class="heartbeat-line"></div><div class="heartbeat-line"></div><div class="heartbeat-line"></div>
+        </div>
+      </div>
+    </div>
+    <div class="module-content">
+      <p class="section-label">MODULE 03</p>
+      <p class="module-eyebrow">OMS智能运维监控平台</p>
+      <h2 class="module-title-zh reveal">OMS智能运维监控平台</h2>
+      <p class="module-title-en reveal reveal-delay-1">OMS INTELLIGENT OPERATIONS PLATFORM</p>
+      <p class="module-tagline reveal reveal-delay-2">让IT从成本中心，变成业务引擎</p>
+      <ul class="module-points reveal reveal-delay-3">
+        <li><strong>MTTR 15分钟</strong>，传统方式需4小时以上</li>
+        <li><strong>90%风险降低</strong> / 99%触达率 / 零重大事故</li>
+        <li>零改造无代理架构，<strong>15分钟</strong>快速部署</li>
+        <li><strong>8大主动运维服务模块</strong>，全栈覆盖</li>
+      </ul>
+      <div class="module-stats-row reveal reveal-delay-4">
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>15</em>分钟</div><div class="module-stat-badge-label">MTTR</div></div>
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>90</em>%</div><div class="module-stat-badge-label">风险降低</div></div>
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>99</em>%</div><div class="module-stat-badge-label">触达率</div></div>
+      </div>
+    </div>
   </div>
-</div>
+</section>
 
-<div class="cta" id="contact">
-  <h2>想了解SD-WAN能为你省多少？</h2>
-  <p>留下联系方式，我们的工程师30分钟内与你联系，免费评估网络现状</p>
-  <a href="tel:13771706800" class="cta-btn">立即咨询 SD-WAN 方案</a>
-</div>
+<!-- ════════════════════════════════════════
+     SECTION 6 — AI RELAY
+════════════════════════════════════════ -->
+<section id="ai-relay">
+  <div class="module-section">
+    <div class="module-content">
+      <p class="section-label">MODULE 04</p>
+      <p class="module-eyebrow">AI智能服务 / AI Relay</p>
+      <h2 class="module-title-zh reveal">AI智能服务</h2>
+      <p class="module-title-en reveal reveal-delay-1">ENTERPRISE AI NATIVE CAPABILITY</p>
+      <p class="module-tagline reveal reveal-delay-2">企业AI原生能力，从模型到应用的全栈赋能</p>
+      <ul class="module-points reveal reveal-delay-3">
+        <li><strong>AI Relay：</strong>企业级大模型API智能中继网关</li>
+        <li>多模型接入：<strong>GPT-4 / DeepSeek / Claude</strong></li>
+        <li><strong>&lt;100ms</strong>内网延迟，数据不出企业边界</li>
+        <li>节省<strong>86%</strong>API调用成本，智能路由+缓存</li>
+        <li><strong>企业AI Agent</strong>定制开发（OpenClaw）</li>
+      </ul>
+      <div class="module-stats-row reveal reveal-delay-4">
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>&lt;100</em>ms</div><div class="module-stat-badge-label">内网延迟</div></div>
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>-86</em>%</div><div class="module-stat-badge-label">成本节省</div></div>
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>1</em>个</div><div class="module-stat-badge-label">API入口</div></div>
+      </div>
+    </div>
+    <div class="module-visual reveal reveal-delay-2" data-3d-tilt>
+      <div class="api-flow">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;overflow:visible;" xmlns="http://www.w3.org/2000/svg">
+          <line x1="28" y1="172" x2="164" y2="172" stroke="rgba(93,109,86,0.2)" stroke-width="1"/>
+          <line x1="236" y1="172" x2="372" y2="172" stroke="rgba(93,109,86,0.2)" stroke-width="1"/>
+          <line x1="200" y1="28" x2="200" y2="164" stroke="rgba(93,109,86,0.2)" stroke-width="1"/>
+          <line x1="200" y1="236" x2="200" y2="372" stroke="rgba(93,109,86,0.2)" stroke-width="1"/>
+          <line x1="28" y1="236" x2="164" y2="164" stroke="rgba(93,109,86,0.15)" stroke-width="1" stroke-dasharray="4 4"/>
+          <line x1="236" y1="164" x2="372" y2="236" stroke="rgba(93,109,86,0.15)" stroke-width="1" stroke-dasharray="4 4"/>
+        </svg>
+        <div class="conn-dot" style="top:172px;left:28px;offset-path:path('M 28 172 L 164 172');animation-delay:0s"></div>
+        <div class="conn-dot" style="top:172px;left:236px;offset-path:path('M 236 172 L 372 172');animation-delay:0.75s"></div>
+        <div class="conn-dot" style="top:28px;left:200px;offset-path:path('M 200 28 L 200 164');animation-delay:1.5s"></div>
+        <div class="conn-dot" style="top:236px;left:200px;offset-path:path('M 200 236 L 200 372');animation-delay:2.25s"></div>
+        <div class="api-node api-node-center"><div class="api-node-icon">⚡</div><span class="api-node-label">AI RELAY</span></div>
+        <div class="api-node api-node-top"><div class="api-node-icon">📤</div><span class="api-node-label">REQUEST</span></div>
+        <div class="api-node api-node-right"><div class="api-node-icon">🤖</div><span class="api-node-label">GPT-4</span></div>
+        <div class="api-node api-node-bottom"><div class="api-node-icon">📥</div><span class="api-node-label">RESPONSE</span></div>
+        <div class="api-node api-node-left"><div class="api-node-icon">🔒</div><span class="api-node-label">DEEPSEEK</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- ════════════════════════════════════════
+     SECTION 7 — PRODUCTS
+════════════════════════════════════════ -->
+<section id="products">
+  <div class="products-layout">
+    <div class="products-intro">
+      <p class="section-label">MODULE 05</p>
+      <p class="module-eyebrow">代理产品 / Intellinet</p>
+      <h2 class="module-title-zh reveal">代理产品</h2>
+      <p class="module-title-en reveal reveal-delay-1">AUTHORIZED DISTRIBUTION</p>
+      <p class="module-tagline reveal reveal-delay-2">超过35年，网络硬件一站式供应</p>
+      <ul class="module-points reveal reveal-delay-3">
+        <li><strong>IC Intracom</strong>旗下品牌，德国产品管理</li>
+        <li>PoE交换机：<strong>5口~54口</strong>，全规格覆盖</li>
+        <li>管理类型：非管理 / 网管 / <strong>L2+ / L3</strong></li>
+        <li>工业级宽温 <strong>-40~80°C</strong>，IP65防水</li>
+        <li>支持信创：<strong>龙芯 / 飞腾 / 海光</strong></li>
+      </ul>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <table class="products-table">
+        <thead>
+          <tr><th>系列</th><th>端口数</th><th>管理类型</th><th>PoE功率</th><th>规格</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-highlight">LW1000系列</td><td>5 / 8口</td><td><span class="badge badge-green">非管理</span></td><td class="td-mono">65W / 130W</td><td>桌面式 · 紧凑</td></tr>
+          <tr><td class="td-highlight">LW2000系列</td><td>8 / 16 / 24口</td><td><span class="badge badge-green">非管理</span> <span class="badge badge-gold">网管</span></td><td class="td-mono">190W~380W</td><td>机架式 · 标准</td></tr>
+          <tr><td class="td-highlight">LW3000系列</td><td>24 / 48口</td><td><span class="badge badge-gold">L2+网管</span></td><td class="td-mono">370W~740W</td><td>机架式 · 旗舰</td></tr>
+          <tr><td class="td-highlight">LW7000系列</td><td>48口 + 4万兆</td><td><span class="badge badge-blue">L3全管理</span></td><td class="td-mono">740W~960W</td><td>机架式 · 核心</td></tr>
+          <tr><td class="td-highlight">工业系列</td><td>8 / 16 / 24口</td><td><span class="badge badge-green">非管理</span></td><td class="td-mono">240W~480W</td><td>IP65 · -40~80°C</td></tr>
+          <tr><td class="td-highlight">信创系列</td><td>24 / 48口</td><td><span class="badge badge-blue">L2+ / L3</span></td><td class="td-mono">370W~740W</td><td>龙芯/飞腾/海光</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     SECTION 8 — CONTACT
+════════════════════════════════════════ -->
+<section id="contact">
+  <div class="contact-inner">
+    <p class="section-label reveal">LET'S TALK</p>
+    <h2 class="contact-title reveal reveal-delay-1">准备好了吗？</h2>
+    <p class="contact-sub reveal reveal-delay-2">无论是SD-WAN组网、安全合规，还是AI赋能转型 —<br>我们随时准备为你定制方案。</p>
+    <div class="contact-actions reveal reveal-delay-3">
+      <a href="mailto:bally.su@speeder.net.cn" class="btn-primary filled">立即咨询</a>
+      <a href="tel:+8613771706800" class="btn-primary outline">预约演示</a>
+    </div>
+    <div class="contact-info reveal reveal-delay-4">
+      <div class="contact-info-item"><span class="contact-info-icon">📞</span><a href="tel:+8613771706800">+86 137 7170 6800</a></div>
+      <div class="contact-info-item"><span class="contact-info-icon">✉</span><a href="mailto:bally.su@speeder.net.cn">bally.su@speeder.net.cn</a></div>
+      <div class="contact-info-item"><span class="contact-info-icon">📍</span><span>苏州市工业园区苏惠路88号环球财富广场1幢2709室</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════ -->
 <footer>
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <h3>苏州世必得科技</h3>
-        <p>专注企业网络与安全领域，为多分支企业提供 SD-WAN 组网、网络安全融合（SASE）、带宽融合调度整体解决方案。</p>
-      </div>
-      <div class="footer-col">
-        <h4>解决方案</h4>
-        <a href="#sdwan">SD-WAN 多分支组网</a>
-        <a href="#security">UniSASE 安全融合</a>
-        <a href="#">AI 服务</a>
-      </div>
-      <div class="footer-col">
-        <h4>服务保障</h4>
-        <a href="#">原厂工程师</a>
-        <a href="#">7×24 响应</a>
-        <a href="#">备件先行</a>
-      </div>
-      <div class="footer-col">
-        <h4>联系我们</h4>
-        <a href="tel:13771706800">+86 13771706800</a>
-        <a href="mailto:bally.su@speeder.net.cn">bally.su@speeder.net.cn</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      © 2024 苏州世必得科技 SPEEDER NETWORKS · 苏ICP备2024120577号-1
-    </div>
+  <div class="footer-left">
+    © 2025 <a href="#">苏州世必得科技有限公司</a> · SPEEDER NETWORKS · All rights reserved.
+  </div>
+  <div class="footer-right">
+    <a href="https://beian.miit.gov.cn" target="_blank" style="color:rgba(122,154,122,0.4);text-decoration:none;">苏ICP备2024120577号-1</a>
   </div>
 </footer>
+
+<script>
+(function() {
+  /* Skip splash on revisit */
+  if (sessionStorage.getItem("spd_v4") === "1") {
+    var mn = document.getElementById("mainNav");
+    var hr = document.getElementById("hero");
+    var sp = document.getElementById("splash");
+    if (mn) mn.style.display = "flex";
+    if (hr) { hr.style.display = "flex"; hr.style.opacity = "1"; }
+    if (sp) { sp.style.display = "none"; }
+    document.body.classList.add("page-ready");
+    return;
+  }
+
+  /* Stars background */
+  const starsContainer = document.getElementById("splashStars");
+  for (let i = 0; i < 80; i++) {
+    const star = document.createElement("div");
+    star.className = "splash-star";
+    star.style.left = Math.random() * 100 + "%";
+    star.style.top = Math.random() * 100 + "%";
+    star.style.setProperty("--dur", (1.5 + Math.random() * 3) + "s");
+    star.style.setProperty("--delay", Math.random() * 4 + "s");
+    star.style.width = star.style.height = (1 + Math.random() * 2) + "px";
+    starsContainer.appendChild(star);
+  }
+
+  /* Countdown vars */
+  const countdownEl = document.getElementById("countdownNum");
+  const countdownWrap = document.getElementById("countdownWrap");
+  const splashWelcome = document.getElementById("splashWelcome");
+  const splash = document.getElementById("splash");
+  const mainNav = document.getElementById("mainNav");
+  const hero = document.getElementById("hero");
+
+  /* Welcome canvas: nodes pulse outward from center */
+  const canvas = document.getElementById("welcomeCanvas");
+  if (canvas) {
+    var ctx = canvas.getContext("2d");
+    var W = 0, H = 0;
+    var nodes = [];
+    var RAF = null;
+    function init() {
+      W = canvas.width = canvas.offsetWidth;
+      H = canvas.height = canvas.offsetHeight;
+      nodes = [];
+      for (var i = 0; i < 56; i++) {
+        nodes.push({
+          angle: (i / 56) * Math.PI * 2,
+          dist: 15 + Math.random() * 30,
+          r: 1.5 + Math.random() * 2.5,
+          phase: Math.random() * Math.PI * 2
+        });
+      }
+    }
+    function draw(ts) {
+      ctx.clearRect(0, 0, W, H);
+      var expand = (Math.sin(ts * 0.0008) * 0.5 + 0.5);
+      var cx = W / 2, cy = H / 2;
+      var maxR = Math.min(W, H) * 0.45;
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i];
+        var d = n.dist + expand * maxR;
+        var wobble = Math.sin(ts * 0.001 + n.phase) * 6;
+        var x = cx + Math.cos(n.angle) * (d + wobble);
+        var y = cy + Math.sin(n.angle) * (d + wobble);
+        var p = Math.sin(ts * 0.001 + n.phase) * 0.5 + 0.5;
+        for (var j = i + 1; j < nodes.length; j++) {
+          var n2 = nodes[j];
+          var d2 = n2.dist + expand * maxR;
+          var w2 = Math.sin(ts * 0.001 + n2.phase) * 6;
+          var x2 = cx + Math.cos(n2.angle) * (d2 + w2);
+          var y2 = cy + Math.sin(n2.angle) * (d2 + w2);
+          var dx = x - x2, dy = y - y2;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+          var maxD = 150 * expand + 50;
+          if (dist < maxD) {
+            ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x2, y2);
+            ctx.strokeStyle = "rgba(150,186,150," + (1 - dist / maxD) * 0.2 + ")";
+            ctx.lineWidth = 0.5; ctx.stroke();
+          }
+        }
+        ctx.beginPath();
+        ctx.arc(x, y, n.r * (0.8 + p * 0.5), 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(150,186,150," + (0.3 + p * 0.5) * (0.4 + expand * 0.6) + ")";
+        ctx.shadowColor = "#5D6D56";
+        ctx.shadowBlur = 6 + p * 10;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+      RAF = requestAnimationFrame(draw);
+    }
+    window.addEventListener("resize", init);
+  }
+
+  var n = 3;
+  countdownEl.textContent = n;
+
+  var iv = setInterval(function() {
+    n--;
+    if (n > 0) {
+      countdownEl.classList.add("fade-out");
+      setTimeout(function() {
+        countdownEl.textContent = n;
+        countdownEl.classList.remove("fade-out");
+      }, 400);
+    } else {
+      clearInterval(iv);
+      countdownEl.classList.add("fade-out");
+      setTimeout(function() {
+        countdownWrap.style.display = "none";
+        splashWelcome.classList.add("show");
+        init();
+        if (RAF) cancelAnimationFrame(RAF);
+        RAF = requestAnimationFrame(draw);
+        setTimeout(function() {
+          splash.style.opacity = "0";
+          setTimeout(function() {
+            splash.style.display = "none";
+            if (RAF) cancelAnimationFrame(RAF);
+            sessionStorage.setItem("spd_v4", "1");
+            document.body.classList.add("page-ready");
+            mainNav.style.display = "flex";
+            hero.style.display = "flex";
+            hero.style.opacity = "0";
+            hero.style.transition = "opacity 1s ease";
+            hero.style.opacity = "1";
+            setTimeout(initHero, 50);
+          }, 1200);
+        }, 3000);
+      }, 500);
+    }
+  }, 1000);
+})();
+/* Splash结束后：给body加class，触发页面内容显示 */
+(function() {
+  var splashObserver = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.attributeName === 'style') {
+        var splash = document.getElementById('splash');
+        if (splash && splash.style.display === 'none') {
+          splashObserver.disconnect();
+          document.body.classList.add('page-ready');
+          // 强制触发scroll-snap对齐到hero
+          setTimeout(function() {
+            var hero = document.getElementById('hero');
+            if (hero) hero.scrollIntoView({ behavior: 'instant' });
+          }, 100);
+          // 3D效果初始化（光标+视差+卡片倾斜）
+          setTimeout(init3DEffects, 200);
+        }
+      }
+    });
+  });
+  var splash = document.getElementById('splash');
+  if (splash) splashObserver.observe(splash, { attributes: true });
+})();
+
+/* ===== HERO ===== */
+function initHero() {
+  /* Particles */
+  const particlesContainer = document.getElementById('particles');
+  for (let i = 0; i < 35; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = (5 + Math.random() * 90) + '%';
+    p.style.bottom = '-10px';
+    p.style.setProperty('--dur', (2.5 + Math.random() * 4) + 's');
+    p.style.setProperty('--delay', Math.random() * 6 + 's');
+    p.style.width = (1.5 + Math.random() * 2.5) + 'px';
+    particlesContainer.appendChild(p);
+  }
+
+  /* Network canvas */
+  const canvas = document.getElementById('networkCanvas');
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  const nodes = [];
+  const NUM_NODES = 50;
+  const NUM_CONNECTIONS = 3;
+  const particles = [];
+  const NUM_PARTICLES = 15;
+
+  function resize() {
+    width = canvas.width = canvas.offsetWidth;
+    height = canvas.height = canvas.offsetHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  for (let i = 0; i < NUM_NODES; i++) {
+    nodes.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      r: 1 + Math.random() * 1.5,
+      opacity: 0.2 + Math.random() * 0.4,
+    });
+  }
+
+  for (let i = 0; i < NUM_PARTICLES; i++) {
+    const startNode = nodes[Math.floor(Math.random() * NUM_NODES)];
+    particles.push({
+      nodeA: startNode,
+      nodeB: nodes[Math.floor(Math.random() * NUM_NODES)],
+      progress: Math.random(),
+      speed: 0.003 + Math.random() * 0.004,
+      opacity: 0.3 + Math.random() * 0.4,
+    });
+  }
+
+  let time = 0;
+  function draw() {
+    ctx.clearRect(0, 0, width, height);
+    time += 0.016;
+
+    for (const n of nodes) {
+      n.x += n.vx;
+      n.y += n.vy;
+      if (n.x < 0 || n.x > width) n.vx *= -1;
+      if (n.y < 0 || n.y > height) n.vy *= -1;
+    }
+
+    for (let i = 0; i < NUM_NODES; i++) {
+      for (let c = 0; c < NUM_CONNECTIONS; c++) {
+        const j = (i + c + 1) % NUM_NODES;
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 200) {
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.strokeStyle = `rgba(93,109,86,${(1 - dist / 200) * 0.12})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+
+    for (const n of nodes) {
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(150,186,150,${n.opacity})`;
+      ctx.fill();
+    }
+
+    for (const p of particles) {
+      p.progress += p.speed;
+      if (p.progress > 1) {
+        p.progress = 0;
+        p.nodeA = nodes[Math.floor(Math.random() * NUM_NODES)];
+        p.nodeB = nodes[Math.floor(Math.random() * NUM_NODES)];
+        p.opacity = 0.3 + Math.random() * 0.4;
+      }
+      const t = p.progress;
+      const px = p.nodeA.x + (p.nodeB.x - p.nodeA.x) * t;
+      const py = p.nodeA.y + (p.nodeB.y - p.nodeA.y) * t;
+
+      ctx.beginPath();
+      ctx.arc(px, py, 2, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(150,186,150,${p.opacity})`;
+      ctx.shadowColor = '#5D6D56';
+      ctx.shadowBlur = 6;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+}
+
+/* ═══════════════════════════════════════════════════════════
+   3D交互总入口：光标 + Hero视差 + 卡片3D倾斜
+══════════════════════════════════════════════════════════ */
+function init3DEffects() {
+  initCustomCursor();
+  initHeroParallax();
+  initCardTilt();
+}
+
+/* ── 1. 自定义光标（弹簧跟随，仅Hero区域）────────────────── */
+function initCustomCursor() {
+  const ring = document.getElementById('cursor-ring');
+  const dot  = document.getElementById('cursor-dot');
+  if (!ring || !dot) return;
+
+  let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+  let cx = mx, cy = my;        // ring 当前位置（弹簧延迟）
+  let dx = 0, dy = 0;          // ring 速度
+  let inHero = false;
+  let inCard = false;
+
+  const STIFF = 0.13;
+  const DAMP  = 0.78;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+    // 检测是否在Hero区域
+    const hero = document.getElementById('hero');
+    if (hero) {
+      const hr = hero.getBoundingClientRect();
+      inHero = mx >= hr.left && mx <= hr.right && my >= hr.top && my <= hr.bottom;
+      ring.classList.toggle('in-hero', inHero);
+    }
+    // 检测是否在3D卡片上
+    const card = e.target.closest('[data-3d-tilt], .tilt-card');
+    inCard = !!card;
+    ring.classList.toggle('in-card', inCard);
+  });
+
+  function animate() {
+    const fx = (mx - cx) * STIFF;
+    const fy = (my - cy) * STIFF;
+    dx = (dx + fx) * DAMP;
+    dy = (dy + fy) * DAMP;
+    cx += dx;
+    cy += dy;
+
+    ring.style.left = cx + 'px';
+    ring.style.top  = cy + 'px';
+    dot.style.left  = mx + 'px';
+    dot.style.top   = my + 'px';
+    requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+/* ── 2. Hero鼠标视差（多层不同速度）────────────────────── */
+function initHeroParallax() {
+  const hero = document.getElementById('hero');
+  if (!hero) return;
+
+  const bg       = hero.querySelector('.hero-bg');
+  const overlay  = hero.querySelector('.hero-overlay');
+  const lightFlow = hero.querySelector('.hero-light-flow');
+  const particles = hero.querySelector('.hero-particles');
+  const network  = hero.querySelector('.network-canvas');
+  const content  = hero.querySelector('.hero-content');
+
+  // 各层视差系数：值越大=跟随越快=越靠前
+  const layers = [
+    { el: lightFlow, strength: 0.03 },
+    { el: particles,  strength: 0.04 },
+    { el: network,   strength: 0.05 },
+  ];
+
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let cx = mouseX, cy = mouseY;
+  let vx = 0, vy = 0;
+
+  hero.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  // 鼠标移出Hero时平滑归位
+  hero.addEventListener('mouseleave', () => {
+    mouseX = window.innerWidth / 2;
+    mouseY = window.innerHeight / 2;
+  });
+
+  const SPRING_K = 0.1;
+  const DAMP = 0.78;
+
+  function animate() {
+    const fx = (mouseX - cx) * SPRING_K;
+    const fy = (mouseY - cy) * SPRING_K;
+    vx = (vx + fx) * DAMP;
+    vy = (vy + fy) * DAMP;
+    cx += vx;
+    cy += vy;
+
+    const dx = cx - window.innerWidth / 2;
+    const dy = cy - window.innerHeight / 2;
+
+    layers.forEach(({ el, strength }) => {
+      if (!el) return;
+      el.style.transform = `translate(${dx * strength * 10}px, ${dy * strength * 10}px)`;
+    });
+
+    requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+/* ── 3. Hero文案3D倾斜 ─────────────────────────────────── */
+function initCardTilt() {
+  var cards = document.querySelectorAll('.hero-card');
+  if (!cards.length) return;
+
+  cards.forEach(function(card) {
+    var enterY, enterX;
+    card.addEventListener('mouseenter', function(e) {
+      enterY = e.clientY;
+      enterX = e.clientX;
+      card.style.transition = 'none';
+    });
+    card.addEventListener('mousemove', function(e) {
+      var r = card.getBoundingClientRect();
+      var nx = (e.clientX - r.left) / r.width - 0.5;
+      var ny = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = 'perspective(800px) rotateY(' + (nx * 18) + 'deg) rotateX(' + (-ny * 12) + 'deg) translateZ(6px)';
+    });
+    card.addEventListener('mouseleave', function() {
+      card.style.transition = 'transform 0.65s cubic-bezier(0.34,1.56,0.64,1)';
+      card.style.transform = 'perspective(800px) rotateY(0deg) rotateX(0deg) translateZ(0)';
+    });
+  });
+}
+
+/* ===== REVEAL ===== */
+(function() {
+  const grid = document.getElementById('dashGrid');
+  if (grid) {
+    for (let i = 0; i < 36; i++) {
+      grid.innerHTML += '<div class="dash-grid-cell"></div>';
+    }
+  }
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  /* Stats counter */
+  function animateCounter(el, target) {
+    const isFloat = String(target).includes('.');
+    const duration = 1800;
+    const start = performance.now();
+    function update(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = target * eased;
+      el.textContent = isFloat ? current.toFixed(2) : Math.floor(current);
+      if (progress < 1) requestAnimationFrame(update);
+      else el.textContent = target;
+    }
+    requestAnimationFrame(update);
+  }
+
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.dataset.animated) {
+        entry.target.dataset.animated = 'true';
+        const text = entry.target.textContent;
+        const num = parseFloat(text.replace(/[^0-9.]/g, ''));
+        if (!isNaN(num) && num > 0) animateCounter(entry.target, num);
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.stat-number em, .hero-stat-num em, .module-stat-badge-num em')
+    .forEach(el => counterObserver.observe(el));
+
+  /* Smooth scroll */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) t.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+})();
+</script>
 
 </body>
 </html>
