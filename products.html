@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>代理产品 | SPEEDER NETWORKS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #042018;
+  --bg-mid: #0a2820;
+  --green-dark: #1a2e28;
+  --green-mid: #48564e;
+  --primary: #5D6D56;
+  --secondary: #7a9a78;
+  --light: #96b896;
+  --soft: #b8ccb4;
+  --text-primary: #d8e8dc;
+  --text-secondary: rgba(150,186,150,0.6);
+  --highlight: #A6B58F;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; overflow-y: scroll; }
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: 'Noto Sans SC', sans-serif;
+  font-weight: 400;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #042018; }
+::-webkit-scrollbar-thumb { background: #5D6D56; border-radius: 2px; }
+
+/* ── CUSTOM CURSOR ── */
+#hero { cursor: none; }
+#hero * { cursor: none !important; }
+#cursor-ring {
+  position: fixed; width: 36px; height: 36px; border-radius: 50%;
+  border: 1.5px solid rgba(150,220,180,0.6);
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.25s cubic-bezier(0.34,1.56,0.64,1),
+              height 0.25s cubic-bezier(0.34,1.56,0.64,1),
+              border-color 0.25s, background 0.25s;
+  mix-blend-mode: difference; will-change: transform;
+}
+#cursor-ring.in-hero { width: 50px; height: 50px; border-color: rgba(150,220,180,0.3); background: rgba(150,220,180,0.05); }
+#cursor-dot { position: fixed; width: 5px; height: 5px; border-radius: 50%; background: #96dcb4; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); will-change: transform; }
+
+/* ── NAVIGATION ── */
+header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 64px;
+  background: rgba(4,32,24,0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+.logo-wrap { display: flex; align-items: center; height: 64px; padding-top: 4px; }
+.logo-img { height: 100px; width: auto; display: block; }
+.nav-links { display: flex; gap: 2px; list-style: none; align-items: center; margin: 0; padding: 0; }
+.nav-links > li { position: relative; }
+.nav-links a {
+  font-size: 13px; font-family: 'Space Grotesk', sans-serif; font-weight: 500;
+  color: rgba(150,186,150,0.55); text-decoration: none; padding: 8px 16px;
+  border-radius: 8px; transition: color 0.2s, background 0.2s;
+  position: relative; letter-spacing: 0.3px; white-space: nowrap;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
+  width: 0; height: 1.5px; background: var(--highlight); border-radius: 1px;
+  transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.nav-links a:hover { color: rgba(216,232,220,0.9); background: rgba(93,109,86,0.1); }
+.nav-links a:hover::after { width: calc(100% - 32px); }
+.nav-links a.active { color: var(--highlight) !important; }
+.nav-links a.active::after { width: calc(100% - 32px); }
+.nav-arrow { display: inline-block; font-size: 10px; margin-left: 5px; transition: transform 0.25s, opacity 0.2s; opacity: 0.5; vertical-align: middle; }
+.nav-has-sub:hover .nav-arrow { transform: rotate(180deg); opacity: 0.8; }
+.nav-sub {
+  position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  min-width: 180px; background: rgba(4,32,24,0.97); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(93,109,86,0.18); border-radius: 14px; padding: 10px 8px;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.25s, transform 0.25s, visibility 0.25s;
+  transform: translateX(-50%) translateY(-8px);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.55); z-index: 100; list-style: none;
+}
+.nav-has-sub:hover .nav-sub { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+.nav-sub a { display: flex; align-items: center; gap: 8px; padding: 10px 16px !important; font-size: 12.5px !important; border-radius: 8px !important; color: rgba(150,186,150,0.6) !important; transition: color 0.18s, background 0.18s; }
+.nav-sub a::after { display: none !important; }
+.nav-sub a:hover { color: var(--light) !important; background: rgba(93,109,86,0.15) !important; }
+.nav-cta { font-size: 12px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: 0.5px; color: #fff !important; background: var(--primary); padding: 8px 20px; border-radius: 20px; text-decoration: none; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; box-shadow: 0 2px 12px rgba(93,109,86,0.25); }
+.nav-cta:hover { background: var(--secondary); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(93,109,86,0.4); }
+/* ── HERO ── */
+#hero {
+  position: relative; height: 100vh; min-height: 600px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  overflow: hidden; background: linear-gradient(160deg, #042018 0%, #0a2820 40%, #1a2e28 65%, #042018 100%);
+}
+.hero-particles { position: absolute; inset: 0; pointer-events: none; }
+canvas.particles-canvas { position: absolute; inset: 0; }
+.hero-content { position: relative; z-index: 2; text-align: center; max-width: 900px; padding: 0 40px; }
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 4px;
+  color: var(--highlight); margin-bottom: 20px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.5s;
+}
+.hero-title-zh {
+  font-family: 'Noto Serif SC', serif; font-size: clamp(36px, 6vw, 72px); font-weight: 700;
+  color: #fff; line-height: 1.15; margin-bottom: 12px;
+  opacity: 0; animation: fadeUp 0.8s ease forwards 0.7s;
+}
+.hero-title-en {
+  font-family: 'Space Grotesk', sans-serif; font-size: clamp(12px, 1.8vw, 16px);
+  letter-spacing: 6px; color: var(--light); margin-bottom: 28px;
+  opacity: 0; animation: fadeUp 0.8s ease forwards 0.9s;
+}
+.hero-tagline {
+  font-size: 16px; color: var(--text-secondary); line-height: 1.7;
+  max-width: 560px; margin: 0 auto 40px;
+  opacity: 0; animation: fadeUp 0.8s ease forwards 1.1s;
+}
+.hero-cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-block; padding: 13px 32px; border-radius: 8px;
+  font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600;
+  letter-spacing: 1px; text-decoration: none; cursor: pointer;
+  transition: all 0.25s ease;
+}
+.btn-primary.filled { background: var(--primary); color: #fff; border: 1.5px solid var(--primary); }
+.btn-primary.filled:hover { background: var(--secondary); border-color: var(--secondary); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(93,109,86,0.35); }
+.btn-primary.outline { background: transparent; color: var(--light); border: 1.5px solid rgba(150,186,150,0.35); }
+.btn-primary.outline:hover { border-color: var(--light); background: rgba(150,186,150,0.08); transform: translateY(-2px); }
+.hero-scroll-hint {
+  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 3px;
+  color: var(--text-secondary); opacity: 0; animation: fadeIn 1s ease forwards 2s;
+}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ── SECTION BASE ── */
+.section { padding: 100px 40px; max-width: 1300px; margin: 0 auto; }
+.section-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 3px;
+  color: var(--highlight); margin-bottom: 12px;
+}
+.module-eyebrow {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 2px;
+  color: var(--text-secondary); margin-bottom: 14px;
+}
+.module-title-zh {
+  font-family: 'Noto Serif SC', serif; font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 8px;
+}
+.module-title-en {
+  font-family: 'Space Grotesk', sans-serif; font-size: 12px; letter-spacing: 4px;
+  color: var(--light); margin-bottom: 24px;
+}
+.module-tagline { font-size: 15px; color: var(--text-secondary); line-height: 1.7; max-width: 500px; }
+.module-points { list-style: none; margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
+.module-points li { font-size: 14px; color: var(--text-primary); line-height: 1.6; padding-left: 16px; position: relative; }
+.module-points li::before { content: '—'; position: absolute; left: 0; color: var(--primary); }
+.module-points strong { color: var(--highlight); }
+
+/* ── REVEAL ANIMATION ── */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.15s; }
+.reveal-delay-2 { transition-delay: 0.3s; }
+.reveal-delay-3 { transition-delay: 0.45s; }
+.reveal-delay-4 { transition-delay: 0.6s; }
+
+/* ── PRODUCTS TABLE ── */
+#products-overview { background: var(--bg); }
+.products-section { padding: 80px 40px 100px; max-width: 1300px; margin: 0 auto; }
+.products-layout {
+  display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px;
+  align-items: center; width: 100%;
+}
+.products-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.products-table th {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 2px;
+  color: var(--primary); padding: 12px 16px; text-align: left;
+  border-bottom: 1px solid rgba(93,109,86,0.2); font-weight: 500;
+}
+.products-table td {
+  padding: 14px 16px; color: var(--text-primary);
+  border-bottom: 1px solid rgba(93,109,86,0.06); line-height: 1.5;
+}
+.products-table tr:hover td { background: rgba(93,109,86,0.05); }
+.td-highlight { color: var(--soft); font-weight: 500; }
+.td-mono { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-secondary); }
+.badge { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 3px; font-weight: 600; letter-spacing: 0.5px; margin: 1px; }
+.badge-green { background: rgba(93,109,86,0.25); color: var(--light); }
+.badge-gold { background: rgba(166,181,143,0.2); color: var(--highlight); }
+.badge-blue { background: rgba(150,186,150,0.15); color: #a8d4a8; }
+
+/* ── FEATURE GRID ── */
+#products-features { background: var(--bg-mid); }
+.feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 60px; }
+.feature-card {
+  background: rgba(26,46,40,0.6); border: 1px solid rgba(93,109,86,0.2);
+  border-radius: 12px; padding: 32px 28px;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+.feature-card:hover { border-color: rgba(93,109,86,0.5); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+.feature-icon { font-size: 28px; margin-bottom: 16px; }
+.feature-title { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 10px; }
+.feature-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+
+/* ── CTA SECTION ── */
+#contact { background: var(--bg); border-top: 1px solid rgba(93,109,86,0.12); }
+.contact-inner { text-align: center; padding: 100px 40px; max-width: 700px; margin: 0 auto; }
+.contact-title { font-family: 'Noto Serif SC', serif; font-size: clamp(28px, 4vw, 44px); font-weight: 700; color: #fff; margin: 16px 0 20px; }
+.contact-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 36px; }
+.contact-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
+.contact-info { display: flex; flex-direction: column; gap: 12px; align-items: center; }
+.contact-info-item { font-size: 13px; color: var(--text-secondary); }
+.contact-info-item a { color: var(--light); text-decoration: none; transition: color 0.2s; }
+.contact-info-item a:hover { color: var(--highlight); }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid rgba(93,109,86,0.12);
+  padding: 24px 40px; display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px; color: rgba(150,186,150,0.4); font-family: 'Space Grotesk', sans-serif;
+}
+footer a { color: rgba(150,186,150,0.5); text-decoration: none; transition: color 0.2s; }
+footer a:hover { color: var(--light); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  header { padding: 0 20px; }
+  .nav-links a { padding: 20px 12px; font-size: 12px; }
+  .products-layout { grid-template-columns: 1fr; gap: 40px; }
+  .feature-grid { grid-template-columns: 1fr; }
+  .section { padding: 80px 20px; }
+  .products-section { padding: 60px 20px 80px; }
+  footer { flex-direction: column; gap: 8px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cursor-ring"></div>
+<div id="cursor-dot"></div>
+
+<!-- NAVIGATION -->
+<header id="mainNav">
+  <div class="logo-wrap">
+    <img src="logo_new.png" class="logo-img" alt="SPEEDER NETWORKS">
+  </div>
+  <ul class="nav-links">
+    <li class="nav-has-sub"><a href="speeder_v2_combined.html">首页</a></li>
+    <li class="nav-has-sub">
+      <a href="sdwan.html">线路融合池 <span class="nav-arrow">▼</span></a>
+      <ul class="nav-sub">
+        <li><a href="sdwan.html#sdwan-overview">产品概述</a></li>
+        <li><a href="sdwan.html#sdwan-tech">核心技术</a></li>
+        <li><a href="sdwan.html#sdwan-hardware">硬件型号</a></li>
+      </ul>
+    </li>
+    <li class="nav-has-sub">
+      <a href="unisase.html">网络安全 <span class="nav-arrow">▼</span></a>
+      <ul class="nav-sub">
+        <li><a href="unisase.html#sase-overview">产品概述</a></li>
+        <li><a href="unisase.html#sase-security">安全架构</a></li>
+        <li><a href="unisase.html#sase-components">核心组件</a></li>
+      </ul>
+    </li>
+    <li class="nav-has-sub">
+      <a href="ai.html">AI智能运维 <span class="nav-arrow">▼</span></a>
+      <ul class="nav-sub">
+        <li><a href="ai.html#ai-overview">产品概述</a></li>
+        <li><a href="ai.html#ai-monitoring">主动监控</a></li>
+        <li><a href="ai.html#ai-capabilities">AI能力</a></li>
+      </ul>
+    </li>
+    <li class="nav-has-sub">
+      <a href="products.html" class="active">代理产品 <span class="nav-arrow">▼</span></a>
+      <ul class="nav-sub">
+        <li><a href="products.html#products-overview">产品概览</a></li>
+        <li><a href="products.html#products-features">核心优势</a></li>
+        <li><a href="products.html#contact">咨询报价</a></li>
+      </ul>
+    </li>
+    <li class="nav-has-sub"><a href="about.html">关于我们</a></li>
+    <li><a href="about.html#contact" class="nav-cta">联系我们</a></li>
+  </ul>
+</header>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-particles">
+    <canvas class="particles-canvas" id="particlesCanvas"></canvas>
+  </div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">AUTHORIZED DISTRIBUTION</p>
+    <h1 class="hero-title-zh">代理产品</h1>
+    <p class="hero-title-en">INTELLINET NETWORK SOLUTIONS</p>
+    <p class="hero-tagline">超过35年网络硬件一站式供应<br>IC Intracom 旗下品牌 · 德国产品管理 · 全球品质认证</p>
+    <div class="hero-cta-group">
+      <a href="#products-overview" class="btn-primary filled">查看产品列表</a>
+      <a href="#contact" class="btn-primary outline">获取报价方案</a>
+    </div>
+  </div>
+  <p class="hero-scroll-hint">SCROLL</p>
+</section>
+
+<!-- PRODUCTS OVERVIEW -->
+<section id="products-overview">
+  <div class="products-section">
+    <p class="section-label reveal">MODULE 05</p>
+    <p class="module-eyebrow reveal">代理产品 / Intellinet</p>
+    <h2 class="module-title-zh reveal">产品系列一览</h2>
+    <p class="module-title-en reveal">PRODUCT SERIES OVERVIEW</p>
+    <div class="products-layout" style="margin-top:40px;">
+      <div>
+        <p class="module-tagline reveal">Intellinet 为企业、机房与工业场景提供全规格以太网交换机，从桌面式到机架式，从非网管到 L3 全管理型，满足各类网络部署需求。</p>
+        <ul class="module-points reveal reveal-delay-1">
+          <li><strong>IC Intracom</strong> 旗下品牌，德国产品管理</li>
+          <li>PoE交换机：<strong>5口~54口</strong>，全规格覆盖</li>
+          <li>管理类型：非管理 / 网管 / <strong>L2+ / L3</strong></li>
+          <li>工业级宽温 <strong>-40~80°C</strong>，IP65防水</li>
+          <li>支持信创：<strong>龙芯 / 飞腾 / 海光</strong></li>
+        </ul>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <table class="products-table">
+          <thead>
+            <tr><th>系列</th><th>端口数</th><th>管理类型</th><th>PoE功率</th><th>规格</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="td-highlight">LW1000系列</td><td>5 / 8口</td><td><span class="badge badge-green">非管理</span></td><td class="td-mono">65W / 130W</td><td>桌面式 · 紧凑</td></tr>
+            <tr><td class="td-highlight">LW2000系列</td><td>8 / 16 / 24口</td><td><span class="badge badge-green">非管理</span> <span class="badge badge-gold">网管</span></td><td class="td-mono">190W~380W</td><td>机架式 · 标准</td></tr>
+            <tr><td class="td-highlight">LW3000系列</td><td>24 / 48口</td><td><span class="badge badge-gold">L2+网管</span></td><td class="td-mono">370W~740W</td><td>机架式 · 旗舰</td></tr>
+            <tr><td class="td-highlight">LW7000系列</td><td>48口 + 4万兆</td><td><span class="badge badge-blue">L3全管理</span></td><td class="td-mono">740W~960W</td><td>机架式 · 核心</td></tr>
+            <tr><td class="td-highlight">工业系列</td><td>8 / 16 / 24口</td><td><span class="badge badge-green">非管理</span></td><td class="td-mono">240W~480W</td><td>IP65 · -40~80°C</td></tr>
+            <tr><td class="td-highlight">信创系列</td><td>24 / 48口</td><td><span class="badge badge-blue">L2+ / L3</span></td><td class="td-mono">370W~740W</td><td>龙芯/飞腾/海光</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="products-features">
+  <div class="section">
+    <p class="section-label reveal">WHY INTELLINET</p>
+    <p class="module-eyebrow reveal">选择 Intellinet 的理由</p>
+    <h2 class="module-title-zh reveal">为什么选择我们</h2>
+    <div class="feature-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">🌍</div>
+        <h3 class="feature-title">35年品牌积淀</h3>
+        <p class="feature-desc">IC Intracom 旗下品牌，产品远销全球50多个国家，品质经过长期市场验证。</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon">⚙️</div>
+        <h3 class="feature-title">全规格覆盖</h3>
+        <p class="feature-desc">从5口桌面小交换机到54口机架式核心交换机，从非网管到L3全管理，一站式配齐。</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-icon">🔧</div>
+        <h3 class="feature-title">工业级可靠性</h3>
+        <p class="feature-desc">工业宽温系列支持-40~80°C工作温度，IP65防护等级，恶劣环境稳定运行。</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔌</div>
+        <h3 class="feature-title">完整PoE供电</h3>
+        <p class="feature-desc">全系列PoE交换机，功率覆盖65W~960W，兼容IP电话、摄像头、AP等PD设备。</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon">🛡️</div>
+        <h3 class="feature-title">信创国产化</h3>
+        <p class="feature-desc">龙芯、飞腾、海光等国产芯片平台产品，支持国家信息技术应用创新战略。</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-icon">📦</div>
+        <h3 class="feature-title">本地化服务</h3>
+        <p class="feature-desc">苏州本地团队提供售前咨询、方案设计、售后支持，响应快，服务有保障。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact">
+  <div class="contact-inner">
+    <p class="section-label reveal">LET'S TALK</p>
+    <h2 class="contact-title reveal reveal-delay-1">获取定制方案</h2>
+    <p class="contact-sub reveal reveal-delay-2">告诉我们你的网络规模和场景需求，<br>我们为你推荐最适合的产品组合。</p>
+    <div class="contact-actions reveal reveal-delay-3">
+      <a href="mailto:bally.su@speeder.net.cn" class="btn-primary filled">立即咨询</a>
+      <a href="tel:+8613771706800" class="btn-primary outline">预约演示</a>
+    </div>
+    <div class="contact-info reveal reveal-delay-4">
+      <div class="contact-info-item"><span>📞</span> <a href="tel:+8613771706800">+86 137 7170 6800</a></div>
+      <div class="contact-info-item"><span>✉</span> <a href="mailto:bally.su@speeder.net.cn">bally.su@speeder.net.cn</a></div>
+      <div class="contact-info-item"><span>📍</span> 苏州市工业园区苏惠路88号环球财富广场1幢2709室</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>© 2025 <a href="speeder_v2_combined.html">苏州世必得科技有限公司</a> · SPEEDER NETWORKS · All rights reserved.</div>
+  <div><a href="https://beian.miit.gov.cn" target="_blank">苏ICP备2024120577号-1</a></div>
+</footer>
+
+<script>
+// ── CURSOR ──
+(function() {
+  const ring = document.getElementById('cursor-ring');
+  const dot = document.getElementById('cursor-dot');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function tick() { rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; dot.style.left = mx + 'px'; dot.style.top = my + 'px'; if (document.getElementById('hero').getBoundingClientRect().top <= 0) { ring.classList.remove('in-hero'); } else { ring.classList.add('in-hero'); } requestAnimationFrame(tick); }
+  tick();
+  const hero = document.getElementById('hero');
+  const observer = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { ring.classList.add('in-hero'); } else { ring.classList.remove('in-hero'); } }); }, { threshold: 0.1 });
+  observer.observe(hero);
+})();
+
+// ── PARTICLES ──
+(function() {
+  const canvas = document.getElementById('particlesCanvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+  function resize() { W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; }
+  resize(); window.addEventListener('resize', resize);
+  for (let i = 0; i < 60; i++) { particles.push({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.5 + 0.5, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3, a: Math.random() * 0.5 + 0.2 }); }
+  function draw() { ctx.clearRect(0, 0, W, H); particles.forEach(p => { p.x += p.vx; p.y += p.vy; if (p.x < 0) p.x = W; if (p.x > W) p.x = 0; if (p.y < 0) p.y = H; if (p.y > H) p.y = 0; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(150,220,180,${p.a})`; ctx.fill(); }); requestAnimationFrame(draw); }
+  draw();
+})();
+
+// ── REVEAL ──
+(function() {
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } }); }, { threshold: 0.1 });
+  els.forEach(el => io.observe(el));
+})();
+</script>
+</body>
+</html>
