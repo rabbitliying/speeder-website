@@ -481,7 +481,7 @@ section { padding: 100px 60px; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 40px;
+  gap: 80px;
 }
 .security-header-text { flex: 1; }
 .security-visual-wrap {
@@ -491,15 +491,15 @@ section { padding: 100px 60px; }
 }
 .security-visual {
   position: relative;
-  width: 120px;
-  height: 120px;
+  width: 180px;
+  height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .shield-core {
-  width: 80px;
-  height: 80px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(106,156,115,0.25) 0%, rgba(93,109,86,0.1) 60%, transparent 100%);
   border: 1.5px solid rgba(168,212,212,0.3);
@@ -508,11 +508,11 @@ section { padding: 100px 60px; }
   justify-content: center;
   position: relative;
   z-index: 2;
-  box-shadow: 0 0 20px rgba(168,212,212,0.15), inset 0 0 15px rgba(168,212,212,0.05);
+  box-shadow: 0 0 30px rgba(168,212,212,0.15), inset 0 0 20px rgba(168,212,212,0.05);
 }
 .shield-icon {
-  font-size: 36px;
-  filter: drop-shadow(0 0 8px rgba(168,212,212,0.6));
+  font-size: 56px;
+  filter: drop-shadow(0 0 12px rgba(168,212,212,0.6));
 }
 .shield-ring {
   position: absolute;
@@ -520,9 +520,9 @@ section { padding: 100px 60px; }
   border: 1px solid rgba(168,212,212,0.2);
   animation: shieldRingPulse 3s ease-out infinite;
 }
-.shield-ring-1 { width: 100px; height: 100px; animation-delay: 0s; }
-.shield-ring-2 { width: 120px; height: 120px; animation-delay: 1s; border-color: rgba(168,212,212,0.12); }
-.shield-ring-3 { width: 140px; height: 140px; animation-delay: 2s; border-color: rgba(168,212,212,0.07); }
+.shield-ring-1 { width: 150px; height: 150px; animation-delay: 0s; }
+.shield-ring-2 { width: 180px; height: 180px; animation-delay: 1s; border-color: rgba(168,212,212,0.12); }
+.shield-ring-3 { width: 210px; height: 210px; animation-delay: 2s; border-color: rgba(168,212,212,0.07); }
 @keyframes shieldRingPulse {
   0% { transform: scale(0.8); opacity: 0.8; }
   100% { transform: scale(1.15); opacity: 0; }
