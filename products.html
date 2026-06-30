@@ -112,6 +112,83 @@ header {
 }
 .hero-particles { position: absolute; inset: 0; pointer-events: none; }
 .hero-bg { position: absolute; inset: 0; background: url('img_products_hero.png') center center / cover no-repeat; opacity: 0.4; }
+
+/* Dark overlay for text readability */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(to bottom, rgba(4,32,24,0.4) 0%, transparent 25%, rgba(4,32,24,0.6) 70%, rgba(4,32,24,0.95) 100%),
+    radial-gradient(ellipse at 50% 30%, rgba(4,32,24,0.2) 0%, transparent 60%);
+  z-index: 2;
+}
+
+/* Circuit grid pattern */
+.hero-circuit-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.12;
+  background-image: 
+    linear-gradient(rgba(94,153,153,0.6) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(94,153,153,0.6) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Data flow light trails */
+.hero-data-flow {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+}
+.data-stream {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #A8D4D4, #5E9999, transparent);
+  animation: streamFlow linear infinite;
+  opacity: 0.7;
+  border-radius: 2px;
+}
+@keyframes streamFlow {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(calc(100vw + 100%)); }
+}
+.data-stream:nth-child(1) { top: 20%; width: 30%; animation-duration: 6s; animation-delay: 0s; }
+.data-stream:nth-child(2) { top: 35%; width: 45%; animation-duration: 8s; animation-delay: 2s; }
+.data-stream:nth-child(3) { top: 50%; width: 25%; animation-duration: 5s; animation-delay: 1s; }
+.data-stream:nth-child(4) { top: 65%; width: 55%; animation-duration: 7s; animation-delay: 3s; }
+.data-stream:nth-child(5) { top: 78%; width: 35%; animation-duration: 9s; animation-delay: 0.5s; }
+
+/* Node pulse points on grid intersections */
+.hero-nodes {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+.node {
+  position: absolute;
+  width: 6px; height: 6px;
+  background: #A8D4D4;
+  border-radius: 50%;
+  animation: nodeGlow 2s ease-in-out infinite;
+  box-shadow: 0 0 8px #A8D4D4;
+}
+@keyframes nodeGlow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+.node:nth-child(1) { top: 20%; left: 15%; animation-delay: 0s; }
+.node:nth-child(2) { top: 35%; left: 60%; animation-delay: 0.4s; }
+.node:nth-child(3) { top: 50%; left: 30%; animation-delay: 0.8s; }
+.node:nth-child(4) { top: 65%; left: 75%; animation-delay: 1.2s; }
+.node:nth-child(5) { top: 78%; left: 45%; animation-delay: 1.6s; }
+.node:nth-child(6) { top: 25%; left: 85%; animation-delay: 0.2s; }
+.node:nth-child(7) { top: 55%; left: 10%; animation-delay: 1.0s; }
+.node:nth-child(8) { top: 70%; left: 55%; animation-delay: 0.6s; }
 canvas.particles-canvas { position: absolute; inset: 0; }
 .hero-content { position: relative; z-index: 2; text-align: center; max-width: 900px; padding: 0 40px; }
 .hero-eyebrow {
@@ -307,6 +384,25 @@ footer a:hover { color: var(--light); }
 <!-- HERO -->
 <section id="hero">
   <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-circuit-grid"></div>
+  <div class="hero-data-flow">
+    <div class="data-stream"></div>
+    <div class="data-stream"></div>
+    <div class="data-stream"></div>
+    <div class="data-stream"></div>
+    <div class="data-stream"></div>
+  </div>
+  <div class="hero-nodes">
+    <div class="node"></div>
+    <div class="node"></div>
+    <div class="node"></div>
+    <div class="node"></div>
+    <div class="node"></div>
+    <div class="node"></div>
+    <div class="node"></div>
+    <div class="node"></div>
+  </div>
   <div class="hero-particles">
     <canvas class="particles-canvas" id="particlesCanvas"></canvas>
   </div>
