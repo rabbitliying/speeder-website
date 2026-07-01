@@ -605,15 +605,21 @@ section { padding: 100px 60px; }
 .case-badge {
   display: inline-block;
   font-size: 11px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'JetBrains Mono', sans-serif;
   background: rgba(106,156,115,0.2);
   color: var(--accent);
   padding: 4px 12px;
   border-radius: 20px;
   margin-bottom: 14px;
 }
+.case-badge.mfg     { background: rgba(93,109,86,0.25); color: var(--light); }
+.case-badge.tech    { background: rgba(166,181,143,0.2); color: #c8d89a; }
+.case-badge.retail  { background: rgba(100,149,237,0.15); color: #6495ed; }
+.case-badge.energy  { background: rgba(139,90,180,0.2); color: #9370db; }
+.case-badge.edu     { background: rgba(200,120,80,0.15); color: #e07850; }
 .case-card h3 { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 10px; line-height: 1.4; }
 .case-card p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 18px; }
+.case-card .case-sub { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: -8px; margin-bottom: 12px; font-family: 'JetBrains Mono', monospace; }
 .case-metrics { display: flex; gap: 14px; border-top: 1px solid rgba(106,156,115,0.15); padding-top: 16px; }
 .case-metric { text-align: center; flex: 1; }
 .case-metric-num { font-family: 'JetBrains Mono', monospace; font-size: 17px; font-weight: 700; color: #fff; }
@@ -887,37 +893,73 @@ footer {
   <div class="cases-header">
     <p class="section-label">04 · 客户案例</p>
     <h2 class="section-title">行业客户案例</h2>
-    <p class="section-sub">覆盖金融、制造、医疗、跨国企业</p>
+    <p class="section-sub">覆盖半导体、能源、高校、跨国企业、日企、央企等真实实践</p>
   </div>
   <div class="cases-grid">
     <div class="case-card">
-      <span class="case-badge">金融行业</span>
-      <h3>某头部券商 · 全网安全升级</h3>
-      <p>部署UniSASE安全栈，实现全国200+营业部零信任接入，180天日志合规留存，客户满意度100%。</p>
+      <span class="case-badge tech">半导体制造</span>
+      <h3>某半导体制造商台湾上市公司</h3>
+      <p class="case-sub">苏州 · 台北</p>
+      <p>客户苏州与台北两地需稳定跨境组网，传统链路难以保障跨境访问体验。采用UniGate双机主备部署，将SIP语音业务识别为高优先级流量，保障通话质量。</p>
       <div class="case-metrics">
-        <div class="case-metric"><div class="case-metric-num">200+</div><div class="case-metric-label">营业部</div></div>
-        <div class="case-metric"><div class="case-metric-num">180天</div><div class="case-metric-label">日志留存</div></div>
-        <div class="case-metric"><div class="case-metric-num">&lt;1ms</div><div class="case-metric-label">处理延迟</div></div>
+        <div class="case-metric"><div class="case-metric-num">跨境稳</div><div class="case-metric-label">苏州台北质量稳定</div></div>
+        <div class="case-metric"><div class="case-metric-num">双机</div><div class="case-metric-label">主备保障业务连续</div></div>
+        <div class="case-metric"><div class="case-metric-num">SIP</div><div class="case-metric-label">语音优先保障</div></div>
       </div>
     </div>
     <div class="case-card">
-      <span class="case-badge">先进制造</span>
-      <h3>某新能源车企 · 研发网微隔离</h3>
-      <p>部署UniAuth + UniCtrl，实现研发网与办公网微分段，核心数据零泄露，攻击横向移动阻截率100%。</p>
+      <span class="case-badge energy">能源储运</span>
+      <h3>某大型能源储运工程建设企业</h3>
+      <p class="case-sub">互联网安全防护</p>
+      <p>客户缺乏威胁情报防护，C2通信、钓鱼站点等攻击易绕过。部署UniGate威胁情报网关，内外双向清洗，覆盖12大类威胁情报，精准识别并实时阻断威胁连接。</p>
       <div class="case-metrics">
-        <div class="case-metric"><div class="case-metric-num">100%</div><div class="case-metric-label">阻截率</div></div>
-        <div class="case-metric"><div class="case-metric-num">0</div><div class="case-metric-label">数据泄露</div></div>
-        <div class="case-metric"><div class="case-metric-num">50+</div><div class="case-metric-label">分支机构</div></div>
+        <div class="case-metric"><div class="case-metric-num">12类</div><div class="case-metric-label">威胁情报覆盖</div></div>
+        <div class="case-metric"><div class="case-metric-num">降噪</div><div class="case-metric-label">告警压力降低</div></div>
+        <div class="case-metric"><div class="case-metric-num">可查</div><div class="case-metric-label">感染主机快速定位</div></div>
       </div>
     </div>
     <div class="case-card">
-      <span class="case-badge">跨国企业</span>
-      <h3>某外资制造 · 全球骨干安全接入</h3>
-      <p>在中国区部署UniPOP + UniGate，就近接入全球骨干网，威胁阻截率99.7%，合规审计全程可视化。</p>
+      <span class="case-badge edu">高校</span>
+      <h3>某高校</h3>
+      <p class="case-sub">全球骨干优化 · 跨境学术访问加速</p>
+      <p>学校依赖国际互联网访问学术资源，美国、香港、新加坡三条国际线路需按域名分流。UniGate统一接入骨干网，按域名智能调度至对应地区出口。</p>
       <div class="case-metrics">
-        <div class="case-metric"><div class="case-metric-num">99.7%</div><div class="case-metric-label">阻截率</div></div>
-        <div class="case-metric"><div class="case-metric-num">150+</div><div class="case-metric-label">POP节点</div></div>
-        <div class="case-metric"><div class="case-metric-num">30%</div><div class="case-metric-label">成本节省</div></div>
+        <div class="case-metric"><div class="case-metric-num">&lt;150ms</div><div class="case-metric-label">美国访问延迟</div></div>
+        <div class="case-metric"><div class="case-metric-num">&lt;60ms</div><div class="case-metric-label">香港访问延迟</div></div>
+        <div class="case-metric"><div class="case-metric-num">&lt;90ms</div><div class="case-metric-label">新加坡访问延迟</div></div>
+      </div>
+    </div>
+    <div class="case-card">
+      <span class="case-badge mfg">跨国企业</span>
+      <h3>某跨国公司北京分支</h3>
+      <p class="case-sub">IPSec隧道加速 · SaaS优化 · 出口安全管控</p>
+      <p>客户需替换原有专线保障与美国总部的IPSec隧道质量，互联网出口仅30M。骨干网优化IPSec隧道， DPI行为管控保障关键流量优先级，SaaS调度至更优骨干线路。</p>
+      <div class="case-metrics">
+        <div class="case-metric"><div class="case-metric-num">专线替代</div><div class="case-metric-label">成本降低</div></div>
+        <div class="case-metric"><div class="case-metric-num">30M</div><div class="case-metric-label">出口有序管理</div></div>
+        <div class="case-metric"><div class="case-metric-num">安全统一</div><div class="case-metric-label">组网与安全协同</div></div>
+      </div>
+    </div>
+    <div class="case-card">
+      <span class="case-badge mfg">日企</span>
+      <h3>某日企大陆子公司</h3>
+      <p class="case-sub">多地组网 · 双云数据中心互联 · 工厂威胁情报防护</p>
+      <p>客户联通云重庆一区、阿里云上海与常熟/中山/长沙三座工厂需统一组网，两个云数据中心均承载OA应用服务器，工厂需双中心访问路径保障业务连续，三工厂同步开启威胁情报防护服务。</p>
+      <div class="case-metrics">
+        <div class="case-metric"><div class="case-metric-num">双云</div><div class="case-metric-label">联通云/阿里云互联</div></div>
+        <div class="case-metric"><div class="case-metric-num">3工厂</div><div class="case-metric-label">统一威胁情报防护</div></div>
+        <div class="case-metric"><div class="case-metric-num">双路径</div><div class="case-metric-label">OA访问业务连续</div></div>
+      </div>
+    </div>
+    <div class="case-card">
+      <span class="case-badge energy">央企</span>
+      <h3>某建筑行业央企研究院</h3>
+      <p class="case-sub">透明桥接部署 · 双向威胁清洗 · 日志溯源</p>
+      <p>客户数千台主机分属不同部门，核心生产网不可中断，无法接受复杂网络改造。在防火墙与交换机之间以双机透明桥接模式串接UniGate网关，外对内阻断恶意IP/域名，内对外封禁感染主机与C2服务器通信，依托150万+威胁情报库实时拦截。</p>
+      <div class="case-metrics">
+        <div class="case-metric"><div class="case-metric-num">零改造</div><div class="case-metric-label">透明桥接部署</div></div>
+        <div class="case-metric"><div class="case-metric-num">150万+</div><div class="case-metric-label">威胁情报库覆盖</div></div>
+        <div class="case-metric"><div class="case-metric-num">秒级</div><div class="case-metric-label">内网感染源溯源</div></div>
       </div>
     </div>
   </div>

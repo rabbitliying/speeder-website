@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -158,49 +158,46 @@ header {
   justify-content: space-between;
   padding: 0 48px;
   height: 64px;
-  background: rgba(4,32,24,0.97);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(93,109,86,0.12);
+  background: rgba(4,32,24,0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
 }
-.logo-wrap { display: flex; align-items: center; height: 64px; }
-.logo-img { height: 100px; width: auto; }
-.nav-links {
-  display: flex;
-  gap: 4px;
-  list-style: none;
-  align-items: center;
-}
+.logo-wrap { display: flex; align-items: center; height: 64px; padding-top: 4px; }
+.logo-img { height: 100px; width: auto; display: block; }
+.nav-links { display: flex; gap: 2px; list-style: none; align-items: center; margin: 0; padding: 0; }
+.nav-links > li { position: relative; }
 .nav-links a {
-  font-size: 12px;
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 400;
-  color: rgba(150,186,150,0.5);
-  text-decoration: none;
-  padding: 6px 14px;
-  border-radius: 8px;
-  transition: all 0.25s;
-  white-space: nowrap;
+  font-size: 13px; font-family: 'Space Grotesk', sans-serif; font-weight: 500;
+  color: rgba(150,186,150,0.55); text-decoration: none; padding: 8px 16px;
+  border-radius: 8px; transition: color 0.2s, background 0.2s;
+  position: relative; letter-spacing: 0.3px; white-space: nowrap;
 }
-.nav-links a:hover { color: var(--light); background: rgba(93,109,86,0.12); }
-.nav-btn-outline {
-  background: rgba(93,109,86,0.1) !important;
-  border: 1px solid rgba(150,186,150,0.15) !important;
-  color: var(--light) !important;
+.nav-links a::after {
+  content: ''; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
+  width: 0; height: 1.5px; background: var(--highlight); border-radius: 1px;
+  transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.nav-btn-outline:hover { background: rgba(93,109,86,0.2) !important; }
-.nav-cta {
-  font-size: 12px;
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 500;
-  color: var(--bg) !important;
-  background: var(--primary);
-  padding: 8px 20px;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: background 0.3s, transform 0.2s;
+.nav-links a:hover { color: rgba(216,232,220,0.9); background: rgba(93,109,86,0.1); }
+.nav-links a:hover::after { width: calc(100% - 32px); }
+.nav-links a.active { color: var(--highlight) !important; }
+.nav-links a.active::after { width: calc(100% - 32px); }
+.nav-arrow { display: inline-block; font-size: 10px; margin-left: 5px; transition: transform 0.25s, opacity 0.2s; opacity: 0.5; vertical-align: middle; }
+.nav-has-sub:hover .nav-arrow { transform: rotate(180deg); opacity: 0.8; }
+.nav-sub {
+  position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  min-width: 180px; background: rgba(4,32,24,0.97); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(93,109,86,0.18); border-radius: 14px; padding: 10px 8px;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.25s, transform 0.25s, visibility 0.25s;
+  transform: translateX(-50%) translateY(-8px);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.55); z-index: 100; list-style: none;
 }
-.nav-cta:hover { background: var(--secondary); transform: scale(1.02); }
-
+.nav-has-sub:hover .nav-sub { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+.nav-sub a { display: flex; align-items: center; gap: 8px; padding: 10px 16px !important; font-size: 12.5px !important; border-radius: 8px !important; color: rgba(150,186,150,0.6) !important; transition: color 0.18s, background 0.18s; }
+.nav-sub a::after { display: none !important; }
+.nav-sub a:hover { color: var(--light) !important; background: rgba(93,109,86,0.15) !important; }
+.nav-cta { font-size: 12px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: 0.5px; color: #fff !important; background: var(--primary); padding: 8px 20px; border-radius: 20px; text-decoration: none; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; box-shadow: 0 2px 12px rgba(93,109,86,0.25); }
+.nav-cta:hover { background: var(--secondary); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(93,109,86,0.4); }
 /* ── 下拉子目录 ── */
 .nav-has-sub { position: relative; }
 .nav-arrow { font-size: 9px; margin-left: 4px; transition: transform 0.2s; }
@@ -938,10 +935,10 @@ body { animation: page-fade-in 0.8s ease forwards; }
 ════════════════════════════════════════ -->
 <header id="mainNav">
   <div class="logo-wrap">
-    <a href="index.html"><img src="logo_new.png" class="logo-img" alt="SPEEDER NETWORKS"></a>
+    <a href="speeder_v2_combined.html"><img src="logo_new.png" class="logo-img" alt="SPEEDER NETWORKS"></a>
   </div>
   <ul class="nav-links">
-    <li class="nav-has-sub"><a href="index.html">首页</a></li>
+    <li class="nav-has-sub"><a href="speeder_v2_combined.html">首页</a></li>
     <li class="nav-has-sub">
       <a href="sdwan.html">线路融合池 <span class="nav-arrow">▼</span></a>
       <ul class="nav-sub">
@@ -969,7 +966,12 @@ body { animation: page-fade-in 0.8s ease forwards; }
         <li><a href="ai.html#ai-oms">数字化服务</a></li>
       </ul>
     </li>
-    <li class="nav-has-sub"><a href="speeder_v2_combined.html#products">代理产品</a></li>
+    <li class="nav-has-sub"><a href="products.html">代理产品 <span class="nav-arrow">▼</span></a>
+      <ul class="nav-sub">
+        <li><a href="products.html#products-overview">产品概览</a></li>
+        <li><a href="products.html#products-features">核心优势</a></li>
+        <li><a href="products.html#contact">咨询报价</a></li>
+      </ul>
     <li class="nav-has-sub"><a href="about.html" class="nav-active">关于我们</a></li>
     <li><a href="#contact" class="nav-cta">联系我们</a></li>
   </ul>

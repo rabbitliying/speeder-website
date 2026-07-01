@@ -318,7 +318,7 @@ section {
   pointer-events: none;
   overflow: hidden;
 }
-.sdwan-hero-light-flow svg {
+.sdwan-hero-light-flow canvas {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -612,7 +612,7 @@ section {
   font-weight: 700;
   color: var(--light);
 }
-.module-stat-badge-num em { font-style: normal; color: var(--primary); }
+.module-stat-badge-num em { font-style: normal; color: var(--light); }
 .module-stat-badge-label {
   font-size: 11px;
   color: var(--text-secondary);
@@ -796,6 +796,7 @@ section {
 .badge-green { background: rgba(93,109,86,0.2); color: var(--secondary); }
 .badge-gold  { background: rgba(166,181,143,0.2); color: var(--highlight); }
 .badge-blue  { background: rgba(100,149,237,0.15); color: #6495ed; }
+.badge-purple { background: rgba(139,90,180,0.15); color: #9370db; }
 
 /* ══════════════════════════════════════════
    SD-WAN CASES — 3 Customer Cases
@@ -861,6 +862,8 @@ section {
 .case-card-badge.mfg { background: rgba(93,109,86,0.2); color: var(--secondary); }
 .case-card-badge.tech { background: rgba(166,181,143,0.2); color: var(--highlight); }
 .case-card-badge.retail { background: rgba(100,149,237,0.15); color: #6495ed; }
+.case-card-badge.energy { background: rgba(139,90,180,0.15); color: #9370db; }
+.case-card-badge.edu { background: rgba(200,120,80,0.15); color: #e07850; }
 .case-card h3 {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 18px;
@@ -1100,52 +1103,9 @@ body { animation: page-fade-in 0.8s ease forwards; }
   <div class="sdwan-hero-bg"></div>
   <!-- Layer 2: overlay -->
   <div class="sdwan-hero-overlay"></div>
-  <!-- Layer 3: light flow SVG -->
+  <!-- Layer 3: 电路脉冲 Canvas -->
   <div class="sdwan-hero-light-flow">
-    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="lg1" x1="0%" y1="100%" x2="100%" y2="0%">
-          <stop offset="0%" style="stop-color:#5D6D56;stop-opacity:0"/>
-          <stop offset="40%" style="stop-color:#96b896;stop-opacity:0.9"/>
-          <stop offset="100%" style="stop-color:#A6B58F;stop-opacity:0.1"/>
-        </linearGradient>
-        <filter id="sglow">
-          <feGaussianBlur stdDeviation="4" result="cb"/>
-          <feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-        <filter id="strongGlow">
-          <feGaussianBlur stdDeviation="6" result="cb"/>
-          <feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
-      <path d="M-100,920 Q400,500 720,600 T1200,300 T1600,50" fill="none" stroke="url(#lg1)" stroke-width="3.5" stroke-dasharray="20,6" opacity="0.8" filter="url(#strongGlow)">
-        <animate attributeName="stroke-dashoffset" from="0" to="-156" dur="1.4s" repeatCount="indefinite"/>
-      </path>
-      <path d="M-50,880 Q350,520 650,620 T1100,320 T1550,80" fill="none" stroke="url(#lg1)" stroke-width="2.8" stroke-dasharray="16,8" opacity="0.65" filter="url(#strongGlow)">
-        <animate attributeName="stroke-dashoffset" from="0" to="-144" dur="1.7s" repeatCount="indefinite"/>
-      </path>
-      <path d="M150,960 Q480,580 820,700 T1450,220 T1780,-80" fill="none" stroke="url(#lg1)" stroke-width="2.2" stroke-dasharray="18,7" opacity="0.6" filter="url(#strongGlow)">
-        <animate attributeName="stroke-dashoffset" from="0" to="-150" dur="2s" repeatCount="indefinite"/>
-      </path>
-      <path d="M-80,910 Q380,480 720,580 T1180,280 T1580,20" fill="none" stroke="#b8ccb4" stroke-width="1.2" stroke-dasharray="6,14" opacity="1" filter="url(#strongGlow)">
-        <animate attributeName="stroke-dashoffset" from="0" to="-80" dur="0.9s" repeatCount="indefinite"/>
-      </path>
-      <circle cx="360" r="5" fill="#96b896" filter="url(#strongGlow)">
-        <animate attributeName="cy" values="920;500;50" dur="5s" repeatCount="indefinite"/>
-        <animate attributeName="opacity" values="0;1;1;0" dur="5s" repeatCount="indefinite"/>
-        <animate attributeName="r" values="4;6;4" dur="5s" repeatCount="indefinite"/>
-      </circle>
-      <circle cx="720" r="6" fill="#b8ccb4" filter="url(#strongGlow)">
-        <animate attributeName="cy" values="900;550;120" dur="5.5s" repeatCount="indefinite" begin="1.2s"/>
-        <animate attributeName="opacity" values="0;1;1;0" dur="5.5s" repeatCount="indefinite" begin="1.2s"/>
-        <animate attributeName="r" values="5;7;5" dur="5.5s" repeatCount="indefinite" begin="1.2s"/>
-      </circle>
-      <circle cx="1100" r="5" fill="#7a9a78" filter="url(#strongGlow)">
-        <animate attributeName="cy" values="850;400;30" dur="5s" repeatCount="indefinite" begin="1.8s"/>
-        <animate attributeName="opacity" values="0;1;1;0" dur="5s" repeatCount="indefinite" begin="1.8s"/>
-        <animate attributeName="r" values="4;6;4" dur="5s" repeatCount="indefinite" begin="1.8s"/>
-      </circle>
-    </svg>
+    <canvas id="circuitCanvas"></canvas>
   </div>
   <!-- Layer 4: particles -->
   <div class="sdwan-hero-particles" id="sdwanParticles"></div>
@@ -1156,23 +1116,19 @@ body { animation: page-fade-in 0.8s ease forwards; }
     <p class="sdwan-hero-eyebrow">// 连接无忧，守护无虞</p>
     <h1 class="sdwan-hero-title">SD-WAN<span class="accent">线路融合池</span></h1>
     <p class="sdwan-hero-tagline">连接无忧，守护无虞 · 600+ POP全球节点</p>
-    <p class="sdwan-hero-sub">节省30%成本，当天开通部署 — 让每一次连接，都恰到好处</p>
+    <p class="sdwan-hero-sub">提高线路 ROI，订阅式服务 — 无需一次投入大量成本，当天开通部署</p>
     <div class="sdwan-hero-stats">
       <div class="sdwan-hero-stat">
-        <div class="sdwan-hero-stat-num">600<em style="font-style:normal;color:var(--primary);">+</em></div>
+        <div class="sdwan-hero-stat-num">600<em style="font-style:normal;color:var(--light);">+</em></div>
         <div class="sdwan-hero-stat-label">全球POP节点</div>
       </div>
       <div class="sdwan-hero-stat">
-        <div class="sdwan-hero-stat-num">38</div>
+        <div class="sdwan-hero-stat-num">38<em>+</em></div>
         <div class="sdwan-hero-stat-label">城市骨干网覆盖</div>
       </div>
       <div class="sdwan-hero-stat">
         <div class="sdwan-hero-stat-num">当天</div>
         <div class="sdwan-hero-stat-label">开通部署</div>
-      </div>
-      <div class="sdwan-hero-stat">
-        <div class="sdwan-hero-stat-num">-30<em style="font-style:normal;color:var(--primary);">%</em></div>
-        <div class="sdwan-hero-stat-label">成本节省</div>
       </div>
     </div>
     <div class="sdwan-hero-actions">
@@ -1209,17 +1165,16 @@ body { animation: page-fade-in 0.8s ease forwards; }
       <p class="module-title-en reveal reveal-delay-1">SD-WAN LINE CONVERGENCE POOL</p>
       <p class="module-tagline reveal reveal-delay-2">让每一次连接，都恰到好处</p>
       <ul class="module-points reveal reveal-delay-3">
-        <li>全球<strong>600+ POP节点</strong>，38城市骨干网覆盖</li>
+        <li>全球<strong>600+ POP节点</strong>，38+城市骨干网覆盖</li>
         <li><strong>当天开通</strong>，传统专线需1-6个月</li>
-        <li>节省<strong>30%成本</strong>，无需额外国有资产</li>
+        <li>提高线路 ROI，订阅式服务，<strong>无需一次投入大量成本</strong></li>
         <li>多路径保护，<strong>毫秒级切换</strong>，故障无感知</li>
         <li>国产密码 + 等保合规，安全可控</li>
       </ul>
       <div class="module-stats-row reveal reveal-delay-4">
-        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>600+</em></div><div class="module-stat-badge-label">POP节点</div></div>
-        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>30</em>省</div><div class="module-stat-badge-label">覆盖</div></div>
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>600</em>+</div><div class="module-stat-badge-label">POP节点</div></div>
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>30</em>+省</div><div class="module-stat-badge-label">覆盖</div></div>
         <div class="module-stat-badge"><div class="module-stat-badge-num"><em>当天</em></div><div class="module-stat-badge-label">开通</div></div>
-        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>-30</em>%</div><div class="module-stat-badge-label">成本</div></div>
       </div>
     </div>
   </div>
@@ -1281,40 +1236,54 @@ body { animation: page-fade-in 0.8s ease forwards; }
   <div class="hardware-section-title reveal">
     <p class="section-label">HARDWARE MODELS</p>
     <h2>硬件型号</h2>
-    <p>三款硬件型号，覆盖从分支机构到大型企业全场景</p>
+    <p>完整硬件产品线，满足各类办公场景需求</p>
   </div>
   <div class="hardware-table-wrap reveal">
     <table class="hardware-table">
       <thead>
         <tr>
+          <th>产品分类</th>
           <th>型号</th>
-          <th>端口配置</th>
-          <th>性能</th>
-          <th>适用场景</th>
-          <th>管理方式</th>
+          <th>功能特点</th>
+          <th>LightWAN最大带宽（大包）</th>
+          <th>LightWAN业务场景带宽（混合包）</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td class="td-model">LW1000-5P</td>
-          <td class="td-mono">5×GE (PoE) + 1×WAN</td>
-          <td class="td-mono">吞吐量: 500Mbps<br>并发会话: 10万</td>
-          <td>小型办公室 / 分支机构</td>
-          <td><span class="badge badge-green">即插即用</span></td>
+          <td><span class="badge badge-green">微型办公</span></td>
+          <td class="td-model">LW1000系列</td>
+          <td>4G/Wi-Fi</td>
+          <td class="td-mono">20-100Mbps</td>
+          <td class="td-mono">10-50Mbps</td>
         </tr>
         <tr>
-          <td class="td-model">LW2000-8P</td>
-          <td class="td-mono">8×GE (PoE+) + 2×WAN</td>
-          <td class="td-mono">吞吐量: 1Gbps<br>并发会话: 30万</td>
-          <td>中型分支 / 零售连锁</td>
-          <td><span class="badge badge-green">即插即用</span> <span class="badge badge-gold">云管理</span></td>
+          <td><span class="badge badge-gold">小型办公</span></td>
+          <td class="td-model">LW2000 / LWG2000系列</td>
+          <td>4G/5G/Wi-Fi</td>
+          <td class="td-mono">50-500Mbps</td>
+          <td class="td-mono">30-200Mbps</td>
         </tr>
         <tr>
-          <td class="td-model">LW5000-24P</td>
-          <td class="td-mono">24×GE + 4×10GE + 2×WAN</td>
-          <td class="td-mono">吞吐量: 5Gbps<br>并发会话: 100万</td>
-          <td>总部 / 大型企业 / 数据中心</td>
-          <td><span class="badge badge-gold">云管理</span> <span class="badge badge-blue">本地Console</span></td>
+          <td><span class="badge badge-blue">标准1U</span></td>
+          <td class="td-model">LW3000 / LWG3000系列</td>
+          <td>Bypass/SFP</td>
+          <td class="td-mono">300Mbps-2.5Gbps</td>
+          <td class="td-mono">200Mbps-1Gbps</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-purple">标准2U</span></td>
+          <td class="td-model">LW7000系列</td>
+          <td>Bypass/SFP</td>
+          <td class="td-mono">500Mbps-2Gbps</td>
+          <td class="td-mono">300Mbps-1.5Gbps</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-purple">标准2U</span></td>
+          <td class="td-model">LW8000系列</td>
+          <td>Bypass/SFP</td>
+          <td class="td-mono">3-10Gbps</td>
+          <td class="td-mono">1.5-5Gbps</td>
         </tr>
       </tbody>
     </table>
@@ -1328,69 +1297,132 @@ body { animation: page-fade-in 0.8s ease forwards; }
   <div class="cases-section-title reveal">
     <p class="section-label">CUSTOMER CASES</p>
     <h2>客户案例</h2>
-    <p>来自不同行业的客户实践，验证SD-WAN线路融合池的真实价值</p>
+    <p>6大行业客户的真实实践，覆盖半导体、能源、高校、跨国企业等场景</p>
   </div>
   <div class="cases-grid">
     <!-- Case 1 -->
     <div class="case-card reveal">
-      <span class="case-card-badge mfg">制造业 · 外资</span>
-      <h3>欧洲机械制造商中国工厂</h3>
-      <p class="case-card-subtitle">苏州 · 2024</p>
-      <p>客户在中国5个城市设有工厂和办公室，原采用MPLS专线连接各国，上线周期长（月级），成本高。采用SD-WAN后，所有节点当天开通，跨域视频会议延迟从120ms降至30ms，线路成本下降42%。</p>
+      <span class="case-card-badge tech">半导体制造</span>
+      <h3>某半导体制造商台湾上市公司</h3>
+      <p class="case-card-subtitle">苏州 · 台北</p>
+      <p>客户苏州与台北两地需稳定跨境组网，传统链路难以保障跨境访问体验。采用UniGate双机主备部署，将SIP语音业务识别为高优先级流量，保障通话质量。</p>
       <div class="case-card-metrics">
         <div class="case-metric">
-          <div class="case-metric-num">-42%</div>
-          <div class="case-metric-label">成本节省</div>
+          <div class="case-metric-num">跨境稳</div>
+          <div class="case-metric-label">苏州台北质量稳定</div>
         </div>
         <div class="case-metric">
-          <div class="case-metric-num">当天</div>
-          <div class="case-metric-label">开通部署</div>
+          <div class="case-metric-num">双机</div>
+          <div class="case-metric-label">主备保障业务连续</div>
         </div>
         <div class="case-metric">
-          <div class="case-metric-num">5城市</div>
-          <div class="case-metric-label">覆盖</div>
+          <div class="case-metric-num">SIP</div>
+          <div class="case-metric-label">语音优先保障</div>
         </div>
       </div>
     </div>
     <!-- Case 2 -->
     <div class="case-card reveal reveal-delay-1">
-      <span class="case-card-badge tech">科技企业 · 中资出海</span>
-      <h3>某新能源科技企业出海东南亚</h3>
-      <p class="case-card-subtitle">东南亚 · 2025</p>
-      <p>客户业务扩展至东南亚6国，需快速建立跨国网络。原方案专线开通需3-6个月，SD-WAN线路融合池覆盖当地POP节点后，一周内实现6国网络互通，配合国密加密满足数据合规要求。</p>
+      <span class="case-card-badge energy">能源储运</span>
+      <h3>某大型能源储运工程建设企业</h3>
+      <p class="case-card-subtitle">互联网安全防护</p>
+      <p>客户缺乏威胁情报防护，C2通信、钓鱼站点等攻击易绕过。部署UniGate威胁情报网关，内外双向清洗，覆盖12大类威胁情报，精准识别并实时阻断威胁连接。</p>
       <div class="case-card-metrics">
         <div class="case-metric">
-          <div class="case-metric-num">1周</div>
-          <div class="case-metric-label">完成部署</div>
+          <div class="case-metric-num">12类</div>
+          <div class="case-metric-label">威胁情报覆盖</div>
         </div>
         <div class="case-metric">
-          <div class="case-metric-num">6国</div>
-          <div class="case-metric-label">网络互通</div>
+          <div class="case-metric-num">降噪</div>
+          <div class="case-metric-label">告警压力降低</div>
         </div>
         <div class="case-metric">
-          <div class="case-metric-num">-38%</div>
-          <div class="case-metric-label">成本节省</div>
+          <div class="case-metric-num">可查</div>
+          <div class="case-metric-label">感染主机快速定位</div>
         </div>
       </div>
     </div>
     <!-- Case 3 -->
     <div class="case-card reveal reveal-delay-2">
-      <span class="case-card-badge retail">零售连锁</span>
-      <h3>某国际快消品牌中国区门店</h3>
-      <p class="case-card-subtitle">全国 · 2024</p>
-      <p>客户在全国200+门店需稳定网络连接，以支撑POS支付、会员系统和云端CRM。SD-WAN多路径保护保障支付交易零中断，门店网络可用性从99.5%提升至99.99%，IT运维工作量下降70%。</p>
+      <span class="case-card-badge edu">高校</span>
+      <h3>某高校</h3>
+      <p class="case-card-subtitle">全球骨干优化 · 跨境学术访问加速</p>
+      <p>学校依赖国际互联网访问学术资源，美国、香港、新加坡三条国际线路需按域名分流。UniGate统一接入骨干网，按域名智能调度至对应地区出口。</p>
       <div class="case-card-metrics">
         <div class="case-metric">
-          <div class="case-metric-num">200+</div>
-          <div class="case-metric-label">门店覆盖</div>
+          <div class="case-metric-num">&lt;150ms</div>
+          <div class="case-metric-label">美国访问延迟</div>
         </div>
         <div class="case-metric">
-          <div class="case-metric-num">99.99%</div>
-          <div class="case-metric-label">网络可用性</div>
+          <div class="case-metric-num">&lt;60ms</div>
+          <div class="case-metric-label">香港访问延迟</div>
         </div>
         <div class="case-metric">
-          <div class="case-metric-num">-70%</div>
-          <div class="case-metric-label">运维工作量</div>
+          <div class="case-metric-num">&lt;90ms</div>
+          <div class="case-metric-label">新加坡访问延迟</div>
+        </div>
+      </div>
+    </div>
+    <!-- Case 4 -->
+    <div class="case-card reveal reveal-delay-3">
+      <span class="case-card-badge mfg">跨国企业</span>
+      <h3>某跨国公司北京分支</h3>
+      <p class="case-card-subtitle">IPSec隧道加速 · SaaS优化 · 出口安全管控</p>
+      <p>客户需替换原有专线保障与美国总部的IPSec隧道质量，互联网出口仅30M。骨干网优化IPSec隧道， DPI行为管控保障关键流量优先级，SaaS调度至更优骨干线路。</p>
+      <div class="case-card-metrics">
+        <div class="case-metric">
+          <div class="case-metric-num">专线替代</div>
+          <div class="case-metric-label">成本降低</div>
+        </div>
+        <div class="case-metric">
+          <div class="case-metric-num">30M</div>
+          <div class="case-metric-label">出口有序管理</div>
+        </div>
+        <div class="case-metric">
+          <div class="case-metric-num">安全统一</div>
+          <div class="case-metric-label">组网与安全协同</div>
+        </div>
+      </div>
+    </div>
+    <!-- Case 5 -->
+    <div class="case-card reveal reveal-delay-3">
+      <span class="case-card-badge mfg">日企</span>
+      <h3>某日企大陆子公司</h3>
+      <p class="case-card-subtitle">多地组网 · 双云数据中心互联 · 工厂威胁情报防护</p>
+      <p>客户联通云重庆一区、阿里云上海与常熟/中山/长沙三座工厂需统一组网，两个云数据中心均承载OA应用服务器，工厂需双中心访问路径保障业务连续，三工厂同步开启威胁情报防护服务。</p>
+      <div class="case-card-metrics">
+        <div class="case-metric">
+          <div class="case-metric-num">双云</div>
+          <div class="case-metric-label">联通云/阿里云互联</div>
+        </div>
+        <div class="case-metric">
+          <div class="case-metric-num">3工厂</div>
+          <div class="case-metric-label">统一威胁情报防护</div>
+        </div>
+        <div class="case-metric">
+          <div class="case-metric-num">双路径</div>
+          <div class="case-metric-label">OA访问业务连续</div>
+        </div>
+      </div>
+    </div>
+    <!-- Case 6 -->
+    <div class="case-card reveal reveal-delay-4">
+      <span class="case-card-badge energy">央企</span>
+      <h3>某建筑行业央企研究院</h3>
+      <p class="case-card-subtitle">透明桥接部署 · 双向威胁清洗 · 日志溯源</p>
+      <p>客户数千台主机分属不同部门，核心生产网不可中断，无法接受复杂网络改造。在防火墙与交换机之间以双机透明桥接模式串接UniGate网关，外对内阻断恶意IP/域名，内对外封禁感染主机与C2服务器通信，依托150万+威胁情报库实时拦截。</p>
+      <div class="case-card-metrics">
+        <div class="case-metric">
+          <div class="case-metric-num">零改造</div>
+          <div class="case-metric-label">透明桥接部署</div>
+        </div>
+        <div class="case-metric">
+          <div class="case-metric-num">150万+</div>
+          <div class="case-metric-label">威胁情报库覆盖</div>
+        </div>
+        <div class="case-metric">
+          <div class="case-metric-num">秒级</div>
+          <div class="case-metric-label">内网感染源溯源</div>
         </div>
       </div>
     </div>
@@ -1662,6 +1694,119 @@ function initHeroParallax() {
     requestAnimationFrame(animate);
   }
   animate();
+
+  /* ── 电路脉冲 Canvas ─────────────────────────────────── */
+  (function initCircuitPulse() {
+    var canvas = document.getElementById('circuitCanvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var W, H;
+
+    function resize() {
+      var hero = document.getElementById('sdwan-hero');
+      if (!hero) { W = 0; H = 0; return; }
+      W = canvas.width = hero.offsetWidth;
+      H = canvas.height = hero.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // 网格节点
+    var COLS = 18, ROWS = 10;
+    var spacingX, spacingY;
+    var nodes = [];
+
+    function buildGrid() {
+      spacingX = W / (COLS + 1);
+      spacingY = H / (ROWS + 1);
+      nodes = [];
+      for (var r = 0; r < ROWS; r++) {
+        for (var c = 0; c < COLS; c++) {
+          nodes.push({
+            x: spacingX * (c + 1),
+            y: spacingY * (r + 1),
+            phase: Math.random() * Math.PI * 2,
+            speed: 0.3 + Math.random() * 0.4
+          });
+        }
+      }
+    }
+    buildGrid();
+    window.addEventListener('resize', buildGrid);
+
+    var t = 0;
+    var pulses = []; // {from, to, progress, speed}
+
+    function addPulse() {
+      if (nodes.length < 2) return;
+      var a = Math.floor(Math.random() * nodes.length);
+      var b;
+      do { b = Math.floor(Math.random() * nodes.length); } while (b === a);
+      var dx = nodes[a].x - nodes[b].x;
+      var dy = nodes[a].y - nodes[b].y;
+      var dist = Math.sqrt(dx * dx + dy * dy);
+      pulses.push({ from: a, to: b, progress: 0, speed: (0.3 + Math.random() * 0.5) / (dist / 200) });
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      t += 0.016;
+
+      // 节点发光 + 连接线
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i];
+        var brightness = 0.3 + 0.3 * Math.sin(t * n.speed + n.phase);
+
+        // 画连接线
+        for (var j = i + 1; j < nodes.length; j++) {
+          var n2 = nodes[j];
+          var dx = n2.x - n.x;
+          var dy = n2.y - n.y;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < spacingX * 2.5) {
+            var alpha = (1 - dist / (spacingX * 2.5)) * 0.15;
+            ctx.beginPath();
+            ctx.moveTo(n.x, n.y);
+            ctx.lineTo(n2.x, n2.y);
+            ctx.strokeStyle = 'rgba(150,186,150,' + alpha + ')';
+            ctx.lineWidth = 0.6;
+            ctx.stroke();
+          }
+        }
+
+        // 画节点
+        var grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 5);
+        grad.addColorStop(0, 'rgba(150,220,150,' + brightness + ')');
+        grad.addColorStop(1, 'rgba(150,186,150,0)');
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, 5, 0, Math.PI * 2);
+        ctx.fillStyle = grad;
+        ctx.fill();
+      }
+
+      // 脉冲前进
+      if (Math.random() < 0.04) addPulse();
+      for (var k = pulses.length - 1; k >= 0; k--) {
+        var p = pulses[k];
+        p.progress += p.speed * 0.016;
+        if (p.progress >= 1) { pulses.splice(k, 1); continue; }
+        var na = nodes[p.from];
+        var nb = nodes[p.to];
+        var px = na.x + (nb.x - na.x) * p.progress;
+        var py = na.y + (nb.y - na.y) * p.progress;
+        var pg = ctx.createRadialGradient(px, py, 0, px, py, 10);
+        pg.addColorStop(0, 'rgba(200,255,200,0.8)');
+        pg.addColorStop(1, 'rgba(150,220,150,0)');
+        ctx.beginPath();
+        ctx.arc(px, py, 10, 0, Math.PI * 2);
+        ctx.fillStyle = pg;
+        ctx.fill();
+      }
+
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
 }
 
 /* ===== REVEAL + STATS COUNTER ===== */
