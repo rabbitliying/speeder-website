@@ -805,6 +805,9 @@ section {
   background:
     radial-gradient(ellipse 70% 60% at 50% 50%, rgba(93,109,86,0.06) 0%, transparent 70%),
     var(--bg);
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
   flex-direction: column;
   justify-content: center;
   min-height: auto;
@@ -914,6 +917,14 @@ section {
   background:
     radial-gradient(ellipse 80% 60% at 50% 60%, rgba(93,109,86,0.07) 0%, transparent 70%),
     var(--bg);
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  min-height: auto;
+  padding: 100px 80px;
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
   flex-direction: column;
   justify-content: center;
   text-align: center;
