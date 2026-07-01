@@ -1062,6 +1062,10 @@ section {
   display: flex;
   justify-content: center;
   gap: 48px;
+  flex-wrap: nowrap;
+}
+.contact-info-item {
+  white-space: nowrap;
 }
 .contact-info-item {
   display: flex; align-items: center; gap: 10px;
@@ -1154,7 +1158,7 @@ body { animation: page-fade-in 0.8s ease forwards; }
   .oms-visual { height: 300px; }
   .monitoring-grid { grid-template-columns: 1fr; }
   .hero-stats { gap: 32px; }
-  .contact-info { flex-wrap: wrap; gap: 24px; }
+  .contact-info { flex-wrap: nowrap; gap: 24px; }
   footer { padding: 24px 40px; flex-direction: column; gap: 12px; text-align: center; }
 }
 @media (max-width: 768px) {
