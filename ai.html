@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -101,8 +101,8 @@ body {
 .splash.fade-out { opacity: 0; pointer-events: none; }
 
 /* 所有页面内容 - 初始隐藏，等splash结束后再显示 */
-#mainNav, #ai-overview, #ai-monitoring, #ai-capabilities, #ai-oms, #contact, footer {
-  display: none;
+#mainNav, #hero, #stats-strip, #ai-overview, #ai-monitoring, #ai-capabilities, #ai-oms, #contact, footer {
+  display: none !important;
 }
 body.page-ready #mainNav,
 body.page-ready #ai-overview,
@@ -159,46 +159,49 @@ header {
   justify-content: space-between;
   padding: 0 48px;
   height: 64px;
-  background: rgba(4,32,24,0.92);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  background: rgba(4,32,24,0.97);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(93,109,86,0.12);
 }
-.logo-wrap { display: flex; align-items: center; height: 64px; padding-top: 4px; }
-.logo-img { height: 100px; width: auto; display: block; }
-.nav-links { display: flex; gap: 2px; list-style: none; align-items: center; margin: 0; padding: 0; }
-.nav-links > li { position: relative; }
+.logo-wrap { display: flex; align-items: center; height: 64px; }
+.logo-img { height: 100px; width: auto; }
+.nav-links {
+  display: flex;
+  gap: 4px;
+  list-style: none;
+  align-items: center;
+}
 .nav-links a {
-  font-size: 12px; font-family: 'JetBrains Mono', monospace, sans-serif; font-weight: 500;
-  color: rgba(150,186,150,0.5); text-decoration: none; padding: 6px 14px;
-  border-radius: 8px; transition: color 0.2s, background 0.2s;
-  position: relative; letter-spacing: 0.3px; white-space: nowrap;
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 400;
+  color: rgba(150,186,150,0.5);
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: all 0.25s;
+  white-space: nowrap;
 }
-.nav-links a::after {
-  content: ''; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
-  width: 0; height: 1.5px; background: var(--highlight); border-radius: 1px;
-  transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+.nav-links a:hover { color: var(--light); background: rgba(93,109,86,0.12); }
+.nav-btn-outline {
+  background: rgba(93,109,86,0.1) !important;
+  border: 1px solid rgba(150,186,150,0.15) !important;
+  color: var(--light) !important;
 }
-.nav-links a:hover { color: rgba(216,232,220,0.9); background: rgba(93,109,86,0.1); }
-.nav-links a:hover::after { width: calc(100% - 32px); }
-.nav-links a.active { color: var(--highlight) !important; }
-.nav-links a.active::after { width: calc(100% - 32px); }
-.nav-arrow { display: inline-block; font-size: 10px; margin-left: 5px; transition: transform 0.25s, opacity 0.2s; opacity: 0.5; vertical-align: middle; }
-.nav-has-sub:hover .nav-arrow { transform: rotate(180deg); opacity: 0.8; }
-.nav-sub {
-  position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%);
-  min-width: 180px; background: rgba(4,32,24,0.97); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(93,109,86,0.18); border-radius: 14px; padding: 10px 8px;
-  opacity: 0; visibility: hidden;
-  transition: opacity 0.25s, transform 0.25s, visibility 0.25s;
-  transform: translateX(-50%) translateY(-8px);
-  box-shadow: 0 24px 60px rgba(0,0,0,0.55); z-index: 100; list-style: none;
+.nav-btn-outline:hover { background: rgba(93,109,86,0.2) !important; }
+.nav-cta {
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  color: var(--bg) !important;
+  background: var(--primary);
+  padding: 8px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.3s, transform 0.2s;
 }
-.nav-has-sub:hover .nav-sub { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
-.nav-sub a { display: flex; align-items: center; gap: 8px; padding: 10px 16px !important; font-size: 12.5px !important; border-radius: 8px !important; color: rgba(150,186,150,0.6) !important; transition: color 0.18s, background 0.18s; }
-.nav-sub a::after { display: none !important; }
-.nav-sub a:hover { color: var(--light) !important; background: rgba(93,109,86,0.15) !important; }
-.nav-cta { font-size: 12px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: 0.5px; color: #fff !important; background: var(--primary); padding: 8px 20px; border-radius: 20px; text-decoration: none; transition: background 0.25s, transform 0.2s, box-shadow 0.25s; box-shadow: 0 2px 12px rgba(93,109,86,0.25); }
-.nav-cta:hover { background: var(--secondary); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(93,109,86,0.4); }
+.nav-cta:hover { background: var(--secondary); transform: scale(1.02); }
+
 /* ── 下拉子目录 ── */
 .nav-has-sub { position: relative; }
 .nav-arrow { font-size: 9px; margin-left: 4px; transition: transform 0.2s; }
@@ -301,10 +304,10 @@ section {
 .hero-overlay {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: 
-    linear-gradient(to bottom, transparent 40%, rgba(4,32,24,0.7) 75%, rgba(4,32,24,0.95) 100%),
-    radial-gradient(ellipse at 50% 30%, rgba(4,32,24,0.2) 0%, transparent 60%),
-    linear-gradient(160deg, rgba(4,32,24,0.5) 0%, transparent 30%);
+  background:
+    linear-gradient(to bottom, transparent 30%, rgba(4,32,24,0.4) 70%, rgba(4,32,24,0.75) 100%),
+    radial-gradient(ellipse at 50% 30%, rgba(4,32,24,0.1) 0%, transparent 60%),
+    linear-gradient(160deg, rgba(4,32,24,0.3) 0%, transparent 30%);
   z-index: 1;
   will-change: transform;
 }
@@ -338,7 +341,7 @@ section {
   overflow: hidden;
   will-change: transform;
 }
-.hero-light-flow canvas {
+.hero-light-flow svg {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -370,13 +373,14 @@ section {
   100% { transform: translateY(-100vh) scale(0.6); opacity: 0; }
 }
 
-.network-canvas {
+.ai-scan-canvas {
   position: absolute;
   inset: 0;
   z-index: 4;
   pointer-events: none;
-  opacity: 0.65;
-  will-change: transform;
+  opacity: 0.85;
+  width: 100%;
+  height: 100%;
 }
 
 .hero-content {
@@ -864,7 +868,7 @@ section {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 14px;
+  padding: 8px 16px;
   background: rgba(93,109,86,0.1);
   border: 1px solid rgba(93,109,86,0.2);
   border-radius: 30px;
@@ -1158,42 +1162,6 @@ body { animation: page-fade-in 0.8s ease forwards; }
   .hero-stats { flex-wrap: wrap; gap: 24px; }
   .hero-stat-num { font-size: 32px; }
   .hero-actions { flex-direction: column; align-items: center; }
-
-  /* KPI strip */
-  .oms-kpi-strip {
-    display: flex;
-    justify-content: center;
-    gap: 0;
-    margin-top: 48px;
-    border: 1px solid rgba(93,109,86,0.2);
-    border-radius: 12px;
-    overflow: hidden;
-    background: rgba(93,109,86,0.04);
-  }
-  .kpi-item {
-    flex: 1;
-    text-align: center;
-    padding: 24px 16px;
-    border-right: 1px solid rgba(93,109,86,0.15);
-    transition: background 0.3s;
-  }
-  .kpi-item:last-child { border-right: none; }
-  .kpi-item:hover { background: rgba(93,109,86,0.08); }
-  .kpi-num {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 32px;
-    font-weight: 700;
-    color: var(--light);
-    line-height: 1;
-  }
-  .kpi-num em { font-style: normal; color: var(--primary); }
-  .kpi-label {
-    font-size: 11px;
-    color: var(--text-secondary);
-    margin-top: 8px;
-    letter-spacing: 0.3px;
-    line-height: 1.4;
-  }
 }
 </style>
 </head>
@@ -1224,10 +1192,10 @@ body { animation: page-fade-in 0.8s ease forwards; }
 ════════════════════════════════════════ -->
 <header id="mainNav">
   <div class="logo-wrap">
-    <a href="speeder_v2_combined.html"><img src="logo_new.png" class="logo-img" alt="SPEEDER NETWORKS"></a>
+    <a href="index.html"><img src="logo_new.png" class="logo-img" alt="SPEEDER NETWORKS"></a>
   </div>
   <ul class="nav-links">
-    <li class="nav-has-sub"><a href="speeder_v2_combined.html">首页</a></li>
+    <li class="nav-has-sub"><a href="index.html">首页</a></li>
     <li class="nav-has-sub">
       <a href="sdwan.html">线路融合池 <span class="nav-arrow">▼</span></a>
       <ul class="nav-sub">
@@ -1255,12 +1223,7 @@ body { animation: page-fade-in 0.8s ease forwards; }
         <li><a href="ai.html#ai-oms">数字化服务</a></li>
       </ul>
     </li>
-    <li class="nav-has-sub"><a href="products.html">代理产品 <span class="nav-arrow">▼</span></a>
-      <ul class="nav-sub">
-        <li><a href="products.html#products-overview">产品概览</a></li>
-        <li><a href="products.html#products-features">核心优势</a></li>
-        <li><a href="products.html#contact">咨询报价</a></li>
-      </ul>
+    <li class="nav-has-sub"><a href="speeder_v2_combined.html#products">代理产品</a></li>
     <li class="nav-has-sub"><a href="about.html">关于我们</a></li>
     <li><a href="about.html#contact" class="nav-cta">联系我们</a></li>
   </ul>
@@ -1272,28 +1235,26 @@ body { animation: page-fade-in 0.8s ease forwards; }
 <section id="hero">
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
-    <div class="hero-light-flow">
-    <canvas id="neuralCanvas"></canvas>
-  </div>
+  <div class="hero-light-flow"></div>
   <div class="hero-particles" id="particles"></div>
-  <canvas class="network-canvas" id="networkCanvas"></canvas>
+  <canvas class="ai-scan-canvas" id="aiScanCanvas"></canvas>
   <div class="hero-content">
-    <p class="hero-eyebrow">// DIGITAL OMS SERVICE</p>
-    <h1 class="hero-title">企业数字化服务</h1>
-    <p class="hero-tagline">智能运维 <span>·</span> AI赋能 <span>·</span> 安全守护</p>
-    <p class="hero-sub">构建企业IT运维体系 — 从被动救火到主动预防的范式转变</p>
+    <p class="hero-eyebrow">// AI OPERATIONS</p>
+    <h1 class="hero-title">AI智能<span class="accent">运维</span></h1>
+    <p class="hero-tagline">7×24主动监控<span>·</span>提前感知提前排障</p>
+    <p class="hero-sub">自研AI OMS系统 — 让运维无感，让故障消失</p>
     <div class="hero-stats">
       <div class="hero-stat">
-        <div class="hero-stat-num">&lt;100<em>ms</em></div>
-        <div class="hero-stat-label">内网级AI响应</div>
+        <div class="hero-stat-num">分钟<em>级别</em></div>
+        <div class="hero-stat-label">AI响应时间</div>
       </div>
       <div class="hero-stat">
         <div class="hero-stat-num">86<em>%</em></div>
-        <div class="hero-stat-label">模型调用成本节省</div>
+        <div class="hero-stat-label">成本节省</div>
       </div>
       <div class="hero-stat">
         <div class="hero-stat-num">1<em>个</em></div>
-        <div class="hero-stat-label">统一API入口</div>
+        <div class="hero-stat-label">API集成</div>
       </div>
     </div>
     <div class="hero-actions">
@@ -1313,29 +1274,28 @@ body { animation: page-fade-in 0.8s ease forwards; }
       <div class="ai-visual-overlay"></div>
     </div>
     <div class="reveal">
-      <p class="module-eyebrow">// SERVICE OVERVIEW</p>
-      <h2 class="module-title-zh">服务总览</h2>
-      <p class="module-title-en">SERVICE OVERVIEW</p>
-      <p class="module-tagline">六大核心服务板块，覆盖企业IT全场景</p>
+      <p class="module-eyebrow">// AI O&amp;M OVERVIEW</p>
+      <h2 class="module-title-zh">产品概述</h2>
+      <p class="module-title-en">AI OPERATIONS OVERVIEW</p>
+      <p class="module-tagline">告别被动救火，开启主动运维时代</p>
       <ul class="module-points">
-        <li><strong>OMS运维监控平台</strong> — 无侵入式部署，一体化智能监控方案</li>
-        <li><strong>主动运维服务体系</strong> — 感知-决策-执行-复盘的全生命周期闭环</li>
-        <li><strong>AI智能服务</strong> — 多模型统一接入，OpenClaw AI Engine + AI API Relay</li>
-        <li><strong>网络安全服务</strong> — 纵深防御体系，守护企业数字资产安全</li>
-        <li><strong>AI+运维安全融合</strong> — AI赋能运维与安全，实现能力跃迁</li>
+        <li>自研AI引擎融合多源监控数据，实时感知网络健康状态</li>
+        <li>预测性分析提前发现潜在故障，将问题扼杀在萌芽阶段</li>
+        <li>自然语言交互式运维，任何人均可高效管理复杂网络</li>
+        <li>自动化修复流程，90%常见问题无需人工介入</li>
       </ul>
       <div class="module-stats-row">
         <div class="module-stat-badge">
-          <div class="module-stat-badge-num">6<em>大</em></div>
-          <div class="module-stat-badge-label">核心服务板块</div>
-        </div>
-        <div class="module-stat-badge">
-          <div class="module-stat-badge-num">7×24<em>h</em></div>
-          <div class="module-stat-badge-label">全天候监控</div>
-        </div>
-        <div class="module-stat-badge">
           <div class="module-stat-badge-num">&lt;100<em>ms</em></div>
-          <div class="module-stat-badge-label">内网AI响应</div>
+          <div class="module-stat-badge-label">AI响应时间</div>
+        </div>
+        <div class="module-stat-badge">
+          <div class="module-stat-badge-num">86<em>%</em></div>
+          <div class="module-stat-badge-label">运维成本节省</div>
+        </div>
+        <div class="module-stat-badge">
+          <div class="module-stat-badge-num">1<em>个</em></div>
+          <div class="module-stat-badge-label">API统一集成</div>
         </div>
       </div>
     </div>
@@ -1347,10 +1307,10 @@ body { animation: page-fade-in 0.8s ease forwards; }
 ════════════════════════════════════════ -->
 <section id="ai-monitoring">
   <div class="section-header">
-    <p class="section-label">// 01 OMS运维监控平台</p>
-    <h2 class="module-title-zh" style="text-align:center">OMS运维监控平台</h2>
-    <p class="module-title-en" style="text-align:center">OMS MONITORING PLATFORM</p>
-    <p class="module-tagline" style="text-align:center; margin: 0 auto 48px">无侵入式部署，构建企业IT运行健康监控平台</p>
+    <p class="section-label">// 7×24 PROACTIVE MONITORING</p>
+    <h2 class="module-title-zh" style="text-align:center">7×24 主动监控</h2>
+    <p class="module-title-en">PROACTIVE MONITORING</p>
+    <p class="module-tagline" style="text-align:center; margin: 0 auto 48px">AI驱动全链路感知，变"被动响应"为"主动防御"</p>
   </div>
   <div class="monitoring-grid">
     <div class="monitoring-card reveal">
@@ -1397,50 +1357,6 @@ body { animation: page-fade-in 0.8s ease forwards; }
         <span>自动修复</span><span>流量切换</span><span>30秒恢复</span>
       </div>
     </div>
-    <div class="monitoring-card reveal reveal-delay-4">
-      <div class="mc-icon">🖥️</div>
-      <div>
-        <div class="mc-title">可视化大屏驾驶舱</div>
-        <div class="mc-sub">Operations Dashboard</div>
-      </div>
-      <p class="mc-desc">系统可用性、资源利用率、成本分布一目了然，量化运维价值。</p>
-      <div class="mc-tags">
-        <span>实时监控</span><span>成本分析</span><span>价值量化</span>
-      </div>
-    </div>
-    <div class="monitoring-card reveal reveal-delay-5">
-      <div class="mc-icon">🚀</div>
-      <div>
-        <div class="mc-title">无代理轻量部署</div>
-        <div class="mc-sub">Agentless Deployment</div>
-      </div>
-      <p class="mc-desc">SNMP/JMX/SSH/API标准化采集，零改造接入，人力投入减少80%。</p>
-      <div class="mc-tags">
-        <span>SNMP/JMX/SSH</span><span>零改造</span><span>-80%人力</span>
-      </div>
-    </div>
-  </div>
-  <div class="oms-kpi-strip reveal">
-    <div class="kpi-item">
-      <div class="kpi-num">15<em>分钟</em></div>
-      <div class="kpi-label">平均修复时间 MTTR（传统方案 4小时+）</div>
-    </div>
-    <div class="kpi-item">
-      <div class="kpi-num">90<em>%</em></div>
-      <div class="kpi-label">业务中断风险降低</div>
-    </div>
-    <div class="kpi-item">
-      <div class="kpi-num">98<em>%</em></div>
-      <div class="kpi-label">告警精准触达率</div>
-    </div>
-    <div class="kpi-item">
-      <div class="kpi-num">&lt;2<em>%</em></div>
-      <div class="kpi-label">误报率</div>
-    </div>
-    <div class="kpi-item">
-      <div class="kpi-num">15<em>分钟</em></div>
-      <div class="kpi-label">单节点部署时间</div>
-    </div>
   </div>
 </section>
 
@@ -1450,45 +1366,44 @@ body { animation: page-fade-in 0.8s ease forwards; }
 <section id="ai-capabilities">
   <div class="ai-caps-grid">
     <div class="reveal">
-      <p class="module-eyebrow">// 03 AI智能服务</p>
-      <h2 class="module-title-zh">AI智能服务</h2>
-      <p class="module-title-en">AI INTELLIGENT SERVICES</p>
-      <p class="module-tagline">基于AI智能体，打造企业AI原生能力</p>
-      <p class="module-tagline" style="font-size:13px;color:var(--text-secondary);margin-top:8px">OpenClaw AI Engine + AI API Relay · 多模型统一接入 · SD-WAN加速通道</p>
+      <p class="module-eyebrow">// AI CAPABILITIES</p>
+      <h2 class="module-title-zh">AI核心能力</h2>
+      <p class="module-title-en">AI CORE CAPABILITIES</p>
+      <p class="module-tagline">多模型协同，释放AI运维全部潜力</p>
 
       <div class="ai-model-chips">
-        <div class="ai-model-chip"><span class="chip-icon">🤖</span> Minimax</div>
-        <div class="ai-model-chip"><span class="chip-icon">🔮</span> DeepSeek</div>
-        <div class="ai-model-chip"><span class="chip-icon">🧠</span> Claude</div>
+        <div class="ai-model-chip"><span class="chip-icon">🤖</span> GPT-4o</div>
+        <div class="ai-model-chip"><span class="chip-icon">🔮</span> DeepSeek-V3</div>
+        <div class="ai-model-chip"><span class="chip-icon">🧠</span> Claude 3.5</div>
       </div>
 
       <ul class="cap-list">
         <li>
           <div class="cap-icon">🔗</div>
           <div>
-            <strong style="color:var(--light)">AI API Relay 统一入口</strong><br>
-            <span style="color:var(--text-secondary);font-size:14px">多模型智能路由与负载均衡，Token用量追踪与成本优化，SD-WAN专线通道保障内网级响应延迟&lt;100ms</span>
+            <strong style="color:var(--light)">AI Relay 智能路由</strong><br>
+            <span style="color:var(--text-secondary);font-size:14px">多AI模型自动选择最优路径，动态调度实现推理质量与响应速度的最优平衡</span>
           </div>
         </li>
         <li>
-          <div class="cap-icon">🤖</div>
+          <div class="cap-icon">📊</div>
           <div>
-            <strong style="color:var(--light)">AI客服助手</strong><br>
-            <span style="color:var(--text-secondary);font-size:14px">整合FAQ/订单/CRM，智能分流，快速响应客户咨询</span>
+            <strong style="color:var(--light)">智能运维分析</strong><br>
+            <span style="color:var(--text-secondary);font-size:14px">自然语言查询网络状态、自动生成运维报告、故障报告智能解读</span>
           </div>
         </li>
         <li>
-          <div class="cap-icon">📚</div>
+          <div class="cap-icon">🔧</div>
           <div>
-            <strong style="color:var(--light)">企业知识库 / RAG</strong><br>
-            <span style="color:var(--text-secondary);font-size:14px">产品手册/SOP秒级查询，自动整理邮件/报告</span>
+            <strong style="color:var(--light)">配置智能助手</strong><br>
+            <span style="color:var(--text-secondary);font-size:14px">语音/文本描述需求，AI自动生成并验证配置，配置错误率降低80%</span>
           </div>
         </li>
         <li>
           <div class="cap-icon">📈</div>
           <div>
-            <strong style="color:var(--light)">SaaS产品AI升级</strong><br>
-            <span style="color:var(--text-secondary);font-size:14px">生成/搜索/推荐/摘要能力，提升产品智能化水平</span>
+            <strong style="color:var(--light)">容量规划预测</strong><br>
+            <span style="color:var(--text-secondary);font-size:14px">基于历史趋势和业务增长模型，AI预测未来带宽需求，辅助网络扩容决策</span>
           </div>
         </li>
       </ul>
@@ -1504,7 +1419,7 @@ body { animation: page-fade-in 0.8s ease forwards; }
         </div>
         <div class="relay-node">
           <div class="relay-node-icon">🤖</div>
-          <div class="relay-node-label">Minimax</div>
+          <div class="relay-node-label">GPT-4o</div>
         </div>
         <div class="relay-node">
           <div class="relay-node-icon">🔮</div>
@@ -1513,6 +1428,10 @@ body { animation: page-fade-in 0.8s ease forwards; }
         <div class="relay-node">
           <div class="relay-node-icon">🧠</div>
           <div class="relay-node-label">Claude</div>
+        </div>
+        <div class="relay-node">
+          <div class="relay-node-icon">⚡</div>
+          <div class="relay-node-label">本地模型</div>
         </div>
       </div>
     </div>
@@ -1566,167 +1485,34 @@ body { animation: page-fade-in 0.8s ease forwards; }
     </div>
 
     <div class="reveal reveal-delay-1">
-      <p class="module-eyebrow">// 02 主动运维服务体系</p>
-      <h2 class="module-title-zh">主动运维服务</h2>
-      <p class="module-title-en">PROACTIVE O&amp;M SERVICE</p>
-      <p class="module-tagline">感知-决策-执行-复盘，全生命周期智能运维闭环</p>
+      <p class="module-eyebrow">// DIGITAL OMS SERVICE</p>
+      <h2 class="module-title-zh">OMS数字化服务</h2>
+      <p class="module-title-en">DIGITAL O&amp;M SERVICE</p>
+      <p class="module-tagline">数据驱动运维，效率颠覆想象</p>
 
       <ul class="module-points">
-        <li><strong>7×24h监控告警服务</strong> — 1分钟发现 / 5分钟定位 / 10分钟响应</li>
-        <li><strong>定期巡检服务</strong> — 月度/季度标准化巡检，隐患修复率达95%以上</li>
-        <li><strong>远程/现场技术支持</strong> — 专家团队在线处理，重大故障2小时内到场，SLA≥99%</li>
-        <li><strong>安全运维服务</strong> — 漏扫/入侵检测/日志审计/合规加固，全年0重大安全事件</li>
-        <li><strong>数据库运维</strong> — MySQL/Oracle/SQLSERVER专业维护</li>
-        <li><strong>硬件维保服务</strong> — 原厂级维保，备件到场≤8小时</li>
+        <li>全量采集网络设备日志、流表、性能指标，构建数字孪生镜像</li>
+        <li>AI驱动的MTTR（平均修复时间）较传统方式缩短80%</li>
+        <li>标准化变更管理流程，变更失败率降低95%，回滚时间&lt;60秒</li>
+        <li>合规性自动审计，满足等保2.0要求，审计报告一键生成</li>
       </ul>
 
       <div class="oms-kpi-row">
         <div class="oms-kpi">
-          <div class="oms-kpi-num">7×24<em>h</em></div>
-          <div class="oms-kpi-label">全天候监控告警</div>
-          <div class="oms-kpi-sub">1分钟发现/5分钟定位/10分钟响应</div>
+          <div class="oms-kpi-num">15<em>分钟</em></div>
+          <div class="oms-kpi-label">MTTR 平均修复时间</div>
+          <div class="oms-kpi-sub">传统方式 2-4小时</div>
         </div>
         <div class="oms-kpi">
-          <div class="oms-kpi-num">95<em>%</em>+</div>
-          <div class="oms-kpi-label">隐患修复率</div>
-          <div class="oms-kpi-sub">月度/季度标准化巡检</div>
+          <div class="oms-kpi-num">90<em>%</em></div>
+          <div class="oms-kpi-label">问题自动化处理</div>
+          <div class="oms-kpi-sub">无需人工介入</div>
         </div>
         <div class="oms-kpi">
-          <div class="oms-kpi-num">≥99<em>%</em></div>
-          <div class="oms-kpi-label">SLA达成率</div>
-          <div class="oms-kpi-sub">重大故障2小时内到场</div>
+          <div class="oms-kpi-num">99<em>%</em></div>
+          <div class="oms-kpi-label">可用性保障</div>
+          <div class="oms-kpi-sub">全年不间断服务</div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════
-     SECTION — AI+SECURITY FUSION
-════════════════════════════════════════ -->
-<section id="ai-security" style="background:var(--bg-mid);padding:80px 0;">
-  <div style="max-width:1100px;margin:0 auto;padding:0 40px;">
-    <div style="text-align:center;margin-bottom:64px;">
-      <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--primary);letter-spacing:3px;margin-bottom:16px;">// 05 AI + 运维安全融合</p>
-      <h2 style="font-family:'Noto Serif SC',serif;font-size:clamp(28px,3.5vw,44px);color:var(--light);margin-bottom:16px;">AI赋能运维与安全</h2>
-      <p style="font-family:'Space Grotesk',sans-serif;font-size:14px;color:var(--text-secondary);max-width:600px;margin:0 auto;">以AI驱动运维与安全能力跃迁，实现主动防御</p>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:48px;">
-      <div style="background:rgba(93,109,86,0.08);border:1px solid rgba(93,109,86,0.15);border-radius:12px;padding:32px;">
-        <h3 style="font-family:'Noto Serif SC',serif;font-size:18px;color:var(--light);margin-bottom:24px;">🤖 AI增强运维</h3>
-        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:14px;">
-          <li style="display:flex;gap:12px;align-items:flex-start;">
-            <span style="color:var(--primary);font-size:16px;">→</span>
-            <div><strong style="color:var(--light);font-size:13px;">AI智能巡检</strong><br><span style="color:var(--text-secondary);font-size:12px;">时序异常检测替代人工巡检，自动识别凌晨异常流量、内存泄漏等隐性风险</span></div>
-          </li>
-          <li style="display:flex;gap:12px;align-items:flex-start;">
-            <span style="color:var(--primary);font-size:16px;">→</span>
-            <div><strong style="color:var(--light);font-size:13px;">AI根因分析</strong><br><span style="color:var(--text-secondary);font-size:12px;">关联日志/指标/拓扑自动定位故障根源，如磁盘I/O瓶颈、网络分区等</span></div>
-          </li>
-          <li style="display:flex;gap:12px;align-items:flex-start;">
-            <span style="color:var(--primary);font-size:16px;">→</span>
-            <div><strong style="color:var(--light);font-size:13px;">预测性维护</strong><br><span style="color:var(--text-secondary);font-size:12px;">基于业务增长预测动态调整资源配额，AI调节机房制冷策略，能耗优化</span></div>
-          </li>
-          <li style="display:flex;gap:12px;align-items:flex-start;">
-            <span style="color:var(--primary);font-size:16px;">→</span>
-            <div><strong style="color:var(--light);font-size:13px;">知识库自动沉淀</strong><br><span style="color:var(--text-secondary);font-size:12px;">故障案例+处置SOP+代码修复方案自动积累，推动团队能力持续迭代</span></div>
-          </li>
-        </ul>
-      </div>
-      <div style="background:rgba(93,109,86,0.08);border:1px solid rgba(93,109,86,0.15);border-radius:12px;padding:32px;">
-        <h3 style="font-family:'Noto Serif SC',serif;font-size:18px;color:var(--light);margin-bottom:24px;">🛡️ AI增强安全</h3>
-        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:14px;">
-          <li style="display:flex;gap:12px;align-items:flex-start;">
-            <span style="color:var(--primary);font-size:16px;">→</span>
-            <div><strong style="color:var(--light);font-size:13px;">智能威胁检测</strong><br><span style="color:var(--text-secondary);font-size:12px;">AI行为分析引擎实时监测端点与网络流量，精准识别0day攻击与APT渗透</span></div>
-          </li>
-          <li style="display:flex;gap:12px;align-items:flex-start;">
-            <span style="color:var(--primary);font-size:16px;">→</span>
-            <div><strong style="color:var(--light);font-size:13px;">自适应防御</strong><br><span style="color:var(--text-secondary);font-size:12px;">动态调整安全策略，威胁情报驱动自动封禁与隔离，防御策略持续进化</span></div>
-          </li>
-          <li style="display:flex;gap:12px;align-items:flex-start;">
-            <span style="color:var(--primary);font-size:16px;">→</span>
-            <div><strong style="color:var(--light);font-size:13px;">安全事件智能分析</strong><br><span style="color:var(--text-secondary);font-size:12px;">自动关联分析多源安全日志，AI溯源还原攻击路径，生成处置建议</span></div>
-          </li>
-          <li style="display:flex;gap:12px;align-items:flex-start;">
-            <span style="color:var(--primary);font-size:16px;">→</span>
-            <div><strong style="color:var(--light);font-size:13px;">钓鱼邮件AI识别</strong><br><span style="color:var(--text-secondary);font-size:12px;">NLP模型实时检测钓鱼内容，语义分析识别社会工程攻击</span></div>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div style="display:flex;justify-content:center;gap:32px;flex-wrap:wrap;">
-      <div style="text-align:center;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;color:var(--light);">90<em>%</em></div>
-        <div style="font-size:12px;color:var(--text-secondary);">运维效率提升</div>
-      </div>
-      <div style="text-align:center;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;color:var(--light);">3-7<em>天</em></div>
-        <div style="font-size:12px;color:var(--text-secondary);">风险提前预警</div>
-      </div>
-      <div style="text-align:center;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;color:var(--light);">5<em>%</em></div>
-        <div style="font-size:12px;color:var(--text-secondary);">故障重复率（从40%降至）</div>
-      </div>
-      <div style="text-align:center;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;color:var(--light);">15<em>min</em></div>
-        <div style="font-size:12px;color:var(--text-secondary);">平均修复时间</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════
-     SECTION — FLEXIBLE SERVICE PLANS
-════════════════════════════════════════ -->
-<section id="service-plans" style="padding:80px 0;">
-  <div style="max-width:1100px;margin:0 auto;padding:0 40px;">
-    <div style="text-align:center;margin-bottom:64px;">
-      <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--primary);letter-spacing:3px;margin-bottom:16px;">// 06 灵活服务方案</p>
-      <h2 style="font-family:'Noto Serif SC',serif;font-size:clamp(28px,3.5vw,44px);color:var(--light);margin-bottom:16px;">适配企业不同发展阶段</h2>
-      <p style="font-family:'Space Grotesk',sans-serif;font-size:14px;color:var(--text-secondary);max-width:600px;margin:0 auto;">从快速试点到全面托管，灵活选择最适合你的服务模式</p>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
-      <div style="background:rgba(93,109,86,0.05);border:1px solid rgba(93,109,86,0.15);border-radius:12px;padding:32px;">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);letter-spacing:2px;margin-bottom:12px;">PILOT</div>
-        <h3 style="font-family:'Noto Serif SC',serif;font-size:20px;color:var(--light);margin-bottom:8px;">快速试点</h3>
-        <p style="font-size:12px;color:var(--text-secondary);margin-bottom:20px;">想先验证AI客服、摘要、RAG或内部自动化流程的团队</p>
-        <ul style="list-style:none;padding:0;margin:0 0 24px 0;display:grid;gap:10px;">
-          <li style="font-size:12px;color:var(--text-primary);">✓ 测试用API Key + Endpoint</li>
-          <li style="font-size:12px;color:var(--text-primary);">✓ 一个核心场景PoC验证</li>
-          <li style="font-size:12px;color:var(--text-primary);">✓ OMS监控基础版部署</li>
-          <li style="font-size:12px;color:var(--text-primary);">✓ 安全评估初步扫描</li>
-        </ul>
-        <a href="about.html#contact" style="display:block;text-align:center;padding:12px;background:rgba(93,109,86,0.15);color:var(--light);border-radius:6px;font-size:13px;text-decoration:none;">了解更多 →</a>
-      </div>
-      <div style="background:rgba(93,109,86,0.12);border:1px solid rgba(93,109,86,0.3);border-radius:12px;padding:32px;position:relative;">
-        <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--primary);color:var(--bg);font-size:10px;padding:4px 12px;border-radius:10px;font-family:'JetBrains Mono',monospace;">★ 推荐</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--light);letter-spacing:2px;margin-bottom:12px;">BUSINESS</div>
-        <h3 style="font-family:'Noto Serif SC',serif;font-size:20px;color:var(--light);margin-bottom:8px;">正式导入</h3>
-        <p style="font-size:12px;color:var(--text-secondary);margin-bottom:20px;">要把AI/运维/安全能力放进正式产品和流程的企业</p>
-        <ul style="list-style:none;padding:0;margin:0 0 24px 0;display:grid;gap:10px;">
-          <li style="font-size:12px;color:var(--text-primary);">✓ 正式AI Relay架构</li>
-          <li style="font-size:12px;color:var(--text-primary);">✓ 权限/日志/用量追踪</li>
-          <li style="font-size:12px;color:var(--text-primary);">✓ OMS全栈监控平台</li>
-          <li style="font-size:12px;color:var(--text-primary);">✓ 八大主动运维服务</li>
-          <li style="font-size:12px;color:var(--text-primary);">✓ 安全运维全套服务</li>
-          <li style="font-size:12px;color:var(--text-primary);">✓ 上线测试与运维交接</li>
-        </ul>
-        <a href="about.html#contact" style="display:block;text-align:center;padding:12px;background:var(--primary);color:var(--bg);border-radius:6px;font-size:13px;text-decoration:none;font-weight:600;">立即咨询 →</a>
-      </div>
-      <div style="background:rgba(93,109,86,0.05);border:1px solid rgba(93,109,86,0.15);border-radius:12px;padding:32px;">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);letter-spacing:2px;margin-bottom:12px;">MANAGED</div>
-        <h3 style="font-family:'Noto Serif SC',serif;font-size:20px;color:var(--light);margin-bottom:8px;">代管运维</h3>
-        <p style="font-size:12px;color:var(--text-secondary);margin-bottom:20px;">需要长期维护、监控、策略调整与专属技术支持的企业</p>
-        <ul style="list-style:none;padding:0;margin:0 0 24px 0;display:grid;gap:10px;">
-          <li style="font-size:12px;color:var(--text-primary);">✓ 云端与API全托管</li>
-          <li style="font-size:12px;color:var(--text-primary);">✓ 资安/监控/异常处理</li>
-          <li style="font-size:12px;color:var(--text-primary);">✓ 月度用量与成本报告</li>
-          <li style="font-size:12px;color:var(--text-primary);">✓ AI模型策略持续优化</li>
-          <li style="font-size:12px;color:var(--text-primary);">✓ 功能扩展与技术支持</li>
-          <li style="font-size:12px;color:var(--text-primary);">✓ 驻场工程师服务</li>
-        </ul>
-        <a href="about.html#contact" style="display:block;text-align:center;padding:12px;background:rgba(93,109,86,0.15);color:var(--light);border-radius:6px;font-size:13px;text-decoration:none;">了解更多 →</a>
       </div>
     </div>
   </div>
@@ -1766,7 +1552,7 @@ body { animation: page-fade-in 0.8s ease forwards; }
 ════════════════════════════════════════ -->
 <footer>
   <div class="footer-left">
-    <a href="speeder_v2_combined.html">SPEEDER NETWORKS</a> · 苏州世必得科技有限公司 &nbsp;|&nbsp; 版权所有
+    <a href="index.html">SPEEDER NETWORKS</a> · 苏州世必得科技有限公司 &nbsp;|&nbsp; 版权所有
   </div>
   <div class="footer-right">POWERED BY AI RELAY · SPEEDER NETWORKS</div>
 </footer>
@@ -1776,7 +1562,7 @@ body { animation: page-fade-in 0.8s ease forwards; }
 (function() {
   var mainNav = document.getElementById('mainNav');
   var hero = document.getElementById('hero');
-  if (mainNav) { mainNav.style.display = 'flex'; }
+  if (mainNav) mainNav.style.display = 'flex';
   if (hero) { hero.style.display = 'flex'; hero.style.opacity = '1'; }
   document.body.classList.add('page-ready');
   if (typeof initHero === 'function') initHero();
@@ -1800,106 +1586,95 @@ function initHero() {
     }
   }
 
-  /* Network canvas */
-  const canvas = document.getElementById('networkCanvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let width, height;
-  const nodes = [];
-  const NUM_NODES = 50;
-  const NUM_CONNECTIONS = 3;
-  const particles = [];
-  const NUM_PARTICLES = 15;
+  /* AI Scan Wave Canvas */
+  const sc = document.getElementById('aiScanCanvas');
+  if (!sc) return;
+  const sctx = sc.getContext('2d');
+  let sw, sh;
+  function sresize() { sw = sc.width = sc.offsetWidth; sh = sc.height = sc.offsetHeight; }
+  window.addEventListener('resize', sresize);
+  sresize();
 
-  function resize() {
-    width = canvas.width = canvas.offsetWidth;
-    height = canvas.height = canvas.offsetHeight;
+  let scanY = -60;
+  const scanSpeed = 1.8;
+  const waves = [];
+  for (let i = 0; i < 6; i++) {
+    waves.push({ y: Math.random() * sh, speed: 0.4 + Math.random() * 0.4, amp: 30 + Math.random() * 40, freq: 0.004 + Math.random() * 0.004, phase: Math.random() * Math.PI * 2 });
   }
-  window.addEventListener('resize', resize);
-  resize();
-
-  for (let i = 0; i < NUM_NODES; i++) {
-    nodes.push({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.3,
-      vy: (Math.random() - 0.5) * 0.3,
-      r: 1 + Math.random() * 1.5,
-      opacity: 0.2 + Math.random() * 0.4,
-    });
+  const dots = [];
+  for (let i = 0; i < 80; i++) {
+    dots.push({ x: Math.random() * sw, y: Math.random() * sh, r: 1 + Math.random() * 2, vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4, alpha: 0.15 + Math.random() * 0.35 });
   }
 
-  for (let i = 0; i < NUM_PARTICLES; i++) {
-    const startNode = nodes[Math.floor(Math.random() * NUM_NODES)];
-    particles.push({
-      nodeA: startNode,
-      nodeB: nodes[Math.floor(Math.random() * NUM_NODES)],
-      progress: Math.random(),
-      speed: 0.003 + Math.random() * 0.004,
-      opacity: 0.3 + Math.random() * 0.4,
-    });
-  }
+  function sdraw() {
+    sctx.clearRect(0, 0, sw, sh);
+    scanY += scanSpeed;
+    if (scanY > sh + 60) scanY = -60;
 
-  let time = 0;
-  function draw() {
-    ctx.clearRect(0, 0, width, height);
-    time += 0.016;
+    // 扫描光带
+    const grad = sctx.createLinearGradient(0, scanY - 40, 0, scanY + 40);
+    grad.addColorStop(0, 'rgba(93,109,86,0)');
+    grad.addColorStop(0.4, 'rgba(150,186,150,0.4)');
+    grad.addColorStop(0.5, 'rgba(180,220,170,0.6)');
+    grad.addColorStop(0.6, 'rgba(150,186,150,0.4)');
+    grad.addColorStop(1, 'rgba(93,109,86,0)');
+    sctx.fillStyle = grad;
+    sctx.fillRect(0, scanY - 40, sw, 80);
 
-    for (const n of nodes) {
-      n.x += n.vx;
-      n.y += n.vy;
-      if (n.x < 0 || n.x > width) n.vx *= -1;
-      if (n.y < 0 || n.y > height) n.vy *= -1;
+    // 主波形
+    sctx.beginPath();
+    for (let x = 0; x < sw; x += 2) {
+      const y = scanY + Math.sin(x * 0.01 + scanY * 0.008) * 12 + Math.sin(x * 0.004) * 6;
+      if (x === 0) sctx.moveTo(x, y); else sctx.lineTo(x, y);
     }
+    sctx.strokeStyle = 'rgba(200,240,200,0.7)';
+    sctx.lineWidth = 2;
+    sctx.shadowBlur = 12;
+    sctx.shadowColor = 'rgba(150,220,150,0.8)';
+    sctx.stroke();
+    sctx.shadowBlur = 0;
 
-    for (let i = 0; i < NUM_NODES; i++) {
-      for (let c = 0; c < NUM_CONNECTIONS; c++) {
-        const j = (i + c + 1) % NUM_NODES;
-        const dx = nodes[i].x - nodes[j].x;
-        const dy = nodes[i].y - nodes[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 200) {
-          ctx.beginPath();
-          ctx.moveTo(nodes[i].x, nodes[i].y);
-          ctx.lineTo(nodes[j].x, nodes[j].y);
-          ctx.strokeStyle = `rgba(93,109,86,${(1 - dist / 200) * 0.12})`;
-          ctx.lineWidth = 0.5;
-          ctx.stroke();
-        }
+    // 背景波形
+    for (const w of waves) {
+      w.y += w.speed;
+      if (w.y > sh + 50) w.y = -50;
+      sctx.beginPath();
+      for (let x = 0; x < sw; x += 3) {
+        const y = w.y + Math.sin(x * w.freq + w.phase) * w.amp;
+        if (x === 0) sctx.moveTo(x, y); else sctx.lineTo(x, y);
       }
+      sctx.strokeStyle = 'rgba(120,160,120,0.12)';
+      sctx.lineWidth = 1.2;
+      sctx.stroke();
     }
 
-    for (const n of nodes) {
-      ctx.beginPath();
-      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(150,186,150,${n.opacity})`;
-      ctx.fill();
+    // 漂浮光点
+    for (const d of dots) {
+      d.x += d.vx; d.y += d.vy;
+      if (d.x < 0 || d.x > sw) d.vx *= -1;
+      if (d.y < 0 || d.y > sh) d.vy *= -1;
+      sctx.beginPath();
+      sctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+      sctx.fillStyle = `rgba(150,200,150,${d.alpha})`;
+      sctx.shadowBlur = 6;
+      sctx.shadowColor = 'rgba(150,200,150,0.5)';
+      sctx.fill();
+    }
+    sctx.shadowBlur = 0;
+
+    // 网格
+    sctx.strokeStyle = 'rgba(93,109,86,0.06)';
+    sctx.lineWidth = 0.5;
+    for (let y = 0; y < sh; y += 50) {
+      sctx.beginPath(); sctx.moveTo(0, y); sctx.lineTo(sw, y); sctx.stroke();
+    }
+    for (let x = 0; x < sw; x += 70) {
+      sctx.beginPath(); sctx.moveTo(x, 0); sctx.lineTo(x, sh); sctx.stroke();
     }
 
-    for (const p of particles) {
-      p.progress += p.speed;
-      if (p.progress > 1) {
-        p.progress = 0;
-        p.nodeA = nodes[Math.floor(Math.random() * NUM_NODES)];
-        p.nodeB = nodes[Math.floor(Math.random() * NUM_NODES)];
-        p.opacity = 0.3 + Math.random() * 0.4;
-      }
-      const t = p.progress;
-      const px = p.nodeA.x + (p.nodeB.x - p.nodeA.x) * t;
-      const py = p.nodeA.y + (p.nodeB.y - p.nodeA.y) * t;
-
-      ctx.beginPath();
-      ctx.arc(px, py, 2, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(150,186,150,${p.opacity})`;
-      ctx.shadowColor = '#5D6D56';
-      ctx.shadowBlur = 6;
-      ctx.fill();
-      ctx.shadowBlur = 0;
-    }
-
-    requestAnimationFrame(draw);
+    requestAnimationFrame(sdraw);
   }
-  draw();
+  sdraw();
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -2012,167 +1787,6 @@ function initHeroParallax() {
     requestAnimationFrame(animate);
   }
   animate();
-
-  /* ── 神经脉冲 Canvas ─────────────────────────────────── */
-  (function initNeuralPulse() {
-    var canvas = document.getElementById('neuralCanvas');
-    if (!canvas) return;
-    var ctx = canvas.getContext('2d');
-    var W = 0, H = 0;
-
-    function resize() {
-      var hero = document.getElementById('hero');
-      if (!hero) return;
-      W = canvas.width = hero.offsetWidth;
-      H = canvas.height = hero.offsetHeight;
-    }
-    resize();
-    window.addEventListener('resize', resize);
-
-    // 神经元节点
-    var N = 32;
-    var nodes = [];
-    function build() {
-      nodes = [];
-      for (var i = 0; i < N; i++) {
-        nodes.push({
-          x: Math.random() * W,
-          y: Math.random() * H,
-          r: 2 + Math.random() * 3,
-          phase: Math.random() * Math.PI * 2,
-          freq: 0.4 + Math.random() * 0.8,
-          vx: (Math.random() - 0.5) * 0.15,
-          vy: (Math.random() - 0.5) * 0.15
-        });
-      }
-    }
-    build();
-    window.addEventListener('resize', build);
-
-    var sparks = []; // {x, y, vx, vy, life, maxLife}
-
-    function addSpark(x, y) {
-      sparks.push({
-        x: x, y: y,
-        vx: (Math.random() - 0.5) * 2,
-        vy: (Math.random() - 0.5) * 2,
-        life: 1,
-        maxLife: 0.6 + Math.random() * 0.4
-      });
-    }
-
-    var t = 0;
-    function draw() {
-      ctx.clearRect(0, 0, W, H);
-      t += 0.016;
-
-      // 移动节点
-      nodes.forEach(function(n) {
-        n.x += n.vx;
-        n.y += n.vy;
-        if (n.x < -10) n.x = W + 10;
-        if (n.x > W + 10) n.x = -10;
-        if (n.y < -10) n.y = H + 10;
-        if (n.y > H + 10) n.y = -10;
-
-        var pulse = Math.sin(t * n.freq + n.phase);
-        var brightness = 0.25 + 0.35 * (pulse * 0.5 + 0.5);
-
-        // 节点发光
-        var g = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r * 4);
-        g.addColorStop(0, 'rgba(150,220,180,' + brightness + ')');
-        g.addColorStop(1, 'rgba(100,180,140,0)');
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, n.r * 4, 0, Math.PI * 2);
-        ctx.fillStyle = g;
-        ctx.fill();
-
-        // 核心亮点
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, n.r * 0.6, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(220,255,230,' + (brightness * 1.2) + ')';
-        ctx.fill();
-
-        // 触发火花
-        if (pulse > 0.9 && Math.random() < 0.03) {
-          addSpark(n.x, n.y);
-        }
-      });
-
-      // 节点间连接
-      for (var i = 0; i < nodes.length; i++) {
-        for (var j = i + 1; j < nodes.length; j++) {
-          var a = nodes[i], b = nodes[j];
-          var dx = b.x - a.x, dy = b.y - a.y;
-          var dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 160) {
-            var alpha = (1 - dist / 160) * 0.08;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.strokeStyle = 'rgba(150,200,160,' + alpha + ')';
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        }
-      }
-
-      // 火花拖尾
-      for (var k = sparks.length - 1; k >= 0; k--) {
-        var s = sparks[k];
-        s.x += s.vx;
-        s.y += s.vy;
-        s.life -= 0.025;
-        if (s.life <= 0) { sparks.splice(k, 1); continue; }
-        var sg = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, 4);
-        sg.addColorStop(0, 'rgba(220,255,230,' + s.life + ')');
-        sg.addColorStop(1, 'rgba(150,220,180,0)');
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, 4, 0, Math.PI * 2);
-        ctx.fillStyle = sg;
-        ctx.fill();
-      }
-
-      requestAnimationFrame(draw);
-    }
-    draw();
-  })();
-}
-
-/* ── KPI Strip ────────────────────────────────────────── */
-.oms-kpi-strip {
-  display: flex;
-  justify-content: center;
-  gap: 0;
-  margin-top: 48px;
-  border: 1px solid rgba(93,109,86,0.2);
-  border-radius: 12px;
-  overflow: hidden;
-  background: rgba(93,109,86,0.04);
-}
-.kpi-item {
-  flex: 1;
-  text-align: center;
-  padding: 24px 16px;
-  border-right: 1px solid rgba(93,109,86,0.15);
-  transition: background 0.3s;
-}
-.kpi-item:last-child { border-right: none; }
-.kpi-item:hover { background: rgba(93,109,86,0.08); }
-.kpi-num {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--light);
-  line-height: 1;
-}
-.kpi-num em { font-style: normal; color: var(--primary); font-size: 0.6em; }
-.kpi-label {
-  font-size: 11px;
-  color: var(--text-secondary);
-  margin-top: 8px;
-  letter-spacing: 0.3px;
-  line-height: 1.4;
 }
 
 /* ── 3. Hero文案3D倾斜 ─────────────────────────────────── */

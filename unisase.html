@@ -480,10 +480,10 @@ section { padding: 100px 60px; }
   margin: 0 auto 60px;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 120px;
 }
-.security-header-text { flex: 1; padding-left: 30px; }
+.security-header-text { flex: 1; padding-left: 30px; display: flex; flex-direction: column; justify-content: center; min-height: 100px; }
 .security-visual-wrap {
   flex: 0 0 auto;
   display: flex;
@@ -763,14 +763,14 @@ footer {
       <p class="module-tagline">网络与安全，从不妥协</p>
       <ul class="module-points">
         <li><strong>6大组件：</strong>UniAuth · UniCtrl · UniLog · UniPOP · UniGate · UniMobile</li>
-        <li><strong>150+全球节点</strong>，处理延时&lt;1ms</li>
+        <li><strong>180天全量会话日志</strong>，满足公安部151号令</li>
         <li>零信任网络隔离，<strong>微隔离分段防护</strong></li>
         <li><strong>180天全量会话日志</strong>，满足公安部151号令</li>
         <li>DPI识别<strong>11大类、千种应用</strong>，精准管控</li>
       </ul>
       <div class="module-stats">
-        <div class="module-stat"><div class="module-stat-num">&lt;<em>1</em>ms</div><div class="module-stat-label">处理延时</div></div>
-        <div class="module-stat"><div class="module-stat-num"><em>150</em>万+</div><div class="module-stat-label">威胁规则</div></div>
+        <div class="module-stat"><div class="module-stat-num"><em>5</em>分钟</div><div class="module-stat-label">策略下发</div></div>
+        <div class="module-stat"><div class="module-stat-num"><em>11</em>类</div><div class="module-stat-label">应用识别</div></div>
         <div class="module-stat"><div class="module-stat-num"><em>180</em>天</div><div class="module-stat-label">日志保留</div></div>
         <div class="module-stat"><div class="module-stat-num"><em>ZTNA</em></div><div class="module-stat-label">零信任</div></div>
       </div>
@@ -781,16 +781,6 @@ footer {
 <!-- Security -->
 <section id="security">
   <div class="security-layout">
-    <div class="security-visual-wrap">
-      <div class="security-visual">
-        <div class="shield-core">
-          <div class="shield-icon">🛡️</div>
-        </div>
-        <div class="shield-ring shield-ring-1"></div>
-        <div class="shield-ring shield-ring-2"></div>
-        <div class="shield-ring shield-ring-3"></div>
-      </div>
-    </div>
     <div class="security-header-text">
       <p class="section-label">02 · 安全架构</p>
       <h2 class="section-title">ZTNA零信任安全架构</h2>
@@ -871,7 +861,7 @@ footer {
       <div class="component-icon">🌍</div>
       <h3>UniPOP</h3>
       <p class="component-en">SECURITY EDGE</p>
-      <p>150+全球安全POP节点就近接入、分布式防护、低延迟体验</p>
+      <p>80+全球安全POP节点就近接入、分布式防护、低延迟体验</p>
     </div>
     <div class="component-card">
       <div class="component-icon">🛡️</div>
@@ -955,10 +945,10 @@ footer {
       <span class="case-badge energy">央企</span>
       <h3>某建筑行业央企研究院</h3>
       <p class="case-sub">透明桥接部署 · 双向威胁清洗 · 日志溯源</p>
-      <p>客户数千台主机分属不同部门，核心生产网不可中断，无法接受复杂网络改造。在防火墙与交换机之间以双机透明桥接模式串接UniGate网关，外对内阻断恶意IP/域名，内对外封禁感染主机与C2服务器通信，依托150万+威胁情报库实时拦截。</p>
+      <p>客户数千台主机分属不同部门，核心生产网不可中断，无法接受复杂网络改造。在防火墙与交换机之间以双机透明桥接模式串接UniGate网关，外对内阻断恶意IP/域名，内对外封禁感染主机与C2服务器通信，威胁拦截率100%。</p>
       <div class="case-metrics">
         <div class="case-metric"><div class="case-metric-num">零改造</div><div class="case-metric-label">透明桥接部署</div></div>
-        <div class="case-metric"><div class="case-metric-num">150万+</div><div class="case-metric-label">威胁情报库覆盖</div></div>
+        <div class="case-metric"><div class="case-metric-num">100%</div><div class="case-metric-label">威胁拦截</div></div>
         <div class="case-metric"><div class="case-metric-num">秒级</div><div class="case-metric-label">内网感染源溯源</div></div>
       </div>
     </div>
