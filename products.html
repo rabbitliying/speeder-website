@@ -330,6 +330,34 @@ footer a:hover { color: var(--light); }
   footer { flex-direction: column; gap: 8px; text-align: center; }
 }
 </style>
+
+/* ── PDF DOWNLOAD SECTION ── */
+#products-downloads { background: var(--bg-mid); }
+.pdf-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; max-width: 1100px; margin: 40px auto 0; }
+.pdf-card {
+  background: rgba(15,45,30,0.5); border: 1px solid rgba(150,220,180,0.15);
+  border-radius: 20px; padding: 32px; display: flex; flex-direction: column; gap: 20px;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+.pdf-card:hover { border-color: rgba(150,220,180,0.35); box-shadow: 0 16px 48px rgba(0,0,0,0.4); transform: translateY(-4px); }
+.pdf-card-icon { font-size: 40px; }
+.pdf-card-info h3 { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
+.pdf-card-info p { font-size: 13px; color: rgba(150,186,150,0.7); line-height: 1.7; margin-bottom: 12px; }
+.pdf-meta { display: flex; gap: 16px; }
+.pdf-meta span { font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--primary); background: rgba(93,109,86,0.12); padding: 3px 10px; border-radius: 20px; }
+.pdf-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-pdf {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 600;
+  text-decoration: none; transition: all 0.25s;
+}
+.btn-pdf.view { background: rgba(93,109,86,0.15); color: var(--light); border: 1px solid rgba(150,220,180,0.2); }
+.btn-pdf.view:hover { background: rgba(93,109,86,0.25); border-color: rgba(150,220,180,0.4); }
+.btn-pdf.download { background: var(--primary); color: #fff; }
+.btn-pdf.download:hover { background: var(--secondary); transform: translateY(-1px); }
+@media (max-width: 768px) { .pdf-cards { grid-template-columns: 1fr; } }
+
 </head>
 <body>
 
@@ -434,21 +462,28 @@ footer a:hover { color: var(--light); }
           <li>PoE交换机：<strong>5口~54口</strong>，全规格覆盖</li>
           <li>管理类型：非管理 / 网管 / <strong>L2+ / L3</strong></li>
           <li>工业级宽温 <strong>-40~80°C</strong>，IP65防水</li>
-          <li>支持信创：<strong>龙芯 / 飞腾 / 海光</strong></li>
-        </ul>
+                  </ul>
       </div>
       <div class="reveal reveal-delay-2">
         <table class="products-table">
           <thead>
-            <tr><th>系列</th><th>端口数</th><th>管理类型</th><th>PoE功率</th><th>规格</th></tr>
+            <tr><th>型号</th><th>端口</th><th>管理类型</th><th>PoE功率</th><th>规格</th></tr>
           </thead>
           <tbody>
-            <tr><td class="td-highlight">LW1000系列</td><td>5 / 8口</td><td><span class="badge badge-green">非管理</span></td><td class="td-mono">65W / 130W</td><td>桌面式 · 紧凑</td></tr>
-            <tr><td class="td-highlight">LW2000系列</td><td>8 / 16 / 24口</td><td><span class="badge badge-green">非管理</span> <span class="badge badge-gold">网管</span></td><td class="td-mono">190W~380W</td><td>机架式 · 标准</td></tr>
-            <tr><td class="td-highlight">LW3000系列</td><td>24 / 48口</td><td><span class="badge badge-gold">L2+网管</span></td><td class="td-mono">370W~740W</td><td>机架式 · 旗舰</td></tr>
-            <tr><td class="td-highlight">LW7000系列</td><td>48口 + 4万兆</td><td><span class="badge badge-blue">L3全管理</span></td><td class="td-mono">740W~960W</td><td>机架式 · 核心</td></tr>
-            <tr><td class="td-highlight">工业系列</td><td>8 / 16 / 24口</td><td><span class="badge badge-green">非管理</span></td><td class="td-mono">240W~480W</td><td>IP65 · -40~80°C</td></tr>
-            <tr><td class="td-highlight">信创系列</td><td>24 / 48口</td><td><span class="badge badge-blue">L2+ / L3</span></td><td class="td-mono">370W~740W</td><td>龙芯/飞腾/海光</td></tr>
+            <tr><td class="td-highlight">561082</td><td>5口（4 PoE）</td><td><span class="badge badge-green">非网管</span></td><td class="td-mono">68W</td><td>桌面式 · PoE直通</td></tr>
+            <tr><td class="td-highlight">561204</td><td>8口</td><td><span class="badge badge-green">非网管</span></td><td class="td-mono">60W</td><td>桌面式</td></tr>
+            <tr><td class="td-highlight">560641</td><td>8口</td><td><span class="badge badge-green">非网管</span></td><td class="td-mono">140W</td><td>桌面式 / 机架式</td></tr>
+            <tr><td class="td-highlight">561167</td><td>8口 + 2 SFP</td><td><span class="badge badge-gold">网管</span></td><td class="td-mono">140W</td><td>桌面式 / 机架式</td></tr>
+            <tr><td class="td-highlight">560993</td><td>16口</td><td><span class="badge badge-green">非网管</span></td><td class="td-mono">220W</td><td>机架式</td></tr>
+            <tr><td class="td-highlight">561341</td><td>16口 + 2 SFP</td><td><span class="badge badge-gold">网管</span></td><td class="td-mono">220W</td><td>机架式</td></tr>
+            <tr><td class="td-highlight">561198</td><td>16口 + 2 SFP</td><td><span class="badge badge-gold">网管</span></td><td class="td-mono">374W</td><td>机架式</td></tr>
+            <tr><td class="td-highlight">561891</td><td>24口 + 2 SFP</td><td><span class="badge badge-green">非网管</span></td><td class="td-mono">370W</td><td>机架式</td></tr>
+            <tr><td class="td-highlight">561426</td><td>24口 + 4 Combo</td><td><span class="badge badge-gold">L2+网管</span></td><td class="td-mono">370W</td><td>机架式 · 热销</td></tr>
+            <tr><td class="td-highlight">561846</td><td>24口 + 4×10G SFP+</td><td><span class="badge badge-blue">L2+网管</span></td><td class="td-mono">370W</td><td>机架式 · 万兆上行</td></tr>
+            <tr><td class="td-highlight">561969</td><td>48口 + 6×10G SFP+</td><td><span class="badge badge-blue">L2+网管</span></td><td class="td-mono">450W</td><td>机架式 · 核心</td></tr>
+            <tr><td class="td-highlight">508254</td><td>4口 + 2 SFP</td><td><span class="badge badge-green">非网管</span></td><td class="td-mono">120W</td><td>工业宽温 · DIN导轨</td></tr>
+            <tr><td class="td-highlight">508261</td><td>8口 + 2 SFP</td><td><span class="badge badge-green">非网管</span></td><td class="td-mono">240W</td><td>工业宽温 · DIN导轨</td></tr>
+            <tr><td class="td-highlight">508278</td><td>8口 + 2 SFP</td><td><span class="badge badge-gold">L2+网管</span></td><td class="td-mono">240W</td><td>工业宽温 · DIN导轨</td></tr>
           </tbody>
         </table>
       </div>
@@ -466,7 +501,7 @@ footer a:hover { color: var(--light); }
       <div class="feature-card reveal">
         <div class="feature-icon">🌍</div>
         <h3 class="feature-title">35年品牌积淀</h3>
-        <p class="feature-desc">IC Intracom 旗下品牌，产品远销全球50多个国家，品质经过长期市场验证。</p>
+        <p class="feature-desc">IC Intracom 旗下品牌，德国·美国·中国三地办公室，品质经过长期市场验证。</p>
       </div>
       <div class="feature-card reveal reveal-delay-1">
         <div class="feature-icon">⚙️</div>
@@ -483,11 +518,6 @@ footer a:hover { color: var(--light); }
         <h3 class="feature-title">完整PoE供电</h3>
         <p class="feature-desc">全系列PoE交换机，功率覆盖65W~960W，兼容IP电话、摄像头、AP等PD设备。</p>
       </div>
-      <div class="feature-card reveal reveal-delay-1">
-        <div class="feature-icon">🛡️</div>
-        <h3 class="feature-title">信创国产化</h3>
-        <p class="feature-desc">龙芯、飞腾、海光等国产芯片平台产品，支持国家信息技术应用创新战略。</p>
-      </div>
       <div class="feature-card reveal reveal-delay-2">
         <div class="feature-icon">📦</div>
         <h3 class="feature-title">本地化服务</h3>
@@ -495,6 +525,57 @@ footer a:hover { color: var(--light); }
       </div>
     </div>
   </div>
+
+
+<!-- PDF DOWNLOADS -->
+<section id="products-downloads">
+  <div class="section">
+    <p class="section-label reveal">DOWNLOADS</p>
+    <p class="module-eyebrow reveal">产品资料下载</p>
+    <h2 class="module-title-zh reveal">下载产品手册</h2>
+    <div class="pdf-cards">
+      <div class="pdf-card reveal">
+        <div class="pdf-card-icon">📘</div>
+        <div class="pdf-card-info">
+          <h3>Intellinet 产品目录</h3>
+          <p>完整PoE交换机产品线型号列表，含端口数、管理类型、PoE功率等详细参数</p>
+          <div class="pdf-meta">
+            <span>PDF · 4.0 MB</span>
+            <span>含全系列型号一览表</span>
+          </div>
+        </div>
+        <div class="pdf-actions">
+          <a href="intellinet_catalog.pdf" target="_blank" class="btn-pdf view">
+            <span>👁</span> 在线预览
+          </a>
+          <a href="intellinet_catalog.pdf" download="intellinet_catalog.pdf" class="btn-pdf download">
+            <span>⬇</span> 下载PDF
+          </a>
+        </div>
+      </div>
+      <div class="pdf-card reveal reveal-delay-1">
+        <div class="pdf-card-icon">🔧</div>
+        <div class="pdf-card-info">
+          <h3>Self-Healing Network 方案介绍</h3>
+          <p>Intellinet 智能自愈网络技术详解，含工业交换机规格与 PoE Extender 全家桶</p>
+          <div class="pdf-meta">
+            <span>PDF · 4.9 MB</span>
+            <span>含产品全家桶与方案架构</span>
+          </div>
+        </div>
+        <div class="pdf-actions">
+          <a href="intellinet_self_healing.pdf" target="_blank" class="btn-pdf view">
+            <span>👁</span> 在线预览
+          </a>
+          <a href="intellinet_self_healing.pdf" download="intellinet_self_healing.pdf" class="btn-pdf download">
+            <span>⬇</span> 下载PDF
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 </section>
 
 <!-- CTA -->
