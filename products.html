@@ -329,6 +329,31 @@ footer a:hover { color: var(--light); }
   .products-section { padding: 60px 20px 80px; }
   footer { flex-direction: column; gap: 8px; text-align: center; }
 }
+
+
+/* ── PDF DOWNLOAD SECTION ── */
+#products-downloads { background: var(--bg-mid); }
+.pdf-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; max-width: 1100px; margin: 40px auto 0; }
+.pdf-card {
+  background: rgba(15,45,30,0.5); border: 1px solid rgba(150,220,180,0.15);
+  border-radius: 20px; padding: 32px; display: flex; flex-direction: column; gap: 20px;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+.pdf-card:hover { border-color: rgba(150,220,180,0.35); box-shadow: 0 16px 48px rgba(0,0,0,0.4); transform: translateY(-4px); }
+.pdf-card-icon { font-size: 40px; }
+.pdf-card-info h3 { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
+.pdf-card-info p { font-size: 13px; color: rgba(150,186,150,0.7); line-height: 1.7; margin-bottom: 12px; }
+.pdf-meta { display: flex; gap: 16px; }
+.pdf-meta span { font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--primary); background: rgba(93,109,86,0.12); padding: 3px 10px; border-radius: 20px; }
+.pdf-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-pdf { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.25s; }
+.btn-pdf.view { background: rgba(93,109,86,0.15); color: var(--light); border: 1px solid rgba(150,220,180,0.2); }
+.btn-pdf.view:hover { background: rgba(93,109,86,0.25); border-color: rgba(150,220,180,0.4); }
+.btn-pdf.download { background: var(--primary); color: #fff; }
+.btn-pdf.download:hover { background: var(--secondary); transform: translateY(-1px); }
+@media (max-width: 768px) { .pdf-cards { grid-template-columns: 1fr; } }
+
 </style>
 
 /* ── PDF DOWNLOAD SECTION ── */
