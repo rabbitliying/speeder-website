@@ -433,7 +433,7 @@ section {
   align-items: center;
   gap: 20px;
   padding: 22px 24px;
-  background: rgba(15,45,30,0.55);
+  background: rgba(15,45,30,0.15);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(150,220,180,0.18);
@@ -450,8 +450,9 @@ section {
 .hero-card:nth-child(2){animation-delay:0.3s}
 .hero-card:nth-child(3){animation-delay:0.45s}
 .hero-card:hover{
-  border-color: rgba(150,220,180,0.4);
-  box-shadow: 0 16px 48px rgba(0,0,0,0.4), 0 0 40px rgba(150,220,180,0.08);
+  border-color: rgba(150,220,180,0.5);
+  background: rgba(15,45,30,0.25);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.3), 0 0 60px rgba(150,220,180,0.12), 0 0 20px rgba(150,220,180,0.05) inset;
 }
 .hero-card .hc-icon{
   width:48px;height:48px;flex-shrink:0;
@@ -1127,10 +1128,13 @@ section {
   display: flex;
   justify-content: center;
   gap: 48px;
+  align-items: baseline;
+  flex-wrap: wrap;
 }
 .contact-info-item {
-  display: flex; align-items: center; gap: 10px;
+  display: flex; align-items: baseline; gap: 10px;
   font-size: 14px; color: var(--text-secondary);
+  white-space: nowrap;
 }
 .contact-info-item a { color: var(--text-secondary); text-decoration: none; transition: color 0.3s; }
 .contact-info-item a:hover { color: var(--light); }
@@ -1403,17 +1407,17 @@ body { animation: page-fade-in 0.8s ease forwards; }
         <div class="hc-icon">🌐</div>
         <div class="hc-body">
           <h3>线路融合池</h3>
-          <p>600+ POP · 多路径智能选路<br>提高线路 ROI，订阅式服务</p>
-          <div class="hc-tags"><span>SD-WAN</span><span>600+节点</span></div>
+          <p>600+ POP · 30+省覆盖<br>多路径智能选路，订阅式服务</p>
+          <div class="hc-tags"><span>SD-WAN</span><span>600+节点</span><span>当天开通</span></div>
         </div>
         <div class="hc-arrow">→</div>
       </a>
       <a href="unisase.html" class="hero-card tilt-card" id="hc-sase">
-        <div class="hc-icon">🔒</div>
+        <div class="hc-icon">🛡️</div>
         <div class="hc-body">
           <h3>网络安全</h3>
-          <p>ZTNA零信任 · 全球骨干网覆盖<br>统一身份策略，全量日志审计</p>
-          <div class="hc-tags"><span>UniSASE</span><span>ZTNA</span><span>全球骨干</span></div>
+          <p>150+全球骨干PoP节点 · 4类接入实体<br>ZTNA零信任 · 180天合规日志</p>
+          <div class="hc-tags"><span>UniSASE</span><span>ZTNA</span><span>150+节点</span></div>
         </div>
         <div class="hc-arrow">→</div>
       </a>
@@ -1421,8 +1425,8 @@ body { animation: page-fade-in 0.8s ease forwards; }
         <div class="hc-icon">🤖</div>
         <div class="hc-body">
           <h3>AI智能运维</h3>
-          <p>1ms级响应 · 7×24主动监控<br>提前感知，提前排障</p>
-          <div class="hc-tags"><span>AI Relay</span><span>1ms响应</span><span>7×24保障</span></div>
+          <p>企业级大模型API中继网关<br>多模型接入 · 86%成本节省</p>
+          <div class="hc-tags"><span>AI Relay</span><span>GPT-4</span><span>DeepSeek</span></div>
         </div>
         <div class="hc-arrow">→</div>
       </a>
@@ -1517,15 +1521,16 @@ body { animation: page-fade-in 0.8s ease forwards; }
       <p class="module-tagline reveal reveal-delay-2">网络与安全，从不妥协</p>
       <ul class="module-points reveal reveal-delay-3">
         <li><strong>6大组件：</strong>UniAuth · UniCtrl · UniLog · UniPOP · UniGate · UniMobile</li>
-        <li><strong>150+全球节点</strong>，处理延时&lt;1ms</li>
+        <li><strong>150+全球骨干PoP节点</strong>，4类接入实体</li>
         <li>零信任网络隔离，微隔离分段防护</li>
         <li><strong>180天全量会话日志</strong>，满足公安部151号令</li>
         <li>DPI识别<strong>11大类、千种应用</strong>，精准管控</li>
       </ul>
       <div class="module-stats-row reveal reveal-delay-4">
-        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>&lt;1</em>ms</div><div class="module-stat-badge-label">处理延时</div></div>
-        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>150</em>万+</div><div class="module-stat-badge-label">威胁规则</div></div>
-        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>180</em>天</div><div class="module-stat-badge-label">日志保留</div></div>
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>150+</em></div><div class="module-stat-badge-label">全球PoP节点</div></div>
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>4</em>类</div><div class="module-stat-badge-label">接入实体</div></div>
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>180</em>天</div><div class="module-stat-badge-label">合规日志</div></div>
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>ZTNA</em></div><div class="module-stat-badge-label">零信任</div></div>
       </div>
     </div>
     <div class="module-visual reveal reveal-delay-2" data-3d-tilt>
@@ -1601,14 +1606,14 @@ body { animation: page-fade-in 0.8s ease forwards; }
       <ul class="module-points reveal reveal-delay-3">
         <li><strong>AI Relay：</strong>企业级大模型API智能中继网关</li>
         <li>多模型接入：<strong>GPT-4 / DeepSeek / Claude</strong></li>
-        <li><strong>&lt;100ms</strong>内网延迟，数据不出企业边界</li>
+        <li>内网延迟&lt;100ms，数据不出企业边界</li>
         <li>节省<strong>86%</strong>API调用成本，智能路由+缓存</li>
         <li><strong>企业AI Agent</strong>定制开发（OpenClaw）</li>
       </ul>
       <div class="module-stats-row reveal reveal-delay-4">
-        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>&lt;100</em>ms</div><div class="module-stat-badge-label">内网延迟</div></div>
-        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>-86</em>%</div><div class="module-stat-badge-label">成本节省</div></div>
-        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>1</em>个</div><div class="module-stat-badge-label">API入口</div></div>
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>15</em>分钟</div><div class="module-stat-badge-label">MTTR</div></div>
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>90</em>%</div><div class="module-stat-badge-label">风险降低</div></div>
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>99</em>%</div><div class="module-stat-badge-label">触达率</div></div>
       </div>
     </div>
     <div class="module-visual reveal reveal-delay-2" data-3d-tilt>
@@ -1629,7 +1634,7 @@ body { animation: page-fade-in 0.8s ease forwards; }
         <div class="api-node api-node-top"><div class="api-node-icon">📤</div><span class="api-node-label">REQUEST</span></div>
         <div class="api-node api-node-right"><div class="api-node-icon">🤖</div><span class="api-node-label">GPT-4</span></div>
         <div class="api-node api-node-bottom"><div class="api-node-icon">📥</div><span class="api-node-label">RESPONSE</span></div>
-        <div class="api-node api-node-left"><div class="api-node-icon">🔒</div><span class="api-node-label">DEEPSEEK</span></div>
+        <div class="api-node api-node-left"><div class="api-node-icon">🧠</div><span class="api-node-label">DEEPSEEK</span></div>
       </div>
     </div>
   </div>
@@ -1697,10 +1702,10 @@ body { animation: page-fade-in 0.8s ease forwards; }
 ════════════════════════════════════════ -->
 <footer>
   <div class="footer-left">
-    © 2025 <a href="#">苏州世必得科技有限公司</a> · SPEEDER NETWORKS · All rights reserved.
+    © 2026 <a href="#">苏州世必得科技有限公司</a> · SPEEDER NETWORKS · All rights reserved.
   </div>
   <div class="footer-right">
-    <a href="https://beian.miit.gov.cn" target="_blank" style="color:rgba(122,154,122,0.4);text-decoration:none;">苏ICP备2024120577号-1</a>
+    <a href="https://beian.miit.gov.cn" target="_blank" style="color:rgba(122,154,122,0.4);text-decoration:none;"></a>
   </div>
 </footer>
 
@@ -1999,8 +2004,8 @@ function initCustomCursor() {
   let inHero = false;
   let inCard = false;
 
-  const STIFF = 0.13;
-  const DAMP  = 0.78;
+  const STIFF = 0.18;
+  const DAMP  = 0.65;
 
   document.addEventListener('mousemove', e => {
     mx = e.clientX;
@@ -2240,7 +2245,7 @@ function initCardTilt() {
   revealEls.forEach(el => revealObserver.observe(el));
 
   /* Stats counter */
-  function animateCounter(el, target) {
+  function animateCounter(el, target, suffix) {
     const isFloat = String(target).includes('.');
     const duration = 1800;
     const start = performance.now();
@@ -2249,9 +2254,9 @@ function initCardTilt() {
       const progress = Math.min(elapsed / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
       const current = target * eased;
-      el.textContent = isFloat ? current.toFixed(2) : Math.floor(current);
+      el.textContent = (isFloat ? current.toFixed(2) : Math.floor(current)) + suffix;
       if (progress < 1) requestAnimationFrame(update);
-      else el.textContent = target;
+      else el.textContent = target + suffix;
     }
     requestAnimationFrame(update);
   }
@@ -2262,7 +2267,8 @@ function initCardTilt() {
         entry.target.dataset.animated = 'true';
         const text = entry.target.textContent;
         const num = parseFloat(text.replace(/[^0-9.]/g, ''));
-        if (!isNaN(num) && num > 0) animateCounter(entry.target, num);
+        const suffix = text.replace(/[0-9.]/g, '');
+        if (!isNaN(num) && num > 0) animateCounter(entry.target, num, suffix);
       }
     });
   }, { threshold: 0.3 });

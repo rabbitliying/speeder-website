@@ -1196,10 +1196,10 @@ body { animation: page-fade-in 0.8s ease forwards; }
 ════════════════════════════════════════ -->
 <header id="mainNav">
   <div class="logo-wrap">
-    <a href="index.html"><img src="logo_new.png" class="logo-img" alt="SPEEDER NETWORKS"></a>
+    <img src="logo_new.png" class="logo-img" alt="SPEEDER NETWORKS">
   </div>
   <ul class="nav-links">
-    <li class="nav-has-sub"><a href="index.html">首页</a></li>
+    <li class="nav-has-sub"><a href="speeder_v2_combined.html">首页</a></li>
     <li class="nav-has-sub">
       <a href="sdwan.html">线路融合池 <span class="nav-arrow">▼</span></a>
       <ul class="nav-sub">
@@ -1219,7 +1219,7 @@ body { animation: page-fade-in 0.8s ease forwards; }
       </ul>
     </li>
     <li class="nav-has-sub">
-      <a href="ai.html" class="nav-active">AI智能运维 <span class="nav-arrow">▼</span></a>
+      <a href="ai.html">AI智能运维 <span class="nav-arrow">▼</span></a>
       <ul class="nav-sub">
         <li><a href="ai.html#ai-overview">产品概述</a></li>
         <li><a href="ai.html#ai-monitoring">主动监控</a></li>
@@ -1227,7 +1227,7 @@ body { animation: page-fade-in 0.8s ease forwards; }
         <li><a href="ai.html#ai-oms">数字化服务</a></li>
       </ul>
     </li>
-    <li class="nav-has-sub"><a href="speeder_v2_combined.html#products">代理产品</a></li>
+    <li class="nav-has-sub"><a href="products.html">代理产品</a></li>
     <li class="nav-has-sub"><a href="about.html">关于我们</a></li>
     <li><a href="about.html#contact" class="nav-cta">联系我们</a></li>
   </ul>
@@ -1702,8 +1702,8 @@ function initCustomCursor() {
   let inHero = false;
   let inCard = false;
 
-  const STIFF = 0.13;
-  const DAMP  = 0.78;
+  const STIFF = 0.18;
+  const DAMP  = 0.65;
 
   document.addEventListener('mousemove', e => {
     mx = e.clientX;

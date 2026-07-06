@@ -43,9 +43,7 @@ body {
 ::-webkit-scrollbar-track { background: #042018; }
 ::-webkit-scrollbar-thumb { background: #5D6D56; border-radius: 2px; }
 
-/* ═════════════��════════════════════════════
-   自定义光标（仅Hero区域）
-══════════════════════════════════════════ */
+/* ====== CUSTOM CURSOR (Hero only) ====== */
 #about-hero { cursor: none; }
 #about-hero * { cursor: none !important; }
 
@@ -935,7 +933,7 @@ body { animation: page-fade-in 0.8s ease forwards; }
 ════════════════════════════════════════ -->
 <header id="mainNav">
   <div class="logo-wrap">
-    <a href="speeder_v2_combined.html"><img src="logo_new.png" class="logo-img" alt="SPEEDER NETWORKS"></a>
+    <img src="logo_new.png" class="logo-img" alt="SPEEDER NETWORKS">
   </div>
   <ul class="nav-links">
     <li class="nav-has-sub"><a href="speeder_v2_combined.html">首页</a></li>
@@ -966,14 +964,9 @@ body { animation: page-fade-in 0.8s ease forwards; }
         <li><a href="ai.html#ai-oms">数字化服务</a></li>
       </ul>
     </li>
-    <li class="nav-has-sub"><a href="products.html">代理产品 <span class="nav-arrow">▼</span></a>
-      <ul class="nav-sub">
-        <li><a href="products.html#products-overview">产品概览</a></li>
-        <li><a href="products.html#products-features">核心优势</a></li>
-        <li><a href="products.html#contact">咨询报价</a></li>
-      </ul>
-    <li class="nav-has-sub"><a href="about.html" class="nav-active">关于我们</a></li>
-    <li><a href="#contact" class="nav-cta">联系我们</a></li>
+    <li class="nav-has-sub"><a href="products.html">代理产品</a></li>
+    <li class="nav-has-sub"><a href="about.html">关于我们</a></li>
+    <li><a href="about.html#contact" class="nav-cta">联系我们</a></li>
   </ul>
 </header>
 
@@ -1000,7 +993,7 @@ body { animation: page-fade-in 0.8s ease forwards; }
       <p class="section-label">ABOUT US</p>
       <h2 class="about-section-title">公司概况</h2>
       <p class="about-section-en">COMPANY OVERVIEW</p>
-      <p class="about-section-tagline">以信仰为根基，以技术为使命��以客户为中心</p>
+      <p class="about-section-tagline">以信仰为根基，以技术为使命，以客户为中心</p>
     </div>
 
     <div class="about-overview-grid">
@@ -1024,7 +1017,7 @@ body { animation: page-fade-in 0.8s ease forwards; }
 
         <div class="about-stats-row reveal reveal-delay-3">
           <div class="about-stat-badge">
-            <div class="about-stat-badge-num"><em>2015</em>年</div>
+            <div class="about-stat-badge-num"><em>2020</em>年</div>
             <div class="about-stat-badge-label">成立时间</div>
           </div>
           <div class="about-stat-badge">
@@ -1194,10 +1187,10 @@ body { animation: page-fade-in 0.8s ease forwards; }
 ════════════════════════════════════════ -->
 <footer>
   <div class="footer-left">
-    © 2025 <a href="#">苏州世必得科技有限公司</a> · SPEEDER NETWORKS · All rights reserved.
+    © 2026 <a href="#">苏州世必得科技有限公司</a> · SPEEDER NETWORKS · All rights reserved.
   </div>
   <div class="footer-right">
-    <a href="https://beian.miit.gov.cn" target="_blank" style="color:rgba(122,154,122,0.4);text-decoration:none;">苏ICP备2024120577号-1</a>
+    <a href="https://beian.miit.gov.cn" target="_blank" style="color:rgba(122,154,122,0.4);text-decoration:none;"></a>
   </div>
 </footer>
 
@@ -1242,8 +1235,8 @@ function initCustomCursor() {
   let inHero = false;
   let inCard = false;
 
-  const STIFF = 0.13;
-  const DAMP  = 0.78;
+  const STIFF = 0.18;
+  const DAMP  = 0.65;
 
   document.addEventListener('mousemove', e => {
     mx = e.clientX;
