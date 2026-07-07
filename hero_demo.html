@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Hero 3D演示</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #042018; min-height: 100vh; overflow: hidden; }
+
+  #hero {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background: url('hero_cyber_city.jpg') center / cover no-repeat;
+    filter: brightness(0.5);
+  }
+
+  #overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, rgba(4,32,24,0.9) 100%);
+  }
+
+  #content {
+    position: absolute;
+    left: 8%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 55%;
+    color: #d8e8dc;
+    font-family: 'Segoe UI', sans-serif;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    will-change: transform;
+  }
+
+  #content h1 {
+    font-size: clamp(40px, 6vw, 80px);
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.1;
+  }
+
+  #content .accent { color: #96b896; }
+
+  #content p {
+    font-size: clamp(14px, 1.8vw, 20px);
+    background: rgba(15,45,30,0.45);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    padding: 20px 28px;
+    border-radius: 16px;
+    border: 1px solid rgba(150,220,180,0.18);
+    max-width: 520px;
+    line-height: 1.85;
+  }
+
+  #content .hint {
+    margin-top: 20px;
+    font-size: 12px;
+    color: rgba(150,220,180,0.4);
+    letter-spacing: 2px;
+  }
+</style>
+</head>
+<body>
+
+<div id="hero">
+  <div id="overlay"></div>
+  <div id="content">
+    <h1>你的网络，<br/><span class="accent">会被守护</span></h1>
+    <p>十年经验 · 2000+ 企业客户 · 自研 AI 运维系统<br>从外资入华到中资出海，你的跨国连接，我们来保驾护航。</p>
+    <p class="hint">← 鼠标移到这块区域，看文字3D倾斜效果 →</p>
+  </div>
+</div>
+
+<script>
+(function() {
+  var content = document.getElementById('content');
+  var hero = document.getElementById('hero');
+
+  hero.addEventListener('mousemove', function(e) {
+    var r = hero.getBoundingClientRect();
+    var nx = (e.clientX - r.left) / r.width - 0.5;
+    var ny = (e.clientY - r.top) / r.height - 0.5;
+    var t = 'perspective(1000px) rotateY(' + (nx * 40) + 'deg) rotateX(' + (-ny * 30) + 'deg) translateY(-50%)';
+    content.style.transform = t;
+  });
+
+  hero.addEventListener('mouseleave', function() {
+    content.style.transition = 'transform 0.8s cubic-bezier(0.34,1.56,0.64,1)';
+    content.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(-50%)';
+    setTimeout(function() { content.style.transition = 'none'; }, 800);
+  });
+})();
+</script>
+
+</body>
+</html>

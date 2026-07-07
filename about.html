@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -43,9 +43,6 @@ body {
 ::-webkit-scrollbar-track { background: #042018; }
 ::-webkit-scrollbar-thumb { background: #5D6D56; border-radius: 2px; }
 
-/* ====== CUSTOM CURSOR (Hero only) ====== */
-#about-hero { cursor: none; }
-#about-hero * { cursor: none !important; }
 
 #cursor-ring {
   position: fixed;
@@ -1190,7 +1187,7 @@ body { animation: page-fade-in 0.8s ease forwards; }
     © 2026 <a href="#">苏州世必得科技有限公司</a> · SPEEDER NETWORKS · All rights reserved.
   </div>
   <div class="footer-right">
-    <a href="https://beian.miit.gov.cn" target="_blank" style="color:rgba(122,154,122,0.4);text-decoration:none;"></a>
+    <a href="https://beian.miit.gov.cn" target="_blank" style="color:rgba(122,154,122,0.4);text-decoration:none;">苏ICP备2024120577号-2</a>
   </div>
 </footer>
 
@@ -1271,50 +1268,45 @@ function initCustomCursor() {
 
 /* ── 2. Hero鼠标视差 ─────────────────────────────────── */
 function initHeroParallax() {
-  const hero = document.getElementById('about-hero');
+  var hero = document.getElementById('about-hero');
   if (!hero) return;
-
-  const bg       = hero.querySelector('.about-hero-bg');
-  const overlay  = hero.querySelector('.about-hero-overlay');
-
-  const layers = [
-    { el: overlay, strength: 0.02 },
+  var bg = hero.querySelector('.about-hero-bg');
+  var overlay = hero.querySelector('.about-hero-overlay');
+  var lightFlow = hero.querySelector('.about-hero-light-flow');
+  var particles = hero.querySelector('.about-hero-particles');
+  var network = hero.querySelector('.about-hero-network-canvas');
+  var layers = [
+    { el: lightFlow, strength: 0.04 },
+    { el: particles, strength: 0.05 },
+    { el: network, strength: 0.06 },
   ];
-
-  let mouseX = window.innerWidth / 2;
-  let mouseY = window.innerHeight / 2;
-  let cx = mouseX, cy = mouseY;
-  let vx = 0, vy = 0;
-
-  hero.addEventListener('mousemove', e => {
+  var mouseX = window.innerWidth / 2;
+  var mouseY = window.innerHeight / 2;
+  var cx = mouseX, cy = mouseY;
+  var vx = 0, vy = 0;
+  var SPRING_K = 0.1;
+  var DAMP = 0.78;
+  hero.addEventListener('mousemove', function(e) {
     mouseX = e.clientX;
     mouseY = e.clientY;
   });
-
-  hero.addEventListener('mouseleave', () => {
+  hero.addEventListener('mouseleave', function() {
     mouseX = window.innerWidth / 2;
     mouseY = window.innerHeight / 2;
   });
-
-  const SPRING_K = 0.1;
-  const DAMP = 0.78;
-
   function animate() {
-    const fx = (mouseX - cx) * SPRING_K;
-    const fy = (mouseY - cy) * SPRING_K;
+    var fx = (mouseX - cx) * SPRING_K;
+    var fy = (mouseY - cy) * SPRING_K;
     vx = (vx + fx) * DAMP;
     vy = (vy + fy) * DAMP;
     cx += vx;
     cy += vy;
-
-    const dx = cx - window.innerWidth / 2;
-    const dy = cy - window.innerHeight / 2;
-
-    layers.forEach(({ el, strength }) => {
-      if (!el) return;
-      el.style.transform = `translate(${dx * strength * 10}px, ${dy * strength * 10}px)`;
+    var dx = cx - window.innerWidth / 2;
+    var dy = cy - window.innerHeight / 2;
+    layers.forEach(function(layer) {
+      if (!layer.el) return;
+      layer.el.style.transform = 'translate(' + (dx * layer.strength * 10) + 'px, ' + (dy * layer.strength * 10) + 'px)';
     });
-
     requestAnimationFrame(animate);
   }
   animate();

@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPEEDER · 你的网络，会被守护</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ===================== RESET ===================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-snap-type: y mandatory; scroll-behavior: smooth; overflow-y: scroll; height: auto; }
+body { width: 100%; overflow-x: hidden; background: #0a2820; color: #cbd3cf; font-family: 'Noto Sans SC', sans-serif; font-weight: 300; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { background: none; border: none; color: inherit; font: inherit; cursor: pointer; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #042018; }
+::-webkit-scrollbar-thumb { background: #2C3A3B; border-radius: 2px; }
+
+/* ===================== VARIABLES ===================== */
+:root {
+  --bg: #0a2820;
+  --bg-1: #042018;
+  --bg-2: #0d3028;
+  --ink: #cbd3cf;
+  --ink-dim: #8e9d96;
+  --ink-soft: #6a7c73;
+  --green: #3DDC97;
+  --green-soft: #5fffb0;
+  --green-muted: #1a5c3a;
+  --green-glow: rgba(61,220,151,0.15);
+  --line: rgba(61,220,151,0.1);
+  --line-strong: rgba(61,220,151,0.2);
+  --accent: #a8c5b0;
+}
+
+/* ===================== SCROLL CONTAINER ===================== */
+.scroll-container { position: relative; z-index: 10; }
+section { position: relative; width: 100%; min-height: 100vh; padding: 120px 60px; z-index: 10; scroll-snap-align: start; scroll-snap-stop: always; overflow: hidden; }
+
+/* ===================== CURSOR ===================== */
+.cursor { position: fixed; left: 0; top: 0; width: 24px; height: 24px; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); mix-blend-mode: screen; }
+.cursor__ring { position: absolute; inset: 0; border: 1.5px solid var(--green); border-radius: 50%; transition: transform 0.18s ease, border-color 0.18s ease; }
+.cursor__dot { position: absolute; left: 50%; top: 50%; width: 4px; height: 4px; background: var(--green); border-radius: 50%; transform: translate(-50%,-50%); box-shadow: 0 0 8px var(--green); }
+.cursor.is-hover .cursor__ring { transform: scale(2.4); border-color: var(--accent); }
+.cursor.is-hover .cursor__dot { background: var(--accent); box-shadow: 0 0 12px var(--accent); }
+@media (max-width: 768px) { body { cursor: auto; } .cursor { display: none; } }
+
+/* ===================== BG ===================== */
+.grid-bg { position: fixed; inset: 0; z-index: 0; background-image: linear-gradient(to right, var(--line) 1px, transparent 1px), linear-gradient(to bottom, var(--line) 1px, transparent 1px); background-size: 80px 80px; mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%); -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%); pointer-events: none; }
+.noise { position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.035; mix-blend-mode: overlay; background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>"); }
+
+/* ===================== BOOT ===================== */
+.boot-screen { position: fixed; inset: 0; z-index: 9999; background: var(--bg-1); display: flex; align-items: center; justify-content: center; flex-direction: column; pointer-events: auto; }
+.boot-screen.is-done { opacity: 0; pointer-events: none; visibility: hidden; transition: opacity 0.8s ease 0.4s, visibility 0s linear 1.2s; }
+.boot-logo { width: 56px; height: 56px; border: 1.5px solid var(--green); position: relative; opacity: 0; transform: scale(0.5); margin-bottom: 28px; }
+.boot-logo::after { content: ''; position: absolute; inset: 12px; background: var(--green); box-shadow: 0 0 20px var(--green); }
+.boot-scan { position: absolute; left: 0; right: 0; height: 2px; background: linear-gradient(to right, transparent, var(--green), transparent); top: 50%; box-shadow: 0 0 12px var(--green); opacity: 0; }
+.boot-text { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 4px; color: var(--green); text-transform: uppercase; opacity: 0; }
+.boot-text .dot { display: inline-block; animation: bootDot 1.4s ease-in-out infinite; }
+.boot-text .dot:nth-child(2) { animation-delay: 0.2s; }
+.boot-text .dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes bootDot { 0%, 20% { opacity: 0.2; } 50% { opacity: 1; } 100% { opacity: 0.2; } }
+.boot-progress { width: 200px; height: 1px; background: rgba(61,220,151,0.15); margin-top: 20px; position: relative; overflow: hidden; }
+.boot-progress-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--green); box-shadow: 0 0 8px var(--green); }
+body.is-booting { overflow: hidden; }
+body.is-booting .page-indicator, body.is-booting .scroll-container > section { opacity: 0; visibility: hidden; }
+body.is-booting .nav { opacity: 0; }
+body.is-booting .cursor { opacity: 0; }
+
+/* ===================== NAV ===================== */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 60px; display: flex; align-items: center; justify-content: space-between; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); background: rgba(4,32,24,0.8); border-bottom: 1px solid var(--line); }
+.nav__logo { height: 36px; display: flex; align-items: center; gap: 10px; }
+.nav__logo svg { height: 36px; }
+.nav__menu { display: flex; gap: 36px; }
+.nav__menu a { font-size: 13px; color: var(--ink-soft); font-weight: 400; transition: color 0.2s; letter-spacing: 0.5px; }
+.nav__menu a:hover { color: var(--ink); }
+.nav__cta { padding: 8px 20px; border: 1px solid var(--green-muted); border-radius: 20px; font-size: 12px; font-weight: 500; color: var(--ink-dim); letter-spacing: 0.5px; transition: all 0.3s; }
+.nav__cta:hover { border-color: var(--green); color: var(--green); box-shadow: 0 0 16px var(--green-glow); }
+
+/* ===================== PAGE INDICATOR ===================== */
+.page-indicator { position: fixed; right: 30px; top: 50%; transform: translateY(-50%); z-index: 200; display: flex; flex-direction: column; gap: 14px; }
+.page-indicator button { width: 6px; height: 6px; border-radius: 50%; background: rgba(61,220,151,0.15); border: 1px solid rgba(61,220,151,0.3); transition: all 0.3s; padding: 0; }
+.page-indicator button.is-active { background: var(--green); box-shadow: 0 0 10px var(--green); transform: scale(1.4); }
+.page-indicator button:hover { background: var(--green); }
+
+/* ===================== CLOCK ===================== */
+.clock { position: fixed; right: 24px; bottom: 24px; z-index: 150; pointer-events: none; font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 400; letter-spacing: 2px; color: var(--ink-soft); }
+.clock__label { display: block; margin-top: 4px; font-size: 9px; letter-spacing: 3px; color: rgba(138,157,150,0.5); text-align: right; }
+
+/* ===================== TAG ===================== */
+.tag { display: inline-flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 3px; color: var(--green); text-transform: uppercase; margin-bottom: 20px; }
+.tag::before { content: ''; width: 24px; height: 1px; background: linear-gradient(to right, var(--green), transparent); }
+
+/* ===================== TYPOGRAPHY ===================== */
+.section-title { font-size: clamp(32px, 4vw, 64px); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 20px; color: var(--ink); }
+.section-sub { font-size: clamp(14px, 1.1vw, 17px); color: var(--ink-soft); max-width: 540px; line-height: 1.75; font-weight: 300; }
+.section-title .accent { color: var(--green); }
+
+/* ===================== BUTTONS ===================== */
+.btn { padding: 14px 28px; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; border-radius: 4px; transition: all 0.3s ease; display: inline-block; }
+.btn--primary { background: var(--green); color: #042018; border: 1px solid var(--green); }
+.btn--primary:hover { background: #fff; border-color: #fff; box-shadow: 0 0 30px var(--green-glow); transform: translateY(-2px); }
+.btn--ghost { border: 1px solid var(--line-strong); color: var(--ink-dim); backdrop-filter: blur(10px); }
+.btn--ghost:hover { border-color: var(--green); color: var(--green); box-shadow: 0 0 20px var(--green-glow); }
+
+/* ===================== SCANLINE ===================== */
+.scanline { position: fixed; left: 0; right: 0; height: 2px; background: linear-gradient(to right, transparent, var(--green), transparent); box-shadow: 0 0 16px var(--green); pointer-events: none; z-index: 999; opacity: 0; }
+.scanline.is-active { animation: scanlineSweep 0.7s ease-out; }
+@keyframes scanlineSweep { 0% { top: 0; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+
+/* ===================== HERO ===================== */
+.hero { display: flex; flex-direction: column; justify-content: center; padding: 0 60px; min-height: 100vh; }
+.hero__inner { max-width: 1280px; margin: 0 auto; width: 100%; position: relative; }
+.hero__eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 4px; color: var(--green); margin-bottom: 20px; opacity: 0; transform: translateY(10px); }
+.hero__title { font-size: clamp(36px, 5vw, 80px); font-weight: 800; line-height: 1.02; letter-spacing: -0.03em; margin-bottom: 28px; opacity: 0; transform: translateY(10px); }
+.hero__title .accent { color: var(--green); }
+.hero__sub { font-size: clamp(13px, 1.1vw, 16px); color: var(--ink-soft); max-width: 500px; line-height: 1.75; margin-bottom: 44px; opacity: 0; transform: translateY(10px); }
+.hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; opacity: 0; transform: translateY(10px); }
+.hero__stats { position: absolute; right: 0; bottom: 0; display: flex; flex-direction: column; gap: 16px; text-align: right; opacity: 0; transform: translateY(10px); }
+.hero__stat-num { font-family: 'JetBrains Mono', monospace; font-size: 36px; font-weight: 600; color: var(--green); line-height: 1; }
+.hero__stat-label { font-size: 10px; letter-spacing: 2px; color: var(--ink-soft); text-transform: uppercase; }
+.hero__scroll { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); font-size: 10px; letter-spacing: 3px; color: rgba(138,157,150,0.3); text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.hero__scroll-line { width: 1px; height: 44px; background: linear-gradient(to bottom, var(--green), transparent); position: relative; overflow: hidden; }
+.hero__scroll-line::after { content: ''; position: absolute; left: 0; right: 0; top: -10px; height: 10px; background: var(--green); animation: scrollDot 2.2s ease-in-out infinite; }
+@keyframes scrollDot { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(54px); opacity: 0; } }
+
+/* ===================== WHAT (TWO CARDS) ===================== */
+.what { display: flex; flex-direction: column; justify-content: center; }
+.what__content { max-width: 1280px; margin: 0 auto; width: 100%; }
+.what__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 56px; }
+.what__card { padding: 40px 36px; border: 1px solid var(--line); background: linear-gradient(160deg, rgba(61,220,151,0.025), rgba(0,0,0,0.3)); border-radius: 8px; backdrop-filter: blur(16px); transition: all 0.4s ease; position: relative; overflow: hidden; opacity: 0; transform: translateY(20px); }
+.what__card:hover { transform: translateY(-4px); border-color: var(--line-strong); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+.what__card-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 3px; color: var(--green); text-transform: uppercase; margin-bottom: 20px; }
+.what__card-title { font-size: 24px; font-weight: 600; margin-bottom: 14px; letter-spacing: -0.01em; color: var(--ink); }
+.what__card-desc { font-size: 14px; color: var(--ink-soft); line-height: 1.75; margin-bottom: 24px; }
+.what__card-features { display: flex; flex-direction: column; gap: 10px; }
+.what__card-feature { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--ink-dim); }
+.what__card-feature::before { content: '→'; color: var(--green); font-family: 'JetBrains Mono', monospace; }
+.what__card.alt { background: linear-gradient(160deg, rgba(168,197,176,0.03), rgba(0,0,0,0.3)); }
+
+/* ===================== POOL ===================== */
+.pool { display: flex; flex-direction: column; justify-content: center; }
+.pool__content { max-width: 1280px; margin: 0 auto; width: 100%; }
+.pool__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-top: 56px; }
+.pool__visual { position: relative; aspect-ratio: 1; border: 1px solid var(--line); border-radius: 12px; background: rgba(4,32,24,0.6); overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.pool__ring { position: absolute; border: 1px solid var(--line-strong); border-radius: 50%; animation: poolPulse 4s ease-out infinite; }
+.pool__ring:nth-child(1) { width: 28%; height: 28%; animation-delay: 0s; }
+.pool__ring:nth-child(2) { width: 52%; height: 52%; animation-delay: 1.3s; }
+.pool__ring:nth-child(3) { width: 76%; height: 76%; animation-delay: 2.6s; }
+@keyframes poolPulse { 0% { transform: scale(0.85); opacity: 1; } 100% { transform: scale(1.15); opacity: 0; } }
+.pool__center { width: 72px; height: 72px; background: var(--green); border-radius: 50%; box-shadow: 0 0 40px var(--green), 0 0 80px rgba(61,220,151,0.25); z-index: 2; position: relative; display: flex; align-items: center; justify-content: center; }
+.pool__center-text { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; color: #042018; letter-spacing: 1px; text-align: center; line-height: 1.3; }
+.pool__dot { width: 10px; height: 10px; background: var(--green); border-radius: 50%; box-shadow: 0 0 10px var(--green); position: absolute; animation: dotPulse 3s ease-in-out infinite; }
+.pool__dot:nth-child(4) { top: 18%; left: 28%; animation-delay: 0s; }
+.pool__dot:nth-child(5) { top: 22%; right: 26%; animation-delay: 0.5s; }
+.pool__dot:nth-child(6) { bottom: 24%; left: 22%; animation-delay: 1s; }
+.pool__dot:nth-child(7) { bottom: 20%; right: 30%; animation-delay: 1.5s; }
+.pool__dot:nth-child(8) { top: 42%; left: 10%; animation-delay: 2s; }
+.pool__dot:nth-child(9) { top: 48%; right: 12%; animation-delay: 2.5s; }
+@keyframes dotPulse { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.3); } }
+.pool__line-label { position: absolute; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 1px; color: var(--ink-soft); text-transform: uppercase; }
+.pool__text { opacity: 0; transform: translateY(20px); }
+.pool__text .section-sub { margin-top: 16px; margin-bottom: 32px; }
+.pool__tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.pool__tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 5px 12px; border: 1px solid var(--line-strong); border-radius: 100px; color: var(--ink-dim); letter-spacing: 0.5px; }
+
+/* ===================== TRUST ===================== */
+.trust { display: flex; flex-direction: column; justify-content: center; }
+.trust__content { max-width: 1280px; margin: 0 auto; width: 100%; }
+.trust__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin-top: 56px; background: var(--line); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.trust__item { padding: 44px 32px; background: var(--bg-1); text-align: center; transition: background 0.3s; opacity: 0; transform: translateY(20px); }
+.trust__item:hover { background: rgba(61,220,151,0.03); }
+.trust__num { font-family: 'JetBrains Mono', monospace; font-size: clamp(34px, 3.5vw, 54px); font-weight: 600; color: var(--green); line-height: 1; margin-bottom: 10px; }
+.trust__unit { font-size: 16px; color: var(--ink-soft); }
+.trust__label { font-size: 11px; letter-spacing: 2px; color: var(--ink-soft); text-transform: uppercase; margin-top: 8px; }
+.trust__quote { margin-top: 56px; max-width: 760px; margin-left: auto; margin-right: auto; padding: 44px 48px; border: 1px solid var(--line); border-radius: 12px; background: rgba(4,32,24,0.5); backdrop-filter: blur(20px); text-align: center; opacity: 0; transform: translateY(20px); }
+.trust__quote-text { font-size: 19px; font-weight: 300; line-height: 1.65; color: var(--ink-dim); margin-bottom: 20px; }
+.trust__quote-author { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--green); }
+
+/* ===================== AI OPS ===================== */
+.ai { display: flex; flex-direction: column; justify-content: center; }
+.ai__content { max-width: 1280px; margin: 0 auto; width: 100%; }
+.ai__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-top: 56px; }
+.ai__visual { position: relative; border: 1px solid var(--line); border-radius: 12px; background: rgba(4,32,24,0.6); overflow: hidden; aspect-ratio: 16/9; }
+.ai__screen { width: 92%; height: 88%; position: absolute; top: 6%; left: 4%; background: rgba(0,0,0,0.5); border: 1px solid var(--line); border-radius: 4px; padding: 20px; }
+.ai__bar { display: flex; gap: 6px; margin-bottom: 16px; }
+.ai__bar-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(61,220,151,0.2); }
+.ai__bar-dot.green { background: var(--green); box-shadow: 0 0 8px var(--green); }
+.ai__lines { display: flex; flex-direction: column; gap: 12px; }
+.ai__line { height: 8px; background: rgba(61,220,151,0.07); border-radius: 4px; position: relative; overflow: hidden; }
+.ai__line-fill { height: 100%; background: linear-gradient(to right, var(--green), rgba(61,220,151,0.3)); border-radius: 4px; width: 0; transition: width 1.5s ease; }
+.ai__line-label { position: absolute; right: 0; top: -18px; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--ink-soft); letter-spacing: 1px; }
+.ai__status { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+.ai__status-text { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--green); letter-spacing: 1px; }
+.ai__status-ok { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--ink-soft); }
+.ai__status-ok::before { content: ''; width: 6px; height: 6px; background: var(--green); border-radius: 50%; box-shadow: 0 0 6px var(--green); }
+.ai__text { opacity: 0; transform: translateY(20px); }
+.ai__text .section-sub { margin-top: 16px; margin-bottom: 36px; }
+.ai__features { display: flex; flex-direction: column; gap: 0; }
+.ai__feature { display: flex; align-items: flex-start; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.ai__feature:last-child { border-bottom: none; }
+.ai__feature-icon { width: 32px; height: 32px; border: 1px solid var(--line-strong); border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--green); font-size: 14px; }
+.ai__feature-title { font-size: 14px; font-weight: 500; margin-bottom: 3px; color: var(--ink); }
+.ai__feature-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+
+/* ===================== COVERAGE ===================== */
+.coverage { display: flex; flex-direction: column; justify-content: center; }
+.coverage__content { max-width: 1280px; margin: 0 auto; width: 100%; }
+.coverage__cities { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 44px; opacity: 0; transform: translateY(20px); }
+.coverage__city { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 1.5px; color: var(--ink-soft); padding: 8px 16px; border: 1px solid var(--line); border-radius: 100px; transition: all 0.3s; }
+.coverage__city:hover { border-color: var(--green); color: var(--green); box-shadow: 0 0 12px var(--green-glow); }
+
+/* ===================== CTA ===================== */
+.cta-sec { display: flex; flex-direction: column; justify-content: center; }
+.cta-sec__content { max-width: 1280px; margin: 0 auto; width: 100%; text-align: center; }
+.cta-sec .section-title { margin-bottom: 16px; }
+.cta-sec .section-sub { margin: 0 auto 44px; text-align: center; }
+.cta-sec__buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 56px; opacity: 0; transform: translateY(20px); }
+.cta-sec__contact { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; max-width: 660px; margin: 0 auto; padding-top: 56px; border-top: 1px solid var(--line); opacity: 0; transform: translateY(20px); }
+.cta-sec__contact-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--ink-soft); text-transform: uppercase; margin-bottom: 6px; }
+.cta-sec__contact-value { font-size: 14px; color: var(--ink-dim); }
+
+/* ===================== FOOTER ===================== */
+footer { position: relative; z-index: 10; padding: 44px 60px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: rgba(138,157,150,0.35); font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; }
+footer .dots { display: flex; gap: 8px; }
+footer .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: blink 2.4s ease-in-out infinite; opacity: 0.4; }
+footer .dot:nth-child(2) { animation-delay: 0.3s; }
+footer .dot:nth-child(3) { animation-delay: 0.6s; }
+@keyframes blink { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; box-shadow: 0 0 8px var(--green); } }
+
+/* ===================== REVEAL ===================== */
+.revealed { opacity: 1 !important; transform: none !important; }
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 768px) {
+  .nav { padding: 14px 24px; }
+  .nav__menu { display: none; }
+  .nav__logo { height: 28px; }
+  .nav__logo svg { height: 28px; }
+  .nav__cta { padding: 7px 14px; font-size: 11px; }
+  section { padding: 90px 24px 60px; }
+  .hero { padding: 0 24px; }
+  .hero__stats { position: static; flex-direction: row; gap: 20px; margin-top: 36px; text-align: left; }
+  .hero__stat-num { font-size: 26px; }
+  .hero__scroll { display: none; }
+  .what__grid { grid-template-columns: 1fr; }
+  .pool__grid { grid-template-columns: 1fr; gap: 40px; }
+  .trust__grid { grid-template-columns: repeat(2, 1fr); }
+  .ai__grid { grid-template-columns: 1fr; gap: 40px; }
+  .cta-sec__contact { grid-template-columns: 1fr; gap: 20px; }
+  .page-indicator { right: 12px; gap: 10px; }
+  .page-indicator button { width: 5px; height: 5px; }
+  .clock { font-size: 13px; right: 16px; bottom: 16px; }
+  footer { padding: 28px 24px; flex-direction: column; gap: 14px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- BG LAYERS -->
+<div class="grid-bg"></div>
+<div class="noise"></div>
+
+<!-- BOOT SCREEN -->
+<div class="boot-screen" id="boot-screen">
+  <div class="boot-scan" id="boot-scan"></div>
+  <div class="boot-logo"></div>
+  <div class="boot-text" id="boot-text">SPEEDER NETWORKS<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></div>
+  <div class="boot-progress"><div class="boot-progress-bar" id="boot-progress-bar"></div></div>
+</div>
+
+<!-- CLOCK -->
+<div class="clock">
+  <span id="hud-time">00:00:00</span>
+  <span class="clock__label">LOCAL TIME</span>
+</div>
+<div class="scanline" id="scanline"></div>
+
+<!-- SCROLL CONTAINER -->
+<div class="scroll-container" id="scroll-container">
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor">
+    <div class="cursor__ring"></div>
+    <div class="cursor__dot"></div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav__logo">
+      <svg height="36" viewBox="0 0 120 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="26" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="700" fill="#cbd3cf">SPEEDER</text>
+        <circle cx="110" cy="18" r="6" fill="none" stroke="#3DDC97" stroke-width="1.5"/>
+        <circle cx="110" cy="18" r="2" fill="#3DDC97"/>
+      </svg>
+    </div>
+    <div class="nav__menu">
+      <a href="#what">我们做什么</a>
+      <a href="#pool">线路融合池</a>
+      <a href="#trust">信任背书</a>
+      <a href="#ai">智能运维</a>
+      <a href="#contact">联系我们</a>
+    </div>
+    <a href="#contact" class="nav__cta">立即咨询</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero__inner">
+      <div class="hero__eyebrow">// 全球企业网络加速专家</div>
+      <h1 class="hero__title">
+        你的网络，<br/>会被<span class="accent">守护</span>
+      </h1>
+      <p class="hero__sub">
+        十年经验 · 2000+ 企业客户 · 自研 AI 运维系统<br/>
+        从外资入华到中资出海，你的跨国连接，我们来保驾护航。
+      </p>
+      <div class="hero__ctas">
+        <a href="#what" class="btn btn--primary">了解我们</a>
+        <a href="#contact" class="btn btn--ghost">获取方案</a>
+      </div>
+      <div class="hero__stats">
+        <div>
+          <div class="hero__stat-num">2000+</div>
+          <div class="hero__stat-label">Enterprise Clients</div>
+        </div>
+        <div>
+          <div class="hero__stat-num">10+</div>
+          <div class="hero__stat-label">Years Experience</div>
+        </div>
+        <div>
+          <div class="hero__stat-num">99.99%</div>
+          <div class="hero__stat-label">Uptime SLA</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero__scroll">
+      <span>Scroll</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- WHAT -->
+  <section class="what" id="what">
+    <div class="what__content">
+      <div class="tag">// 我们做什么</div>
+      <h2 class="section-title">外资入华 · 中资出海<br/>网络连接，我们都能搞定</h2>
+      <p class="section-sub">不同类型的跨国企业，面临不同的网络挑战。SPEEDER 为每一种场景找到最优解，让连接变得简单、稳定、值得托付。</p>
+      <div class="what__grid">
+        <div class="what__card">
+          <div class="what__card-tag">// inbound · 外资入华</div>
+          <div class="what__card-title">海外总部与中国分部的稳定互联</div>
+          <div class="what__card-desc">SAP、Salesforce、Office 365……无论你在用什么海外系统，我们让它像本地一样流畅。外资在华团队的工作效率，不该被网络拖慢。</div>
+          <div class="what__card-features">
+            <div class="what__card-feature">跨境访问加速</div>
+            <div class="what__card-feature">海外 SaaS 优化</div>
+            <div class="what__card-feature">两地数据同步</div>
+          </div>
+        </div>
+        <div class="what__card alt">
+          <div class="what__card-tag">// outbound · 中资出海</div>
+          <div class="what__card-title">中资出海经营海外业务的网络底座</div>
+          <div class="what__card-desc">跨境电商、SaaS 出海、跨国制造……你的业务延伸到哪里，网络就跟到哪里。稳定、低延迟、不掉线。</div>
+          <div class="what__card-features">
+            <div class="what__card-feature">出海专线覆盖</div>
+            <div class="what__card-feature">海外节点部署</div>
+            <div class="what__card-feature">全球一根网</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POOL -->
+  <section class="pool" id="pool">
+    <div class="pool__content">
+      <div class="tag">// 核心产品</div>
+      <h2 class="section-title">线路融合池<br/>让每一分钱都花在刀刃上</h2>
+      <div class="pool__grid">
+        <div class="pool__visual">
+          <div class="pool__ring"></div>
+          <div class="pool__ring"></div>
+          <div class="pool__ring"></div>
+          <div class="pool__center">
+            <div class="pool__center-text">线路<br/>融合</div>
+          </div>
+          <div class="pool__dot"></div>
+          <div class="pool__dot"></div>
+          <div class="pool__dot"></div>
+          <div class="pool__dot"></div>
+          <div class="pool__dot"></div>
+          <div class="pool__dot"></div>
+          <span class="pool__line-label" style="top:12%;left:50%;transform:translateX(-50%)">MPLS</span>
+          <span class="pool__line-label" style="top:50%;left:6%">Internet</span>
+          <span class="pool__line-label" style="bottom:10%;left:50%;transform:translateX(-50%)">5G</span>
+          <span class="pool__line-label" style="top:50%;right:6%">SD-WAN</span>
+        </div>
+        <div class="pool__text">
+          <p class="section-sub">不同应用有不同时延需求，不同时间有不同带宽峰值。线路融合池将 MPLS、Internet、5G、SD-WAN 智能融合，自动分流、动态调度，让每一分网络投入都产生最大回报。</p>
+          <div class="pool__tags">
+            <span class="pool__tag">智能分流</span>
+            <span class="pool__tag">动态调度</span>
+            <span class="pool__tag">成本优化</span>
+            <span class="pool__tag">应用感知</span>
+            <span class="pool__tag">弹性扩容</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section class="trust" id="trust">
+    <div class="trust__content">
+      <div class="tag">// 十年积累</div>
+      <h2 class="section-title">2000+ 企业客户<br/>他们把网络托付给了我们</h2>
+      <div class="trust__grid">
+        <div class="trust__item">
+          <div class="trust__num">2000<span class="trust__unit">+</span></div>
+          <div class="trust__label">企业客户</div>
+        </div>
+        <div class="trust__item">
+          <div class="trust__num">50<span class="trust__unit">+</span></div>
+          <div class="trust__label">覆盖国家</div>
+        </div>
+        <div class="trust__item">
+          <div class="trust__num">99.99<span class="trust__unit">%</span></div>
+          <div class="trust__label">服务可用性</div>
+        </div>
+        <div class="trust__item">
+          <div class="trust__num">24<span class="trust__unit">/</span>7</div>
+          <div class="trust__label">智能监控</div>
+        </div>
+      </div>
+      <div class="trust__quote">
+        <p class="trust__quote-text">「SPEEDER 让我们的海外业务延迟从 280ms 降到了 35ms。整个出海链路，第一次感觉是'自己在用'，不是'被人用'。」</p>
+        <div class="trust__quote-author">// 出海电商客户 · 技术总监</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI OPS -->
+  <section class="ai" id="ai">
+    <div class="ai__content">
+      <div class="tag">// 智能运维</div>
+      <h2 class="section-title">提前感知<br/>提前排障</h2>
+      <div class="ai__grid">
+        <div class="ai__visual">
+          <div class="ai__screen">
+            <div class="ai__bar">
+              <div class="ai__bar-dot"></div>
+              <div class="ai__bar-dot"></div>
+              <div class="ai__bar-dot"></div>
+              <div class="ai__bar-dot green"></div>
+            </div>
+            <div class="ai__lines">
+              <div class="ai__line">
+                <div class="ai__line-fill" data-width="92"></div>
+                <span class="ai__line-label">稳定性 92%</span>
+              </div>
+              <div class="ai__line">
+                <div class="ai__line-fill" data-width="78"></div>
+                <span class="ai__line-label">带宽利用率 78%</span>
+              </div>
+              <div class="ai__line">
+                <div class="ai__line-fill" data-width="85"></div>
+                <span class="ai__line-label">延迟优化 85%</span>
+              </div>
+              <div class="ai__line">
+                <div class="ai__line-fill" data-width="97"></div>
+                <span class="ai__line-label">告警响应 97%</span>
+              </div>
+            </div>
+            <div class="ai__status">
+              <span class="ai__status-text">AI OPS SYSTEM</span>
+              <span class="ai__status-ok">ALL SYSTEMS NOMINAL</span>
+            </div>
+          </div>
+        </div>
+        <div class="ai__text">
+          <p class="section-sub">SPEEDER 自研 AI 运维系统，7×24 小时监控关键应用。不等问题发生，提前感知；不等你打电话，主动排障。你的网络，有一群永不疲倦的守护者。</p>
+          <div class="ai__features">
+            <div class="ai__feature">
+              <div class="ai__feature-icon">⚡</div>
+              <div>
+                <div class="ai__feature-title">提前感知</div>
+                <div class="ai__feature-desc">AI 算法分析流量趋势，在问题爆发前预警</div>
+              </div>
+            </div>
+            <div class="ai__feature">
+              <div class="ai__feature-icon">🔧</div>
+              <div>
+                <div class="ai__feature-title">自动修复</div>
+                <div class="ai__feature-desc">常见故障自动切换线路，无需人工干预</div>
+              </div>
+            </div>
+            <div class="ai__feature">
+              <div class="ai__feature-icon">📊</div>
+              <div>
+                <div class="ai__feature-title">智能报表</div>
+                <div class="ai__feature-desc">每月网络健康报告，用数据说话</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COVERAGE -->
+  <section class="coverage" id="coverage">
+    <div class="coverage__content">
+      <div class="tag">// 全球覆盖</div>
+      <h2 class="section-title">50+ 国家 · 触手可达<br/>你的业务延伸到哪里，网络就跟到哪里</h2>
+      <p class="section-sub">从东南亚到欧洲，从北美到中东，SPEEDER 的节点覆盖全球主要商业城市。无论你的团队在哪，数据都能安全、稳定地送达。</p>
+      <div class="coverage__cities">
+        <span class="coverage__city">上海</span>
+        <span class="coverage__city">北京</span>
+        <span class="coverage__city">深圳</span>
+        <span class="coverage__city">香港</span>
+        <span class="coverage__city">新加坡</span>
+        <span class="coverage__city">东京</span>
+        <span class="coverage__city">洛杉矶</span>
+        <span class="coverage__city">纽约</span>
+        <span class="coverage__city">法兰克福</span>
+        <span class="coverage__city">伦敦</span>
+        <span class="coverage__city">悉尼</span>
+        <span class="coverage__city">迪拜</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-sec" id="contact">
+    <div class="cta-sec__content">
+      <div class="tag">// 联系我们</div>
+      <h2 class="section-title">准备好把网络交给我们了吗？</h2>
+      <p class="section-sub">无论你现在面临什么网络挑战，SPEEDER 都能帮你找到最优解。专业团队，专业方案，专业服务。</p>
+      <div class="cta-sec__buttons">
+        <a href="#" class="btn btn--primary">立即开始</a>
+        <a href="#" class="btn btn--ghost">预约演示</a>
+      </div>
+      <div class="cta-sec__contact">
+        <div>
+          <div class="cta-sec__contact-label">Email</div>
+          <div class="cta-sec__contact-value">contact@speeder.net.cn</div>
+        </div>
+        <div>
+          <div class="cta-sec__contact-label">Phone</div>
+          <div class="cta-sec__contact-value">+86 512-XXXX-XXXX</div>
+        </div>
+        <div>
+          <div class="cta-sec__contact-label">Address</div>
+          <div class="cta-sec__contact-value">苏州工业园区</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>© 2026 SPEEDER TECHNOLOGY · 苏州世必得</div>
+    <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+    <div>守护每一次连接</div>
+  </footer>
+</div>
+
+<!-- PAGE INDICATOR -->
+<div class="page-indicator" id="page-indicator"></div>
+
+<script>
+/* ============== CLOCK ============== */
+(function() {
+  function updateClock() {
+    const now = new Date();
+    const h = String(now.getHours()).padStart(2,'0');
+    const m = String(now.getMinutes()).padStart(2,'0');
+    const s = String(now.getSeconds()).padStart(2,'0');
+    document.getElementById('hud-time').textContent = h + ':' + m + ':' + s;
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+})();
+
+/* ============== CURSOR ============== */
+(function() {
+  const cursor = document.getElementById('cursor');
+  let mx = window.innerWidth/2, my = window.innerHeight/2;
+  let cx = mx, cy = my;
+  window.addEventListener('mousemove', function(e) { mx = e.clientX; my = e.clientY; });
+  function tick() {
+    cx += (mx - cx) * 0.18;
+    cy += (my - cy) * 0.18;
+    cursor.style.transform = 'translate(' + cx + 'px,' + cy + 'px) translate(-50%,-50%)';
+    requestAnimationFrame(tick);
+  }
+  tick();
+  document.querySelectorAll('a, button').forEach(function(el) {
+    el.addEventListener('mouseenter', function() { cursor.classList.add('is-hover'); });
+    el.addEventListener('mouseleave', function() { cursor.classList.remove('is-hover'); });
+  });
+})();
+
+/* ============== BOOT SEQUENCE ============== */
+(function() {
+  var boot = document.getElementById('boot-screen');
+  var logo = boot.querySelector('.boot-logo');
+  var scan = document.getElementById('boot-scan');
+  var text = document.getElementById('boot-text');
+  var bar = document.getElementById('boot-progress-bar');
+  var sections = document.querySelectorAll('.scroll-container > section');
+
+  document.body.classList.add('is-booting');
+
+  function animateBar() {
+    var start = null;
+    function step(t) {
+      if (!start) start = t;
+      var progress = Math.min((t - start) / 2500, 1);
+      bar.style.width = (progress * 100) + '%';
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  setTimeout(function() { logo.style.transition = 'opacity 0.5s, transform 0.5s'; logo.style.opacity = '1'; logo.style.transform = 'scale(1)'; }, 400);
+  setTimeout(function() { scan.style.opacity = '1'; scan.style.top = '0%'; animateBar(); }, 800);
+  setTimeout(function() { scan.style.transition = 'top 0.6s ease-in-out'; scan.style.top = '100%'; }, 1400);
+  setTimeout(function() { scan.style.opacity = '0'; text.style.opacity = '1'; }, 2000);
+  setTimeout(function() {
+    boot.style.opacity = '0';
+    boot.style.transition = 'opacity 0.6s ease';
+    setTimeout(function() {
+      boot.classList.add('is-done');
+      document.body.classList.remove('is-booting');
+      var els = document.querySelectorAll('.hero__eyebrow, .hero__title, .hero__sub, .hero__ctas, .hero__stats');
+      els.forEach(function(el, i) {
+        setTimeout(function() { el.classList.add('revealed'); }, i * 100);
+      });
+    }, 600);
+  }, 4200);
+})();
+
+/* ============== PAGE INDICATOR & SCROLL SPY ============== */
+(function() {
+  var sections = Array.from(document.querySelectorAll('.scroll-container > section'));
+  var indicator = document.getElementById('page-indicator');
+  var names = ['hero','what','pool','trust','ai','coverage','contact'];
+
+  sections.forEach(function(s, i) {
+    s.classList.remove('is-active');
+    if (i === 0) s.classList.add('is-active');
+    var btn = document.createElement('button');
+    btn.title = names[i] || ('Section ' + (i+1));
+    btn.addEventListener('click', function() { goTo(i); });
+    if (i === 0) btn.classList.add('is-active');
+    indicator.appendChild(btn);
+  });
+
+  var current = 0;
+  function goTo(idx) {
+    if (idx < 0 || idx >= sections.length) return;
+    current = idx;
+    sections[idx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    indicator.querySelectorAll('button').forEach(function(b, i) { b.classList.toggle('is-active', i === idx); });
+    sections.forEach(function(s, i) { s.classList.toggle('is-active', i === idx); });
+    triggerScanline();
+  }
+
+  function triggerScanline() {
+    var sl = document.getElementById('scanline');
+    sl.classList.remove('is-active');
+    void sl.offsetWidth;
+    sl.classList.add('is-active');
+  }
+
+  var scrollTimeout;
+  window.addEventListener('scroll', function() {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(function() {
+      var scrollTop = window.scrollY;
+      var wh = window.innerHeight;
+      var nearest = 0;
+      sections.forEach(function(s, i) {
+        if (s.offsetTop <= scrollTop + wh * 0.5) nearest = i;
+      });
+      if (nearest !== current) {
+        current = nearest;
+        indicator.querySelectorAll('button').forEach(function(b, i) { b.classList.toggle('is-active', i === current); });
+        sections.forEach(function(s, i) { s.classList.toggle('is-active', i === current); });
+        triggerScanline();
+      }
+    }, 50);
+  }, { passive: true });
+
+  /* ============== REVEAL ON SCROLL ============== */
+  var revealEls = document.querySelectorAll('.what__card, .trust__item, .trust__quote, .pool__text, .ai__text, .coverage__cities, .cta-sec__buttons, .cta-sec__contact');
+  var revealObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry, i) {
+      if (entry.isIntersecting) {
+        setTimeout(function() { entry.target.classList.add('revealed'); }, i * 100);
+        revealObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(function(el) { revealObs.observe(el); });
+
+  /* ============== AI SCREEN BARS ANIMATION ============== */
+  var aiAnimated = false;
+  var aiScreen = document.querySelector('.ai__screen');
+  if (aiScreen) {
+    var aiObs = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting && !aiAnimated) {
+        aiAnimated = true;
+        document.querySelectorAll('.ai__line-fill').forEach(function(el, i) {
+          setTimeout(function() { el.style.width = el.dataset.width + '%'; }, i * 300);
+        });
+      }
+    }, { threshold: 0.3 });
+    aiObs.observe(aiScreen);
+  }
+})();
+</script>
+</body>
+</html>

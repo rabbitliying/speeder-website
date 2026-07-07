@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UniSASE统一安全栈 | SPEEDER NETWORKS</title>
+<title>UniSASE蝵?摰 | SPEEDER NETWORKS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -142,16 +142,16 @@ header {
   position: absolute;
   inset: 0;
   background: url('img_unisase_hero.png') center center / cover no-repeat;
-  z-index: 0;
-  opacity: 0.6;
+  opacity: 0.45;
 }
 
 /* Dark overlay for text readability */
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(to bottom, rgba(4,32,24,0.15) 0%, transparent 35%, rgba(4,32,24,0.5) 70%, rgba(4,32,24,0.85) 100%);
+  background: 
+    linear-gradient(to bottom, rgba(4,32,24,0.3) 0%, transparent 30%, rgba(4,32,24,0.7) 70%, rgba(4,32,24,0.95) 100%),
+    radial-gradient(ellipse at 50% 20%, rgba(4,32,24,0.2) 0%, transparent 50%);
   z-index: 2;
 }
 
@@ -192,7 +192,30 @@ header {
   100% { opacity: 0; transform: rotate(360deg); }
 }
 
-/* Shield energy effect - CSS only, no image */
+/* Shield pulse rings */
+.hero-shield-pulse {
+  position: absolute;
+  top: 50%; right: 15%;
+  transform: translate(50%, -50%);
+  z-index: 4;
+  pointer-events: none;
+}
+.pulse-ring {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 300px; height: 300px;
+  border: 1.5px solid rgba(168,212,212,0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  animation: shieldPulse 3s ease-out infinite;
+}
+.pulse-ring:nth-child(2) { animation-delay: 1s; }
+.pulse-ring:nth-child(3) { animation-delay: 2s; }
+@keyframes shieldPulse {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+}
+
 .hero-network-canvas {
   position: absolute;
   inset: 0;
@@ -455,9 +478,12 @@ section { padding: 100px 60px; }
 .security-layout {
   max-width: 1200px;
   margin: 0 auto 60px;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 140px;
 }
-.security-header-text { display: inline-block; text-align: left; }
+.security-header-text { flex: 1; padding-left: 20px; }
 .security-visual-wrap {
   flex: 0 0 auto;
   display: flex;
@@ -465,38 +491,38 @@ section { padding: 100px 60px; }
 }
 .security-visual {
   position: relative;
-  width: 100px;
-  height: 100px;
+  width: 180px;
+  height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .shield-core {
-  width: 64px;
-  height: 64px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(106,156,115,0.2) 0%, rgba(93,109,86,0.08) 60%, transparent 100%);
-  border: 1px solid rgba(168,212,212,0.25);
+  background: radial-gradient(circle, rgba(106,156,115,0.25) 0%, rgba(93,109,86,0.1) 60%, transparent 100%);
+  border: 1.5px solid rgba(168,212,212,0.3);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   z-index: 2;
-  box-shadow: 0 0 20px rgba(168,212,212,0.12), inset 0 0 12px rgba(168,212,212,0.05);
+  box-shadow: 0 0 30px rgba(168,212,212,0.15), inset 0 0 20px rgba(168,212,212,0.05);
 }
 .shield-icon {
-  font-size: 28px;
-  filter: drop-shadow(0 0 6px rgba(168,212,212,0.5));
+  font-size: 56px;
+  filter: drop-shadow(0 0 12px rgba(168,212,212,0.6));
 }
 .shield-ring {
   position: absolute;
   border-radius: 50%;
-  border: 1px solid rgba(168,212,212,0.15);
+  border: 1px solid rgba(168,212,212,0.2);
   animation: shieldRingPulse 3s ease-out infinite;
 }
-.shield-ring-1 { width: 80px; height: 80px; animation-delay: 0s; }
-.shield-ring-2 { width: 100px; height: 100px; animation-delay: 1s; border-color: rgba(168,212,212,0.08); }
-.shield-ring-3 { width: 120px; height: 120px; animation-delay: 2s; border-color: rgba(168,212,212,0.05); }
+.shield-ring-1 { width: 150px; height: 150px; animation-delay: 0s; }
+.shield-ring-2 { width: 180px; height: 180px; animation-delay: 1s; border-color: rgba(168,212,212,0.12); }
+.shield-ring-3 { width: 210px; height: 210px; animation-delay: 2s; border-color: rgba(168,212,212,0.07); }
 @keyframes shieldRingPulse {
   0% { transform: scale(0.8); opacity: 0.8; }
   100% { transform: scale(1.15); opacity: 0; }
@@ -579,21 +605,15 @@ section { padding: 100px 60px; }
 .case-badge {
   display: inline-block;
   font-size: 11px;
-  font-family: 'JetBrains Mono', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
   background: rgba(106,156,115,0.2);
   color: var(--accent);
   padding: 4px 12px;
   border-radius: 20px;
   margin-bottom: 14px;
 }
-.case-badge.mfg     { background: rgba(93,109,86,0.25); color: var(--light); }
-.case-badge.tech    { background: rgba(166,181,143,0.2); color: #c8d89a; }
-.case-badge.retail  { background: rgba(100,149,237,0.15); color: #6495ed; }
-.case-badge.energy  { background: rgba(139,90,180,0.2); color: #9370db; }
-.case-badge.edu     { background: rgba(200,120,80,0.15); color: #e07850; }
 .case-card h3 { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 10px; line-height: 1.4; }
 .case-card p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 18px; }
-.case-card .case-sub { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: -8px; margin-bottom: 12px; font-family: 'JetBrains Mono', monospace; }
 .case-metrics { display: flex; gap: 14px; border-top: 1px solid rgba(106,156,115,0.15); padding-top: 16px; }
 .case-metric { text-align: center; flex: 1; }
 .case-metric-num { font-family: 'JetBrains Mono', monospace; font-size: 17px; font-weight: 700; color: #fff; }
@@ -642,46 +662,52 @@ footer {
 }
 </style>
 </head>
-</head>
 <body>
 
 <!-- Navigation -->
-<header id="mainNav">
+<header>
   <div class="logo-wrap">
     <img src="logo_new.png" class="logo-img" alt="SPEEDER NETWORKS">
   </div>
   <ul class="nav-links">
-    <li class="nav-has-sub"><a href="speeder_v2_combined.html">首页</a></li>
+    <li><a href="speeder_v2_combined.html">擐△</a></li>
     <li class="nav-has-sub">
-      <a href="sdwan.html">线路融合池 <span class="nav-arrow">▼</span></a>
+      <a href="sdwan.html">蝥輯楝??瘙?<span class="nav-arrow">??/span></a>
       <ul class="nav-sub">
-        <li><a href="sdwan.html#sdwan-overview">产品概述</a></li>
-        <li><a href="sdwan.html#sdwan-tech">核心技术</a></li>
-        <li><a href="sdwan.html#sdwan-hardware">硬件型号</a></li>
-        <li><a href="sdwan.html#sdwan-cases">客户案例</a></li>
+        <li><a href="sdwan.html#sdwan-overview">鈭批?璁膩</a></li>
+        <li><a href="sdwan.html#sdwan-tech">?詨????/a></li>
+        <li><a href="sdwan.html#sdwan-hardware">蝖砌辣?</a></li>
+        <li><a href="sdwan.html#sdwan-cases">摰Ｘ獢?</a></li>
       </ul>
     </li>
     <li class="nav-has-sub">
-      <a href="unisase.html">网络安全 <span class="nav-arrow">▼</span></a>
+      <a href="unisase.html" class="active">蝵?摰 <span class="nav-arrow">??/span></a>
       <ul class="nav-sub">
-        <li><a href="unisase.html#sase-overview">产品概述</a></li>
-        <li><a href="unisase.html#sase-security">安全架构</a></li>
-        <li><a href="unisase.html#sase-components">核心组件</a></li>
-        <li><a href="unisase.html#sase-cases">客户案例</a></li>
+        <li><a href="unisase.html#overview">鈭批?璁膩</a></li>
+        <li><a href="unisase.html#security">摰?嗆?</a></li>
+        <li><a href="unisase.html#components">?詨?蝏辣</a></li>
+        <li><a href="unisase.html#cases">摰Ｘ獢?</a></li>
       </ul>
     </li>
     <li class="nav-has-sub">
-      <a href="ai.html">AI智能运维 <span class="nav-arrow">▼</span></a>
+      <a href="ai.html">AI?箄餈輕 <span class="nav-arrow">??/span></a>
       <ul class="nav-sub">
-        <li><a href="ai.html#ai-overview">产品概述</a></li>
-        <li><a href="ai.html#ai-monitoring">主动监控</a></li>
-        <li><a href="ai.html#ai-capabilities">AI能力</a></li>
-        <li><a href="ai.html#ai-oms">数字化服务</a></li>
+        <li><a href="ai.html#ai-overview">鈭批?璁膩</a></li>
+        <li><a href="ai.html#ai-monitoring">銝餃?</a></li>
+        <li><a href="ai.html#ai-capabilities">AI?賢?</a></li>
+        <li><a href="ai.html#ai-oms">?啣?????/a></li>
       </ul>
     </li>
-    <li class="nav-has-sub"><a href="products.html">代理产品</a></li>
-    <li class="nav-has-sub"><a href="about.html">关于我们</a></li>
-    <li><a href="about.html#contact" class="nav-cta">联系我们</a></li>
+    <li class="nav-has-sub">
+      <a href="products.html">隞??鈭批? <span class="nav-arrow">??/span></a>
+      <ul class="nav-sub">
+        <li><a href="products.html#products-overview">鈭批?璁?</a></li>
+        <li><a href="products.html#products-features">?詨?隡</a></li>
+        <li><a href="products.html#contact">?刻砭?乩遠</a></li>
+      </ul>
+    </li>
+    <li><a href="about.html">?喃??賑</a></li>
+    <li><a href="about.html#contact" class="nav-cta">?頂?賑</a></li>
   </ul>
 </header>
 
@@ -691,22 +717,27 @@ footer {
   <div class="hero-overlay"></div>
   <div class="hero-hex-grid"></div>
   <div class="hero-scan"></div>
+  <div class="hero-shield-pulse">
+    <div class="pulse-ring"></div>
+    <div class="pulse-ring"></div>
+    <div class="pulse-ring"></div>
+  </div>
   <canvas class="hero-network-canvas" id="networkCanvas"></canvas>
   <div class="hero-content">
     <div class="hero-left">
-      <p class="hero-eyebrow">// UniSASE 云网安融合一体化方案</p>
-      <h1 class="hero-title">UniSASE<span class="accent">统一安全栈</span></h1>
-      <p class="hero-tagline">零信任 · 全球骨干 · 智能运维</p>
-      <p class="hero-sub">云网安融合 · 180天日志留存 · 6大核心模块 · 覆盖全球</p>
+      <p class="hero-eyebrow">// UniSASE 繚 蝏?摰霈輸?颲寧?</p>
+      <h1 class="hero-title">UniSASE<span class="accent">蝵?摰??/span></h1>
+      <p class="hero-tagline">?嗡縑隞?繚 ?函?撉典僕 繚 銝餃?脫</p>
+      <p class="hero-sub">蝏?頨思遢蝑 繚 180憭拙?敹?繚 6憭批??函?隞嗅????/p>
       <div class="hero-stats">
-        <div><div class="hero-stat-num"><em>150+</em>全球</div><div class="hero-stat-label">骨干PoP节点</div></div>
-        <div><div class="hero-stat-num"><em>4</em>类</div><div class="hero-stat-label">接入实体</div></div>
-        <div><div class="hero-stat-num"><em>180</em>天</div><div class="hero-stat-label">合规保障</div></div>
-        <div><div class="hero-stat-num"><em>ZTNA</em></div><div class="hero-stat-label">零信任</div></div>
+        <div><div class="hero-stat-num">&lt;<em>1</em>ms</div><div class="hero-stat-label">憭?撱嗆</div></div>
+        <div><div class="hero-stat-num"><em>150</em>銝?</div><div class="hero-stat-label">憡?閫?</div></div>
+        <div><div class="hero-stat-num"><em>180</em>憭?/div><div class="hero-stat-label">?亙?靽?</div></div>
+        <div><div class="hero-stat-num"><em>ZTNA</em></div><div class="hero-stat-label">?嗡縑隞?/div></div>
       </div>
       <div class="hero-actions">
-        <a href="#overview" class="btn btn-primary">了解更多 →</a>
-        <a href="#contact" class="btn btn-outline">联系我们</a>
+        <a href="#overview" class="btn btn-primary">鈭圾?寞? ??/a>
+        <a href="#contact" class="btn btn-outline">?頂?賑</a>
       </div>
     </div>
   </div>
@@ -716,27 +747,26 @@ footer {
 <section id="overview">
   <div class="overview-grid">
     <div class="overview-visual-img">
-      <img src="img_security_1.png" alt="UniSASE安全架构">
+      <img src="img_security_1.png" alt="UniSASE摰?嗆?">
     </div>
     <div>
-      <p class="section-label">01 · 方案概述</p>
-      <p class="module-eyebrow">UniSASE安全栈 / Unified SASE</p>
-      <h2 class="module-title-zh">UniSASE安全栈</h2>
+      <p class="section-label">01 繚 鈭批?璁膩</p>
+      <p class="module-eyebrow">UniSASE摰??/ Unified SASE</p>
+      <h2 class="module-title-zh">UniSASE摰??/h2>
       <p class="module-title-en">UNIFIED SASE SECURITY STACK</p>
-      <p class="module-tagline">云网融合，安全管理一朵云</p>
+      <p class="module-tagline">蝵?銝??剁?隞?憒亙?</p>
       <ul class="module-points">
-        <li><strong>6大核心模块：</strong>UniAuth · UniCtrl · UniLog · UniPOP · UniGate · UniMobile</li>
-        <li><strong>全球骨干网络：</strong>美洲 · 欧洲 · 亚太 150+PoP节点，就近接入</li>
-        <li><strong>SASE服务：</strong>网络即服务 + 安全即服务，双重能力融合</li>
-        <li>零信任安全，以身份为中心，<strong>设备验证·风险分析·合规管理</strong></li>
-        <li>云网安融合，支持<strong>4类接入实体</strong>：员工 · 客户 · 合作伙伴 · IoT</li>
-        <li>DPI深度检测，<strong>11类应用识别</strong>，精细化策略管控</li>
+        <li><strong>6憭抒?隞塚?</strong>UniAuth 繚 UniCtrl 繚 UniLog 繚 UniPOP 繚 UniGate 繚 UniMobile</li>
+        <li><strong>150+?函??</strong>嚗??辣??lt;1ms</li>
+        <li>?嗡縑隞餌?蝏?蝳鳴?<strong>敺桅?蝳餃?畾菟??/strong></li>
+        <li><strong>180憭拙??霂敹?/strong>嚗說頞喳摰151?瑚誘</li>
+        <li>DPI霂<strong>11憭抒掩??蝘???/strong>嚗移?恣??/li>
       </ul>
       <div class="module-stats">
-        <div class="module-stat"><div class="module-stat-num"><em>150+</em></div><div class="module-stat-label">全球PoP节点</div></div>
-        <div class="module-stat"><div class="module-stat-num"><em>4</em>类</div><div class="module-stat-label">接入实体</div></div>
-        <div class="module-stat"><div class="module-stat-num"><em>180</em>天</div><div class="module-stat-label">合规日志</div></div>
-        <div class="module-stat"><div class="module-stat-num"><em>ZTNA</em></div><div class="module-stat-label">零信任</div></div>
+        <div class="module-stat"><div class="module-stat-num">&lt;<em>1</em>ms</div><div class="module-stat-label">憭?撱嗆</div></div>
+        <div class="module-stat"><div class="module-stat-num"><em>150</em>銝?</div><div class="module-stat-label">憡?閫?</div></div>
+        <div class="module-stat"><div class="module-stat-num"><em>180</em>憭?/div><div class="module-stat-label">?亙?靽?</div></div>
+        <div class="module-stat"><div class="module-stat-num"><em>ZTNA</em></div><div class="module-stat-label">?嗡縑隞?/div></div>
       </div>
     </div>
   </div>
@@ -745,51 +775,61 @@ footer {
 <!-- Security -->
 <section id="security">
   <div class="security-layout">
+    <div class="security-visual-wrap">
+      <div class="security-visual">
+        <div class="shield-core">
+          <div class="shield-icon">?儭?/div>
+        </div>
+        <div class="shield-ring shield-ring-1"></div>
+        <div class="shield-ring shield-ring-2"></div>
+        <div class="shield-ring shield-ring-3"></div>
+      </div>
+    </div>
     <div class="security-header-text">
-      <p class="section-label">02 · 安全架构</p>
-      <h2 class="section-title">ZTNA零信任访问控制体系</h2>
-      <p class="section-sub">零信任 · 设备验证 · 合规管理 · 风险分析</p>
+      <p class="section-label">02 繚 摰?嗆?</p>
+      <h2 class="section-title">ZTNA?嗡縑隞餃??冽??/h2>
+      <p class="section-sub">?嗡縑隞?繚 敺桅?蝳?繚 ?券?摰∟恣 繚 ??皛∟雲</p>
     </div>
   </div>
   <div class="security-grid">
     <div class="security-card">
-      <div class="security-icon">🛡</div>
-      <h3>零信任访问</h3>
-      <p>基于零信任原则，默认不信任任何用户和设备，持续验证身份、终端状态、访问上下文，建立最小权限访问模型，有效收缩攻击面。</p>
+      <div class="security-icon">??</div>
+      <h3>敺桅?蝳餃?畾?/h3>
+      <p>?箔?頨思遢?凝?挾??荔?撠?蝏??蛹蝎曄???摰?箏?嚗??唬?镼踹?瘚??艇?潛恣?改??璅芸?皜?颯?/p>
       <div class="security-tags">
-        <span class="security-tag">持续验证</span>
-        <span class="security-tag">最小权限</span>
-        <span class="security-tag">微分段</span>
+        <span class="security-tag">銝正??蝳?/span>
+        <span class="security-tag">頨思遢撽勗</span>
+        <span class="security-tag">?撠???/span>
       </div>
     </div>
     <div class="security-card">
-      <div class="security-icon">🔐</div>
-      <h3>安全运营</h3>
-      <p>防病毒 · 入侵防御 · 数据防泄漏，多引擎协同，实时检测已知威胁和异常行为，结合全局威胁情报，实现秒级响应阻断。</p>
+      <div class="security-icon">?牧</div>
+      <h3>蝏?頨思遢蝑</h3>
+      <p>??憭?蝝恕霂??寧敶?挪?桃??伐??箔??冽?挽憭??典?蝏渲澈隞賢??嗉?隡啗挪?格????典?蝏?蝞⊥??/p>
       <div class="security-tags">
-        <span class="security-tag">AV</span>
-        <span class="security-tag">IPS</span>
-        <span class="security-tag">DLP</span>
+        <span class="security-tag">MFA</span>
+        <span class="security-tag">SSO</span>
+        <span class="security-tag">?冽???/span>
       </div>
     </div>
     <div class="security-card">
-      <div class="security-icon">📋</div>
-      <h3>合规管理</h3>
-      <p>180天全量日志留存，满足公安部151号令、等保2.0、数据安全法合规要求，审计报表一键导出，溯源取证有据可查。</p>
+      <div class="security-icon">??</div>
+      <h3>?券?摰∟恣</h3>
+      <p>180憭拙??霂敹?摰霈啣??冽銵蛹???膘餈嫘??其?隞塚?皛∟雲?砍???51?瑚誘??靽?.0??閬???/p>
       <div class="security-tags">
-        <span class="security-tag">180天日志</span>
-        <span class="security-tag">等保2.0</span>
-        <span class="security-tag">数据安全法</span>
+        <span class="security-tag">180憭拍?摮?/span>
+        <span class="security-tag">蝑???</span>
+        <span class="security-tag">皞舀???</span>
       </div>
     </div>
     <div class="security-card">
-      <div class="security-icon">📊</div>
-      <h3>风险分析</h3>
-      <p>用户实体行为分析（UEBA），机器学习驱动的异常检测，实时风险评分与自动化响应策略联动，实现从被动防御到主动检测的跨越。</p>
+      <div class="security-icon">??/div>
+      <h3>??皛∟雲</h3>
+      <p>?遣蝑?2.0鈭?銝漣????銝?桀??具楊?賢?閫??塚?蝑璅⊥銝?桅蝵莎???摰∟恣?函?霈啣???/p>
       <div class="security-tags">
-        <span class="security-tag">UEBA</span>
-        <span class="security-tag">151号令</span>
-        <span class="security-tag">风控体系</span>
+        <span class="security-tag">蝑?2.0</span>
+        <span class="security-tag">151?瑚誘</span>
+        <span class="security-tag">?唳摰瘜?/span>
       </div>
     </div>
   </div>
@@ -798,46 +838,46 @@ footer {
 <!-- Components -->
 <section id="components">
   <div class="components-header">
-    <p class="section-label">03 · 核心组件</p>
-    <h2 class="section-title">6大核心模块</h2>
-    <p class="section-sub">身份统一 · 控制集中 · 日志全局 · 边缘安全</p>
+    <p class="section-label">03 繚 ?詨?蝏辣</p>
+    <h2 class="section-title">6憭批??函?隞?/h2>
+    <p class="section-sub">璅∪????繚 ??? 繚 ???函蔡</p>
   </div>
   <div class="components-grid">
     <div class="component-card">
-      <div class="component-icon">🔐</div>
+      <div class="component-icon">?牧</div>
       <h3>UniAuth</h3>
       <p class="component-en">UNIFIED IDENTITY</p>
-      <p>统一身份认证平台，支持OAuth 2.0/OIDC、LDAP/Radius、SAML多协议，实现身份同步架构，单点登录SSO。</p>
+      <p>蝏?頨思遢霈方?銝挪?桃恣??憭?蝝恕霂SO??餃?????抵?隡?/p>
     </div>
     <div class="component-card">
-      <div class="component-icon">⚙</div>
+      <div class="component-icon">??</div>
       <h3>UniCtrl</h3>
       <p class="component-en">POLICY ENGINE</p>
-      <p>策略控制引擎，集中管理安全策略，DPI深度检测，识别11类应用行为，精细化策略管控。</p>
+      <p>?箄蝑撘?嚗鈭澈隞賜?敺桀?畾萸PI摨霂???移?恣??/p>
     </div>
     <div class="component-card">
-      <div class="component-icon">📝</div>
+      <div class="component-icon">??</div>
       <h3>UniLog</h3>
       <p class="component-en">FULL LOGGING</p>
-      <p>180天全量会话日志，满足公安部151号令，阳光执法有据可查，审计报表自动生成。</p>
+      <p>180憭拙??霂敹?銵蛹????閫恣霈～??滲皞?雿?</p>
     </div>
     <div class="component-card">
-      <div class="component-icon">🌐</div>
+      <div class="component-icon">??</div>
       <h3>UniPOP</h3>
       <p class="component-en">SECURITY EDGE</p>
-      <p>80+全球安全POP节点，就近接入实体，负载均衡failover，保证链路可用性。</p>
+      <p>150+?函?摰POP?撠梯??亙??撣??脫??撱嗉?雿?</p>
     </div>
     <div class="component-card">
-      <div class="component-icon">🔒</div>
+      <div class="component-icon">?儭?/div>
       <h3>UniGate</h3>
       <p class="component-en">SECURITY GATEWAY</p>
-      <p>安全网关集群，集成IPSec/SSL VPN、防病毒、入侵防御、内容过滤，全面威胁防护。</p>
+      <p>銝?隞??怠??PS?乩噩?脣鴃?????芥PT擃漣憡??脫</p>
     </div>
     <div class="component-card">
-      <div class="component-icon">📱</div>
+      <div class="component-icon">?</div>
       <h3>UniMobile</h3>
       <p class="component-en">MOBILE SECURITY</p>
-      <p>移动安全接入，MAM/MDM移动设备管理，支持手机端安全准入管控。</p>
+      <p>蝘餃霈曉?摰蝞⊥ MAM/MDM ??嚗??支?銝宏?刻挽憭???/p>
     </div>
   </div>
 </section>
@@ -845,90 +885,39 @@ footer {
 <!-- Cases -->
 <section id="cases">
   <div class="cases-header">
-    <p class="section-label">04 · 客户案例</p>
-    <h2 class="section-title">行业客户实践</h2>
-    <p class="section-sub">金融 · 能源 · 政府 · 医疗 · 制造 · 教育</p>
+    <p class="section-label">04 繚 摰Ｘ獢?</p>
+    <h2 class="section-title">銵?摰Ｘ獢?</h2>
+    <p class="section-sub">閬??????楊?賭?銝?/p>
   </div>
   <div class="cases-grid">
-
-        <!-- 高科技制造 -->
-        <div class="case-card">
-          <span class="case-badge tech">高科技制造</span>
-          <h3>某高科技AR设备生产商</h3>
-          <p class="case-sub">京深分支 · 海外SaaS加速 · 飞书SSO</p>
-          <p>北京总部+深圳分支+深圳工厂，骨干网优化+美国原生IP保障海外流媒体稳定访问，UniAuth对接飞书实现一键SSO接入。</p>
-          <div class="case-metrics">
-            <div class="case-metric"><div class="case-metric-num">海外</div><div class="case-metric-label">SaaS应用加速</div></div>
-            <div class="case-metric"><div class="case-metric-num">飞书</div><div class="case-metric-label">UniAuth单点登录</div></div>
-            <div class="case-metric"><div class="case-metric-num">UniMobile</div><div class="case-metric-label">移动安全接入</div></div>
-          </div>
-        </div>
-
-        <!-- 高校 -->
-        <div class="case-card">
-          <span class="case-badge tech">高校</span>
-          <h3>某高校跨境学术访问优化</h3>
-          <p class="case-sub">美国&lt;150ms · 香港&lt;60ms · 新加坡&lt;90ms</p>
-          <p>UniGate统一管理三条国际出口，按域名智能分流学术资源，骨干网优化跨境访问体验，安全能力同步下沉。</p>
-          <div class="case-metrics">
-            <div class="case-metric"><div class="case-metric-num">&lt;150ms</div><div class="case-metric-label">美国方向延迟</div></div>
-            <div class="case-metric"><div class="case-metric-num">&lt;60ms</div><div class="case-metric-label">香港方向延迟</div></div>
-            <div class="case-metric"><div class="case-metric-num">&lt;90ms</div><div class="case-metric-label">新加坡方向延迟</div></div>
-          </div>
-        </div>
-
-        <!-- 建筑央企 -->
-        <div class="case-card">
-          <span class="case-badge tech">建筑央企</span>
-          <h3>某建筑行业央企研究院</h3>
-          <p class="case-sub">百万+威胁情报 · 透明桥接零改造</p>
-          <p>数千台主机，双机透明桥接补齐安全，百万+威胁情报库实时拦截，内对外双向清洗，UniLog秒级溯源感染源。</p>
-          <div class="case-metrics">
-            <div class="case-metric"><div class="case-metric-num">百万+</div><div class="case-metric-label">威胁情报库</div></div>
-            <div class="case-metric"><div class="case-metric-num">数千台</div><div class="case-metric-label">主机统一管控</div></div>
-            <div class="case-metric"><div class="case-metric-num">秒级</div><div class="case-metric-label">溯源处置</div></div>
-          </div>
-        </div>
-
-        <!-- 跨国企业 -->
-        <div class="case-card">
-          <span class="case-badge tech">跨国企业</span>
-          <h3>某跨国公司北京分支</h3>
-          <p class="case-sub">30M出口 · IPSec隧道加速 · SaaS优化</p>
-          <p>骨干网IPSec隧道优化替换专线，30M出口DPI行为管控保障关键业务，Office 365等SaaS应用路由调度至更优线路。</p>
-          <div class="case-metrics">
-            <div class="case-metric"><div class="case-metric-num">30M</div><div class="case-metric-label">出口带宽管控</div></div>
-            <div class="case-metric"><div class="case-metric-num">IPSec</div><div class="case-metric-label">隧道骨干优化</div></div>
-            <div class="case-metric"><div class="case-metric-num">SaaS</div><div class="case-metric-label">应用路由调度</div></div>
-          </div>
-        </div>
-
-        <!-- 外贸 -->
-        <div class="case-card">
-          <span class="case-badge tech">外贸</span>
-          <h3>某外贸公司俄语区业务加速</h3>
-          <p class="case-sub">俄罗斯+哈萨克斯坦 · 10M专属隧道</p>
-          <p>UniSASE全球骨干网直连俄罗斯/哈萨克斯坦POP点，各提供10M专属隧道保障核心业务，DPI识别限制短视频/下载流量。</p>
-          <div class="case-metrics">
-            <div class="case-metric"><div class="case-metric-num">10M</div><div class="case-metric-label">专属隧道带宽</div></div>
-            <div class="case-metric"><div class="case-metric-num">俄/哈</div><div class="case-metric-label">POP点直连加速</div></div>
-            <div class="case-metric"><div class="case-metric-num">DPI</div><div class="case-metric-label">精准流量管控</div></div>
-          </div>
-        </div>
-
-        <!-- 水务国企 -->
-        <div class="case-card">
-          <span class="case-badge tech">水务国企</span>
-          <h3>广东某大型水务工程国企</h3>
-          <p class="case-sub">ISP 300M · HA双机部署 · UniLog审计</p>
-          <p>出口HA双机部署UniGate统一承载防火墙+行为管理，UniLog集中日志审计，策略集中配置减少多设备维护。</p>
-          <div class="case-metrics">
-            <div class="case-metric"><div class="case-metric-num">300M</div><div class="case-metric-label">ISP出口带宽</div></div>
-            <div class="case-metric"><div class="case-metric-num">HA</div><div class="case-metric-label">双机高可用部署</div></div>
-            <div class="case-metric"><div class="case-metric-num">UniLog</div><div class="case-metric-label">集中日志审计</div></div>
-          </div>
-        </div>
-
+    <div class="case-card">
+      <span class="case-badge">??銵?</span>
+      <h3>?仍?典??繚 ?函?摰?漣</h3>
+      <p>?函蔡UniSASE摰??摰?典200+?乩??券靽∩遙?亙嚗?80憭拇敹?閫?摮?摰Ｘ皛⊥?摨?00%??/p>
+      <div class="case-metrics">
+        <div class="case-metric"><div class="case-metric-num">200+</div><div class="case-metric-label">?乩???/div></div>
+        <div class="case-metric"><div class="case-metric-num">180憭?/div><div class="case-metric-label">?亙???</div></div>
+        <div class="case-metric"><div class="case-metric-num">&lt;1ms</div><div class="case-metric-label">憭?撱嗉?</div></div>
+      </div>
+    </div>
+    <div class="case-card">
+      <span class="case-badge">???園?/span>
+      <h3>??賣?頧虫? 繚 ??蝵凝?氖</h3>
+      <p>?函蔡UniAuth + UniCtrl嚗??啁???銝??祉?敺桀?畾蛛??詨??唳?嗆??莎??餃璅芸?蝘餃?餅??00%??/p>
+      <div class="case-metrics">
+        <div class="case-metric"><div class="case-metric-num">100%</div><div class="case-metric-label">?餅??/div></div>
+        <div class="case-metric"><div class="case-metric-num">0</div><div class="case-metric-label">?唳瘜</div></div>
+        <div class="case-metric"><div class="case-metric-num">50+</div><div class="case-metric-label">??箸?</div></div>
+      </div>
+    </div>
+    <div class="case-card">
+      <span class="case-badge">頝典隡?</span>
+      <h3>??韏??繚 ?函?撉典僕摰?亙</h3>
+      <p>?其葉?賢?函蔡UniPOP + UniGate嚗停餈?亙?爸撟脩?嚗???芰?99.7%嚗?閫恣霈∪蝔閫???/p>
+      <div class="case-metrics">
+        <div class="case-metric"><div class="case-metric-num">99.7%</div><div class="case-metric-label">?餅??/div></div>
+        <div class="case-metric"><div class="case-metric-num">150+</div><div class="case-metric-label">POP?</div></div>
+        <div class="case-metric"><div class="case-metric-num">30%</div><div class="case-metric-label">???</div></div>
       </div>
     </div>
   </div>
@@ -937,71 +926,76 @@ footer {
 <!-- Contact -->
 <section id="contact">
   <div class="contact-inner">
-    <p class="section-label">CONTACT US</p>
-    <h2 class="contact-title">联系我们</h2>
-    <p class="contact-sub">无论是产品咨询、技术方案还是商务合作，<br>我们的专家团队将在24小时内与您联系。</p>
+    <p class="section-label">LET'S TALK</p>
+    <h2 class="contact-title">??憟賣?撱箔????其?蝟鳴?</h2>
+    <p class="contact-sub">?捏?舐?蝏?蝥扼??典?閫?餈?嗡縑隞餅????br>?賑???銝箔?摰?寞???/p>
     <div class="contact-actions">
-      <a href="mailto:bally.su@speeder.net.cn" class="btn btn-primary">📧 发送邮件</a>
-      <a href="tel:+8613771706800" class="btn btn-outline">📞 致电咨询</a>
+      <a href="mailto:bally.su@speeder.net.cn" class="btn btn-primary">蝡?刻砭</a>
+      <a href="tel:+8613771706800" class="btn btn-outline">憸漲瞍內</a>
     </div>
     <div class="contact-info">
-      <div class="contact-info-item">📞 +86 137 7170 6800</div>
-      <div class="contact-info-item">📧 bally.su@speeder.net.cn</div>
-      <div class="contact-info-item">📍 苏州市工业园区苏惠路88号环球财富广场1幢2709室</div>
+      <div class="contact-info-item">?? <a href="tel:+8613771706800">+86 137 7170 6800</a></div>
+      <div class="contact-info-item">??<a href="mailto:bally.su@speeder.net.cn">bally.su@speeder.net.cn</a></div>
+      <div class="contact-info-item">?? ??撣極銝?箄??楝88?瑞?揣撖嘀??撟?709摰?/div>
     </div>
   </div>
 </section>
 
-<!-- Footer -->
 <footer>
-  <div class="footer-left">© 2024 SPEEDER NETWORKS. All rights reserved.</div>
-  <div class="footer-right">
-    <a href="about.html">关于我们</a> · <a href="products.html">产品中心</a> · <a href="about.html#contact">联系我们</a>
-  </div>
+  <div class="footer-left">穢 2025 <a href="speeder_v2_combined.html">??銝?敺?????砍</a> 繚 SPEEDER NETWORKS 繚 All rights reserved.</div>
+  <div class="footer-right"><a href="https://beian.miit.gov.cn" target="_blank">?CP憭?024120577??1</a></div>
 </footer>
 
 <script>
-// Network canvas animation for hero
+// Network canvas animation
 (function() {
-  const canvas = document.getElementById('networkCanvas');
+  var canvas = document.getElementById('networkCanvas');
   if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let W, H, nodes, animId;
+  var ctx = canvas.getContext('2d');
+  var W, H, nodes = [], animId;
 
   function resize() {
-    W = canvas.width = canvas.offsetWidth;
-    H = canvas.height = canvas.offsetHeight;
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
     initNodes();
   }
 
   function initNodes() {
-    nodes = Array.from({length: 60}, () => ({
-      x: Math.random() * W, y: Math.random() * H,
-      vx: (Math.random() - 0.5) * 0.4,
-      vy: (Math.random() - 0.5) * 0.4,
-      r: Math.random() * 2 + 1
-    }));
+    nodes = [];
+    var count = Math.floor(W * H / 15000);
+    for (var i = 0; i < Math.min(count, 80); i++) {
+      nodes.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r: 1.5 + Math.random() * 2,
+        alpha: 0.3 + Math.random() * 0.5
+      });
+    }
   }
 
   function draw() {
     ctx.clearRect(0, 0, W, H);
-    for (let i = 0; i < nodes.length; i++) {
-      const n = nodes[i];
+    for (var i = 0; i < nodes.length; i++) {
+      var n = nodes[i];
       n.x += n.vx; n.y += n.vy;
       if (n.x < 0 || n.x > W) n.vx *= -1;
       if (n.y < 0 || n.y > H) n.vy *= -1;
       ctx.beginPath();
       ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(168,212,212,0.5)';
+      ctx.fillStyle = 'rgba(106,156,115,' + n.alpha + ')';
       ctx.fill();
-      for (let j = i + 1; j < nodes.length; j++) {
-        const m = nodes[j], dx = n.x - m.x, dy = n.y - m.y, d = Math.sqrt(dx * dx + dy * dy);
-        if (d < 120) {
+      for (var j = i + 1; j < nodes.length; j++) {
+        var n2 = nodes[j];
+        var dx = n.x - n2.x, dy = n.y - n2.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 150) {
           ctx.beginPath();
           ctx.moveTo(n.x, n.y);
-          ctx.lineTo(m.x, m.y);
-          ctx.strokeStyle = 'rgba(106,156,115,' + (0.3 - d / 400) + ')';
-          ctx.lineWidth = 0.6;
+          ctx.lineTo(n2.x, n2.y);
+          ctx.strokeStyle = 'rgba(106,156,115,' + (0.15 * (1 - dist / 150)) + ')';
+          ctx.lineWidth = 0.5;
           ctx.stroke();
         }
       }
@@ -1014,5 +1008,6 @@ footer {
   draw();
 })();
 </script>
+
 </body>
 </html>

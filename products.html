@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -270,8 +270,6 @@ header {
     transform: translate(-50%, -50%);
     will-change: transform;
   }
-  #hero { cursor: none; }
-  #hero * { cursor: none !important; }
 </style>
 </head>
 <body>
@@ -436,7 +434,7 @@ header {
 
 <footer>
   <div>© 2026 <a href="index.html">世必得网络科技</a> © SPEEDER NETWORKS © All rights reserved.</div>
-  <div><a href="https://beian.miit.gov.cn"></a></div>
+  <div><a href="https://beian.miit.gov.cn">苏ICP备2024120577号-2</a></div>
 </footer>
 
 <script>
@@ -475,6 +473,51 @@ function initCustomCursor() {
     requestAnimationFrame(animate);
   })();
 }
+function initHeroParallax() {
+  var hero = document.getElementById('hero');
+  if (!hero) return;
+  var bg = hero.querySelector('.hero-bg');
+  var overlay = hero.querySelector('.hero-overlay');
+  var lightFlow = hero.querySelector('.hero-light-leak');
+  var particles = hero.querySelector('.hero-particles');
+  var network = hero.querySelector('.network-canvas');
+  var layers = [
+    { el: lightFlow, strength: 0.04 },
+    { el: particles, strength: 0.05 },
+    { el: network, strength: 0.06 },
+  ];
+  var mouseX = window.innerWidth / 2;
+  var mouseY = window.innerHeight / 2;
+  var cx = mouseX, cy = mouseY;
+  var vx = 0, vy = 0;
+  var SPRING_K = 0.1;
+  var DAMP = 0.78;
+  hero.addEventListener('mousemove', function(e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+  hero.addEventListener('mouseleave', function() {
+    mouseX = window.innerWidth / 2;
+    mouseY = window.innerHeight / 2;
+  });
+  function animate() {
+    var fx = (mouseX - cx) * SPRING_K;
+    var fy = (mouseY - cy) * SPRING_K;
+    vx = (vx + fx) * DAMP;
+    vy = (vy + fy) * DAMP;
+    cx += vx;
+    cy += vy;
+    var dx = cx - window.innerWidth / 2;
+    var dy = cy - window.innerHeight / 2;
+    layers.forEach(function(layer) {
+      if (!layer.el) return;
+      layer.el.style.transform = 'translate(' + (dx * layer.strength * 10) + 'px, ' + (dy * layer.strength * 10) + 'px)';
+    });
+    requestAnimationFrame(animate);
+  }
+  animate();
+}
+initHeroParallax();
 initCustomCursor();
 </script>
 </body>

@@ -46,8 +46,6 @@ body {
 /* ══════════════════════════════════════════
    自定义光标（仅Hero区域）
 ══════════════════════════════════════════ */
-#hero { cursor: none; }
-#hero * { cursor: none !important; }
 
 #cursor-ring {
   position: fixed;
@@ -1749,9 +1747,9 @@ function initHeroParallax() {
   const content  = hero.querySelector('.hero-content');
 
   const layers = [
-    { el: lightFlow, strength: 0.03 },
-    { el: particles,  strength: 0.04 },
-    { el: network,   strength: 0.05 },
+    { el: lightFlow, strength: 0.04 },
+    { el: particles, strength: 0.05 },
+    { el: network,   strength: 0.06 },
   ];
 
   let mouseX = window.innerWidth / 2;

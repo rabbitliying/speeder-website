@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>世必得科技 · 你的网络，会被守护</title>
+<style>
+@keyframes heroZoom {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.06); }
+}
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+@keyframes streamUp {
+  0% { transform: translateY(0) scale(1); opacity: 0; }
+  8% { opacity: 1; }
+  85% { opacity: 0.4; }
+  100% { transform: translateY(-100vh) scale(0.6); opacity: 0; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a2820;
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  color: #d4e4e6;
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #042018; }
+::-webkit-scrollbar-thumb { background: #2C3A3B; border-radius: 2px; }
+
+header {
+  background: rgba(4,32,24,0.92);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 1px 20px rgba(0,0,0,0.2);
+  border-bottom: 1px solid rgba(61,220,151,0.06);
+}
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  height: 64px;
+}
+.logo-wrap { display: flex; align-items: center; gap: 14px; }
+.logo-img { height: 44px; width: auto; }
+nav { display: flex; gap: 4px; align-items: center; }
+nav a { font-size: 13px; color: rgba(203,211,207,0.6); padding: 6px 14px; border-radius: 20px; transition: all 0.25s; }
+nav a:hover { background: rgba(255,255,255,0.06); color: rgba(203,211,207,0.9); }
+.nav-cta { background: rgba(61,220,151,0.15); color: #8e9d96 !important; border: 1px solid rgba(61,220,151,0.2); padding: 7px 18px; border-radius: 20px; font-size: 13px; }
+.nav-cta:hover { background: rgba(61,220,151,0.25); color: #cbd3cf !important; border-color: rgba(61,220,151,0.35); }
+.nav-btn-outline { background: transparent; border: 1px solid rgba(203,211,207,0.2); color: rgba(203,211,207,0.6) !important; padding: 6px 16px; border-radius: 20px; font-size: 13px; }
+
+/* ================ HERO ================ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 100px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url('hero_shinkai2.png') center center / cover no-repeat;
+  z-index: 0;
+  filter: brightness(0.45) saturate(1.1) contrast(1.05);
+  animation: heroZoom 25s ease-in-out infinite alternate;
+  transform-origin: center center;
+}
+.hero-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, rgba(4,32,24,0.65) 0%, rgba(10,40,32,0.35) 50%, rgba(4,32,24,0.7) 100%);
+  z-index: 1;
+}
+.hero-particles {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+.particle {
+  position: absolute;
+  bottom: -10px;
+  width: 2px;
+  background: #5a9fa8;
+  border-radius: 2px;
+  box-shadow: 0 0 6px #5a9fa8, 0 0 14px rgba(90,159,168,0.4);
+  animation: streamUp var(--dur) linear infinite;
+  animation-delay: var(--delay);
+}
+.network-canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.65;
+}
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+}
+.hero-eyebrow {
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: rgba(61,220,151,0.7);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  animation: fadeInUp 0.7s ease-out 0.3s both;
+}
+.hero h1 {
+  font-size: clamp(40px, 5.5vw, 72px);
+  color: #fff;
+  line-height: 1.08;
+  margin-bottom: 24px;
+  font-weight: 800;
+  text-shadow: 0 4px 30px rgba(0,0,0,0.5);
+  letter-spacing: -0.5px;
+  animation: fadeInUp 0.7s ease-out 0.5s both;
+}
+.hero h1 .accent { color: #3DDC97; }
+.hero-sub {
+  font-size: clamp(14px, 1.2vw, 16px);
+  color: rgba(255,255,255,0.7);
+  line-height: 1.85;
+  max-width: 520px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+  background: rgba(44,58,59,0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 16px 22px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 32px;
+  animation: fadeInUp 0.7s ease-out 0.7s both;
+}
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(26,92,58,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #fff;
+  padding: 14px 32px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s;
+  border: 1px solid rgba(61,220,151,0.25);
+  animation: fadeInUp 0.7s ease-out 0.9s both;
+}
+.hero-cta:hover { background: #2a7a4a; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,92,58,0.4); }
+.hero-stats {
+  display: flex;
+  gap: 36px;
+  margin-top: 48px;
+  animation: fadeInUp 0.7s ease-out 1.1s both;
+}
+.hero-stat { text-align: left; }
+.hero-stat-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 28px;
+  font-weight: 700;
+  color: #3DDC97;
+  line-height: 1;
+  text-shadow: 0 0 20px rgba(61,220,151,0.3);
+}
+.hero-stat-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: rgba(203,211,207,0.4);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ================ SECTIONS ================ */
+.section-dark { background: #042018; }
+.section-alt { background: #0a2820; }
+section { padding: 90px 24px; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.section-label { font-size: 10px; color: rgba(61,220,151,0.55); letter-spacing: 3px; margin-bottom: 10px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; }
+.section-title { font-size: clamp(28px, 3vw, 42px); color: #cbd3cf; margin-bottom: 14px; font-weight: 800; letter-spacing: -0.3px; }
+.section-title .accent { color: #3DDC97; }
+.section-desc { font-size: clamp(13px, 1.1vw, 15px); color: rgba(203,211,207,0.55); max-width: 580px; line-height: 1.85; }
+.section-desc.centered { margin: 0 auto; text-align: center; }
+
+/* ================ GRIDS ================ */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 48px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin-top: 48px; background: rgba(61,220,151,0.07); border: 1px solid rgba(61,220,151,0.07); border-radius: 12px; overflow: hidden; }
+
+/* ================ CARDS ================ */
+.card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(203,211,207,0.1);
+  border-radius: 16px;
+  padding: 30px 28px;
+  transition: all 0.35s;
+}
+.card:hover {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(61,220,151,0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+}
+.card-icon { font-size: 36px; margin-bottom: 16px; }
+.card h3 { font-size: 17px; color: #cbd3cf; margin-bottom: 10px; font-weight: 700; }
+.card p { font-size: 13px; color: rgba(203,211,207,0.55); line-height: 1.8; }
+.card-tag { font-size: 9px; color: rgba(61,220,151,0.6); letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 10px; font-family: 'JetBrains Mono', monospace; }
+
+/* ================ WHAT (TWO SCENARIOS) ================ */
+.scenario-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(203,211,207,0.1);
+  border-radius: 16px;
+  padding: 36px 32px;
+  transition: all 0.35s;
+  position: relative;
+  overflow: hidden;
+}
+.scenario-card:hover {
+  border-color: rgba(61,220,151,0.25);
+  transform: translateY(-3px);
+}
+.scenario-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(to right, transparent, rgba(61,220,151,0.4), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.scenario-card:hover::before { opacity: 1; }
+.scenario-icon { font-size: 40px; margin-bottom: 18px; }
+.scenario-tag { font-size: 9px; color: rgba(61,220,151,0.6); letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 10px; font-family: 'JetBrains Mono', monospace; }
+.scenario-title { font-size: 20px; color: #cbd3cf; margin-bottom: 12px; font-weight: 700; }
+.scenario-desc { font-size: 13.5px; color: rgba(203,211,207,0.55); line-height: 1.85; margin-bottom: 20px; }
+.scenario-features { display: flex; flex-direction: column; gap: 8px; }
+.scenario-feature { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: rgba(203,211,207,0.5); }
+.scenario-feature::before { content: '→'; color: rgba(61,220,151,0.6); font-size: 11px; }
+
+/* ================ POOL ================ */
+.pool-visual {
+  background: rgba(166,181,143,0.06);
+  border: 1px solid rgba(166,181,143,0.15);
+  border-radius: 20px;
+  padding: 56px 40px;
+  text-align: center;
+  margin-top: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.pool-visual::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px; height: 320px;
+  background: radial-gradient(circle, rgba(166,181,143,0.1) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.pool-title {
+  font-size: 22px;
+  color: #cbd3cf;
+  font-weight: 800;
+  margin-bottom: 10px;
+  position: relative;
+}
+.pool-sub {
+  font-size: 12px;
+  color: rgba(203,211,207,0.45);
+  letter-spacing: 2px;
+  position: relative;
+  font-family: 'JetBrains Mono', monospace;
+}
+.pool-rings { display: flex; justify-content: center; gap: 16px; margin-top: 28px; position: relative; }
+.pool-ring {
+  width: 64px; height: 64px;
+  border: 1px solid rgba(61,220,151,0.2);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px;
+  color: rgba(203,211,207,0.5);
+  letter-spacing: 1px;
+  font-family: 'JetBrains Mono', monospace;
+  animation: pulse 3s ease-in-out infinite;
+}
+.pool-ring:nth-child(2) { animation-delay: 0.5s; width: 72px; height: 72px; }
+.pool-ring:nth-child(3) { animation-delay: 1s; width: 80px; height: 80px; }
+.pool-tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 28px; }
+.pool-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  padding: 5px 14px;
+  border: 1px solid rgba(61,220,151,0.18);
+  border-radius: 100px;
+  color: rgba(203,211,207,0.45);
+  letter-spacing: 0.5px;
+}
+
+/* ================ TRUST STATS ================ */
+.trust-item {
+  background: rgba(4,32,24,0.8);
+  padding: 40px 28px;
+  text-align: center;
+  transition: background 0.3s;
+}
+.trust-item:hover { background: rgba(61,220,151,0.04); }
+.trust-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(30px, 3vw, 48px);
+  font-weight: 700;
+  color: #3DDC97;
+  line-height: 1;
+  text-shadow: 0 0 24px rgba(61,220,151,0.25);
+}
+.trust-unit { font-size: 16px; color: rgba(203,211,207,0.4); }
+.trust-label { font-size: 10px; letter-spacing: 2px; color: rgba(203,211,207,0.35); text-transform: uppercase; margin-top: 8px; }
+
+.trust-quote {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(61,220,151,0.1);
+  border-radius: 16px;
+  padding: 44px 48px;
+  text-align: center;
+  margin-top: 36px;
+  backdrop-filter: blur(16px);
+}
+.trust-quote-text {
+  font-size: clamp(15px, 1.3vw, 18px);
+  color: rgba(203,211,207,0.7);
+  line-height: 1.7;
+  font-weight: 300;
+  margin-bottom: 16px;
+}
+.trust-quote-author {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: rgba(61,220,151,0.6);
+}
+
+/* ================ AI OPS ================ */
+.ai-visual {
+  background: rgba(4,32,24,0.6);
+  border: 1px solid rgba(61,220,151,0.1);
+  border-radius: 16px;
+  padding: 32px;
+  margin-top: 48px;
+  position: relative;
+  overflow: hidden;
+}
+.ai-header { display: flex; gap: 6px; margin-bottom: 20px; }
+.ai-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(61,220,151,0.2); }
+.ai-dot.green { background: #3DDC97; box-shadow: 0 0 8px #3DDC97; }
+.ai-metrics { display: flex; flex-direction: column; gap: 14px; }
+.ai-metric { position: relative; }
+.ai-metric-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: rgba(203,211,207,0.4);
+  letter-spacing: 1.5px;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+.ai-bar { height: 6px; background: rgba(61,220,151,0.08); border-radius: 3px; overflow: hidden; }
+.ai-bar-fill {
+  height: 100%;
+  background: linear-gradient(to right, rgba(61,220,151,0.7), rgba(61,220,151,0.3));
+  border-radius: 3px;
+  width: 0;
+  transition: width 1.5s ease;
+}
+.ai-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(61,220,151,0.08);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: rgba(61,220,151,0.5);
+  letter-spacing: 1px;
+}
+.ai-status-ok { color: rgba(203,211,207,0.35); display: flex; align-items: center; gap: 6px; }
+.ai-status-ok::before { content: ''; width: 6px; height: 6px; background: #3DDC97; border-radius: 50%; box-shadow: 0 0 6px #3DDC97; }
+.ai-feature { display: flex; align-items: flex-start; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(203,211,207,0.06); }
+.ai-feature:last-child { border-bottom: none; }
+.ai-feature-icon { width: 32px; height: 32px; border: 1px solid rgba(61,220,151,0.2); border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 14px; }
+.ai-feature-title { font-size: 14px; font-weight: 600; color: #cbd3cf; margin-bottom: 3px; }
+.ai-feature-desc { font-size: 12.5px; color: rgba(203,211,207,0.45); line-height: 1.6; }
+
+/* ================ COVERAGE ================ */
+.cities-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 40px; }
+.city-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: rgba(203,211,207,0.4);
+  padding: 8px 16px;
+  border: 1px solid rgba(61,220,151,0.12);
+  border-radius: 100px;
+  transition: all 0.3s;
+}
+.city-tag:hover { border-color: rgba(61,220,151,0.35); color: rgba(61,220,151,0.7); }
+
+/* ================ CTA ================ */
+.cta-section {
+  background: linear-gradient(160deg, #2C3A3B, #1a2e1e);
+  text-align: center;
+  padding: 100px 24px;
+  border-top: 1px solid rgba(61,220,151,0.06);
+}
+.cta-title { font-size: clamp(28px, 3vw, 44px); color: #cbd3cf; font-weight: 800; margin-bottom: 14px; }
+.cta-desc { font-size: 14px; color: rgba(203,211,207,0.55); margin-bottom: 32px; }
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(61,220,151,0.15);
+  border: 1px solid rgba(61,220,151,0.25);
+  color: #cbd3cf;
+  padding: 14px 36px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+.cta-btn:hover { background: rgba(61,220,151,0.25); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+.cta-contact { display: flex; justify-content: center; gap: 40px; margin-top: 48px; padding-top: 32px; border-top: 1px solid rgba(61,220,151,0.08); }
+.cta-contact-item { text-align: center; }
+.cta-contact-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 2px; color: rgba(203,211,207,0.3); text-transform: uppercase; margin-bottom: 6px; }
+.cta-contact-value { font-size: 13px; color: rgba(203,211,207,0.6); }
+
+/* ================ FOOTER ================ */
+footer { background: #2C3A3B; padding: 36px 24px; text-align: center; border-top: 1px solid rgba(61,220,151,0.05); }
+.footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+footer p { font-size: 11px; color: rgba(203,211,207,0.3); font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; }
+.footer-dots { display: flex; gap: 6px; }
+.footer-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(61,220,151,0.4); animation: pulse 2.4s ease-in-out infinite; }
+.footer-dot:nth-child(2) { animation-delay: 0.3s; }
+.footer-dot:nth-child(3) { animation-delay: 0.6s; }
+
+/* ================ RESPONSIVE ================ */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 32px; }
+  .hero-stats { gap: 20px; flex-wrap: wrap; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  nav { display: none; }
+  .cta-contact { flex-direction: column; gap: 20px; }
+  .footer-inner { flex-direction: column; gap: 14px; }
+  .section-alt .card, .section-dark .card { padding: 24px 20px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-wrap">
+      <img src="logo_new.png" class="logo-img" alt="SPEEDER">
+    </div>
+    <nav>
+      <a href="#what">我们做什么</a>
+      <a href="#pool">线路融合池</a>
+      <a href="#trust">信任背书</a>
+      <a href="#ai">智能运维</a>
+      <a href="#contact" class="nav-btn-outline">联系我们</a>
+      <a href="#contact" class="nav-cta">立即咨询</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-particles" id="particles"></div>
+  <canvas class="network-canvas" id="networkCanvas"></canvas>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">// 全球企业网络加速专家</div>
+    <h1>你的网络，<br/>会被<span class="accent">守护</span></h1>
+    <p class="hero-sub">
+      十年经验 · 2000+ 企业客户 · 自研 AI 运维系统<br/>
+      从外资入华到中资出海，你的跨国连接，我们来保驾护航。
+    </p>
+    <a href="#what" class="hero-cta">了解我们 →</a>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">2000+</div>
+        <div class="hero-stat-label">Enterprise Clients</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">10+</div>
+        <div class="hero-stat-label">Years Experience</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">99.99%</div>
+        <div class="hero-stat-label">Uptime SLA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT -->
+<section id="what" class="section-alt">
+  <div class="section-inner">
+    <div class="section-label">// 我们做什么</div>
+    <h2 class="section-title">外资入华 · 中资出海<br/>网络连接，我们都能搞定</h2>
+    <p class="section-desc">不同类型的跨国企业，面临不同的网络挑战。SPEEDER 为每一种场景找到最优解，让连接变得简单、稳定、值得托付。</p>
+    <div class="grid-2" style="margin-top: 44px;">
+      <div class="scenario-card">
+        <div class="scenario-icon">🌏</div>
+        <div class="scenario-tag">// inbound · 外资入华</div>
+        <div class="scenario-title">海外总部与中国分部的稳定互联</div>
+        <div class="scenario-desc">SAP、Salesforce、Office 365……无论你在用什么海外系统，我们让它像本地一样流畅。外资在华团队的工作效率，不该被网络拖慢。</div>
+        <div class="scenario-features">
+          <div class="scenario-feature">跨境访问加速</div>
+          <div class="scenario-feature">海外 SaaS 优化</div>
+          <div class="scenario-feature">两地数据同步</div>
+        </div>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-icon">🚀</div>
+        <div class="scenario-tag">// outbound · 中资出海</div>
+        <div class="scenario-title">中资出海经营海外业务的网络底座</div>
+        <div class="scenario-desc">跨境电商、SaaS 出海、跨国制造……你的业务延伸到哪里，网络就跟到哪里。稳定、低延迟、不掉线。</div>
+        <div class="scenario-features">
+          <div class="scenario-feature">出海专线覆盖</div>
+          <div class="scenario-feature">海外节点部署</div>
+          <div class="scenario-feature">全球一根网</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POOL -->
+<section id="pool" class="section-dark">
+  <div class="section-inner">
+    <div class="section-label">// 核心产品</div>
+    <h2 class="section-title">线路融合池<br/><span class="accent">让每一分钱都花在刀刃上</span></h2>
+    <p class="section-desc">不同应用有不同时延需求，不同时间有不同带宽峰值。线路融合池将 MPLS、Internet、5G、SD-WAN 智能融合，自动分流、动态调度，让每一分网络投入都产生最大回报。</p>
+    <div class="pool-visual">
+      <div class="pool-title">线路融合池</div>
+      <div class="pool-sub">MULTI-LINE INTELLIGENT CONVERGENCE</div>
+      <div class="pool-rings">
+        <div class="pool-ring">MPLS</div>
+        <div class="pool-ring">Internet</div>
+        <div class="pool-ring">5G</div>
+        <div class="pool-ring">SD-WAN</div>
+      </div>
+      <div class="pool-tags">
+        <span class="pool-tag">智能分流</span>
+        <span class="pool-tag">动态调度</span>
+        <span class="pool-tag">成本优化</span>
+        <span class="pool-tag">应用感知</span>
+        <span class="pool-tag">弹性扩容</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section id="trust" class="section-alt">
+  <div class="section-inner">
+    <div class="section-label">// 十年积累</div>
+    <h2 class="section-title">2000+ 企业客户<br/>他们把网络托付给了我们</h2>
+    <p class="section-desc">这不是数字，是 2000 个「我愿意把网络交给他们」的决定。我们用十年时间，学会如何不辜负这份信任。</p>
+    <div class="grid-4">
+      <div class="trust-item">
+        <div class="trust-num">2000<span class="trust-unit">+</span></div>
+        <div class="trust-label">企业客户</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-num">50<span class="trust-unit">+</span></div>
+        <div class="trust-label">覆盖国家</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-num">99.99<span class="trust-unit">%</span></div>
+        <div class="trust-label">服务可用性</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-num">24<span class="trust-unit">/</span>7</div>
+        <div class="trust-label">智能监控</div>
+      </div>
+    </div>
+    <div class="trust-quote">
+      <p class="trust-quote-text">「SPEEDER 让我们的海外业务延迟从 280ms 降到了 35ms。整个出海链路，第一次感觉是'自己在用'，不是'被人用'。」</p>
+      <div class="trust-quote-author">// 出海电商客户 · 技术总监</div>
+    </div>
+  </div>
+</section>
+
+<!-- AI OPS -->
+<section id="ai" class="section-dark">
+  <div class="section-inner">
+    <div class="section-label">// 智能运维</div>
+    <h2 class="section-title">提前感知<br/><span class="accent">提前排障</span></h2>
+    <p class="section-desc">SPEEDER 自研 AI 运维系统，7×24 小时监控关键应用。不等问题发生，提前感知；不等你打电话，主动排障。你的网络，有一群永不疲倦的守护者。</p>
+    <div class="grid-2" style="margin-top: 44px; align-items: start;">
+      <div class="ai-visual" id="aiVisual">
+        <div class="ai-header">
+          <div class="ai-dot"></div>
+          <div class="ai-dot"></div>
+          <div class="ai-dot"></div>
+          <div class="ai-dot green"></div>
+        </div>
+        <div class="ai-metrics">
+          <div class="ai-metric">
+            <div class="ai-metric-label"><span>稳定性</span><span>92%</span></div>
+            <div class="ai-bar"><div class="ai-bar-fill" data-width="92"></div></div>
+          </div>
+          <div class="ai-metric">
+            <div class="ai-metric-label"><span>带宽利用率</span><span>78%</span></div>
+            <div class="ai-bar"><div class="ai-bar-fill" data-width="78"></div></div>
+          </div>
+          <div class="ai-metric">
+            <div class="ai-metric-label"><span>延迟优化</span><span>85%</span></div>
+            <div class="ai-bar"><div class="ai-bar-fill" data-width="85"></div></div>
+          </div>
+          <div class="ai-metric">
+            <div class="ai-metric-label"><span>告警响应</span><span>97%</span></div>
+            <div class="ai-bar"><div class="ai-bar-fill" data-width="97"></div></div>
+          </div>
+        </div>
+        <div class="ai-status">
+          <span>AI OPS SYSTEM</span>
+          <span class="ai-status-ok">ALL SYSTEMS NOMINAL</span>
+        </div>
+      </div>
+      <div>
+        <div class="ai-feature">
+          <div class="ai-feature-icon">⚡</div>
+          <div>
+            <div class="ai-feature-title">提前感知</div>
+            <div class="ai-feature-desc">AI 算法分析流量趋势，在问题爆发前预警</div>
+          </div>
+        </div>
+        <div class="ai-feature">
+          <div class="ai-feature-icon">🔧</div>
+          <div>
+            <div class="ai-feature-title">自动修复</div>
+            <div class="ai-feature-desc">常见故障自动切换线路，无需人工干预</div>
+          </div>
+        </div>
+        <div class="ai-feature">
+          <div class="ai-feature-icon">📊</div>
+          <div>
+            <div class="ai-feature-title">智能报表</div>
+            <div class="ai-feature-desc">每月网络健康报告，用数据说话</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COVERAGE -->
+<section id="coverage" class="section-alt">
+  <div class="section-inner">
+    <div class="section-label">// 全球覆盖</div>
+    <h2 class="section-title">50+ 国家 · 触手可达<br/>你的业务延伸到哪里，网络就跟到哪里</h2>
+    <p class="section-desc">从东南亚到欧洲，从北美到中东，SPEEDER 的节点覆盖全球主要商业城市。无论你的团队在哪，数据都能安全、稳定地送达。</p>
+    <div class="cities-grid">
+      <span class="city-tag">上海</span>
+      <span class="city-tag">北京</span>
+      <span class="city-tag">深圳</span>
+      <span class="city-tag">香港</span>
+      <span class="city-tag">新加坡</span>
+      <span class="city-tag">东京</span>
+      <span class="city-tag">洛杉矶</span>
+      <span class="city-tag">纽约</span>
+      <span class="city-tag">法兰克福</span>
+      <span class="city-tag">伦敦</span>
+      <span class="city-tag">悉尼</span>
+      <span class="city-tag">迪拜</span>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact" class="cta-section">
+  <div class="cta-title">准备好把网络交给我们了吗？</div>
+  <p class="cta-desc">无论你现在面临什么网络挑战，SPEEDER 都能帮你找到最优解。专业团队，专业方案，专业服务。</p>
+  <a href="#" class="cta-btn">立即开始 →</a>
+  <div class="cta-contact">
+    <div class="cta-contact-item">
+      <div class="cta-contact-label">Email</div>
+      <div class="cta-contact-value">contact@speeder.net.cn</div>
+    </div>
+    <div class="cta-contact-item">
+      <div class="cta-contact-label">Phone</div>
+      <div class="cta-contact-value">+86 512-XXXX-XXXX</div>
+    </div>
+    <div class="cta-contact-item">
+      <div class="cta-contact-label">Address</div>
+      <div class="cta-contact-value">苏州工业园区</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <p>© 2026 SPEEDER TECHNOLOGY · 苏州世必得</p>
+    <div class="footer-dots">
+      <span class="footer-dot"></span>
+      <span class="footer-dot"></span>
+      <span class="footer-dot"></span>
+    </div>
+    <p>守护每一次连接</p>
+  </div>
+</footer>
+
+<script>
+/* ================ PARTICLES ================ */
+const particlesContainer = document.getElementById('particles');
+for (let i = 0; i < 30; i++) {
+  const p = document.createElement('div');
+  p.className = 'particle';
+  p.style.left = (5 + Math.random() * 90) + '%';
+  p.style.bottom = '-10px';
+  p.style.setProperty('--dur', (2.5 + Math.random() * 4) + 's');
+  p.style.setProperty('--delay', Math.random() * 6 + 's');
+  p.style.width = (1.5 + Math.random() * 2) + 'px';
+  particlesContainer.appendChild(p);
+}
+
+/* ================ NETWORK CANVAS ================ */
+const canvas = document.getElementById('networkCanvas');
+const ctx = canvas.getContext('2d');
+let width, height;
+const nodes = [];
+const nodeCount = 55;
+
+function resize() {
+  width = canvas.width = canvas.offsetWidth;
+  height = canvas.height = canvas.offsetHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+for (let i = 0; i < nodeCount; i++) {
+  nodes.push({
+    x: Math.random() * width,
+    y: Math.random() * height,
+    speed: 0.3 + Math.random() * 1.2,
+    direction: Math.random() * Math.PI * 2,
+    radius: 1.5 + Math.random() * 2.5
+  });
+}
+
+let time = 0;
+function draw() {
+  ctx.clearRect(0, 0, width, height);
+  time += 0.02;
+
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      const dx = nodes[i].x - nodes[j].x;
+      const dy = nodes[i].y - nodes[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 180) {
+        const pulse = Math.sin(time * 3 - dist * 0.05) * 0.5 + 0.5;
+        ctx.beginPath();
+        ctx.moveTo(nodes[i].x, nodes[i].y);
+        ctx.lineTo(nodes[j].x, nodes[j].y);
+        ctx.strokeStyle = 'rgba(90, 159, 168, ' + (0.12 + pulse * 0.18 * (1 - dist / 180)) + ')';
+        ctx.lineWidth = 0.5 + pulse * 0.8;
+        ctx.stroke();
+      }
+    }
+  }
+
+  nodes.forEach(function(n, idx) {
+    const pulse = Math.sin(time * 4 + idx) * 0.5 + 0.5;
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.radius * (0.8 + pulse * 0.4), 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(90, 159, 168, ' + (0.45 + pulse * 0.45) + ')';
+    ctx.shadowColor = '#5a9fa8';
+    ctx.shadowBlur = 8 + pulse * 10;
+    ctx.fill();
+
+    const centerX = width * 0.5;
+    const centerY = height * 0.4;
+    n.x += Math.cos(n.direction) * n.speed * 0.3 + (centerX - n.x) * 0.001;
+    n.y += Math.sin(n.direction) * n.speed * 0.3 + (centerY - n.y) * 0.001 - 0.15;
+    n.direction += (Math.random() - 0.5) * 0.1;
+
+    if (n.x < 0) n.x = width;
+    if (n.x > width) n.x = 0;
+    if (n.y < 0) n.y = height;
+    if (n.y > height) n.y = 0;
+  });
+
+  requestAnimationFrame(draw);
+}
+draw();
+
+/* ================ AI BARS ANIMATION ================ */
+let aiAnimated = false;
+const aiObs = new IntersectionObserver(function(entries) {
+  if (entries[0].isIntersecting && !aiAnimated) {
+    aiAnimated = true;
+    document.querySelectorAll('.ai-bar-fill').forEach(function(el, i) {
+      setTimeout(function() {
+        el.style.width = el.dataset.width + '%';
+      }, i * 300);
+    });
+  }
+}, { threshold: 0.3 });
+const aiVisual = document.getElementById('aiVisual');
+if (aiVisual) aiObs.observe(aiVisual);
+
+/* ================ SMOOTH SCROLL ================ */
+document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    e.preventDefault();
+    var target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPEEDER · 光在流动</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Noto+Sans+SC:wght@300;400;700;800&display=swap');
+:root {
+  --bg-deep: #0a1210;
+  --bg-card: #0c1815;
+  --green-deep: #1a2e28;
+  --green-dark: #2C3A3B;
+  --green-mid: #48564e;
+  --green-main: #5D6D56;
+  --green-light: #7a9a78;
+  --green-glow: #96b896;
+  --green-soft: #b8ccb4;
+  --text-primary: #d8e8dc;
+  --text-secondary: rgba(184,204,180,0.55);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+a { text-decoration: none; color: inherit; }
+body { background: var(--bg-deep); font-family: 'Noto Sans SC', sans-serif; color: var(--text-primary); overflow-x: hidden; }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: #081410; }
+::-webkit-scrollbar-thumb { background: #5D6D56; border-radius: 2px; }
+
+/* ===== SPLASH SCREEN ===== */
+.splash {
+  position: fixed; inset: 0; z-index: 9999;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: linear-gradient(160deg, #081410 0%, #0c1815 35%, #1a2e28 60%, #081410 100%);
+  transition: opacity 1.2s ease;
+}
+.splash.fade-out { opacity: 0; pointer-events: none; }
+.splash-bg-stars { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.splash-star { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: rgba(150,186,150,0.8); animation: twinkle var(--dur) ease-in-out infinite; animation-delay: var(--delay); }
+@keyframes twinkle { 0%,100% { opacity: 0.2; transform: scale(1); } 50% { opacity: 1; transform: scale(1.5); } }
+.splash-canvas { position: absolute; inset: 0; }
+.splash-rings { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+.splash-ring { position: absolute; top: 50%; left: 50%; border: 1px solid rgba(93,109,86,0.15); border-radius: 50%; animation: ringExpand 4s ease-out infinite; }
+.splash-ring:nth-child(1) { width: 200px; height: 200px; margin: -100px 0 0 -100px; animation-delay: 0s; }
+.splash-ring:nth-child(2) { width: 400px; height: 400px; margin: -200px 0 0 -200px; animation-delay: 0.8s; }
+.splash-ring:nth-child(3) { width: 600px; height: 600px; margin: -300px 0 0 -300px; animation-delay: 1.6s; }
+.splash-ring:nth-child(4) { width: 800px; height: 800px; margin: -400px 0 0 -400px; animation-delay: 2.4s; }
+@keyframes ringExpand { 0% { opacity: 0; transform: translate(-50%,-50%) scale(0.8); } 20% { opacity: 0.5; } 100% { opacity: 0; transform: translate(-50%,-50%) scale(1.2); } }
+.splash-countdown-wrap { position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; }
+.countdown-number { font-family: 'JetBrains Mono', monospace; font-size: clamp(80px, 15vw, 140px); font-weight: 300; color: transparent; -webkit-text-stroke: 2px rgba(93,109,86,0.5); animation: countPulse 1s ease-out forwards; opacity: 0; transform: scale(1.3); }
+.countdown-number.show { opacity: 1; transform: scale(1); }
+@keyframes countPulse { 0% { opacity: 0; transform: scale(1.5); } 40% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(0.7); } }
+.countdown-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 6px; color: rgba(93,109,86,0.5); text-transform: uppercase; margin-top: 8px; }
+.splash-welcome { position: relative; z-index: 10; text-align: center; opacity: 0; transform: translateY(30px); transition: opacity 1.2s ease, transform 1.2s ease; }
+.splash-welcome.show { opacity: 1; transform: translateY(0); }
+.welcome-line1 { font-size: clamp(12px, 1.5vw, 16px); letter-spacing: 8px; color: rgba(150,186,150,0.5); text-transform: uppercase; margin-bottom: 20px; font-family: 'JetBrains Mono', monospace; }
+.welcome-title { font-size: clamp(32px, 5vw, 60px); font-weight: 800; color: var(--green-soft); text-shadow: 0 0 40px rgba(93,109,86,0.7), 0 0 80px rgba(93,109,86,0.3), 0 0 120px rgba(93,109,86,0.1); letter-spacing: 4px; margin-bottom: 20px; line-height: 1.2; }
+.welcome-line2 { font-size: clamp(11px, 1.2vw, 14px); letter-spacing: 4px; color: rgba(150,186,150,0.35); font-family: 'JetBrains Mono', monospace; }
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg { position: absolute; inset: 0; background: #0a1210; z-index: 0; }
+
+/* Light arc canvas */
+#heroCanvas { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+
+/* Glow overlay for atmosphere */
+.hero-glow {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80vw; height: 60vh;
+  background: radial-gradient(ellipse at center, rgba(93,109,86,0.06) 0%, transparent 70%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* SVG Light arcs */
+.hero-arcs {
+  position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  overflow: hidden;
+}
+
+/* City nodes floating */
+.hero-nodes {
+  position: absolute; inset: 0; z-index: 4; pointer-events: none;
+}
+
+/* Particle flow */
+.hero-particles {
+  position: absolute; inset: 0; z-index: 5; pointer-events: none; overflow: hidden;
+}
+.particle {
+  position: absolute;
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: var(--green-glow);
+  box-shadow: 0 0 6px var(--green-glow), 0 0 12px rgba(93,109,86,0.5);
+  animation: particleRise var(--dur) linear infinite;
+  animation-delay: var(--delay);
+  opacity: 0;
+}
+@keyframes particleRise {
+  0% { transform: translateY(0) scale(1); opacity: 0; }
+  5% { opacity: 1; }
+  80% { opacity: 0.6; }
+  100% { transform: translateY(-100vh) scale(0.3); opacity: 0; }
+}
+
+/* Hero content */
+.hero-inner {
+  position: relative; z-index: 10;
+  max-width: 1200px; margin: 0 auto;
+  padding: 120px 24px 80px;
+  width: 100%;
+}
+.hero-eyebrow {
+  font-size: 10px; letter-spacing: 3px;
+  color: rgba(93,109,86,0.75); text-transform: uppercase;
+  margin-bottom: 16px; font-family: 'JetBrains Mono', monospace;
+  animation: fadeUp 0.8s ease-out 0.3s both;
+}
+.hero h1 {
+  font-size: clamp(40px, 5.5vw, 72px);
+  color: #fff; line-height: 1.08;
+  margin-bottom: 24px; font-weight: 800;
+  letter-spacing: -0.5px;
+  animation: fadeUp 0.8s ease-out 0.5s both;
+  text-shadow: 0 4px 30px rgba(0,0,0,0.5);
+}
+.hero h1 .accent {
+  color: var(--green-main);
+  text-shadow: 0 0 40px rgba(93,109,86,0.6), 0 0 80px rgba(93,109,86,0.3);
+}
+.hero-sub {
+  font-size: clamp(14px, 1.2vw, 16px);
+  color: rgba(255,255,255,0.7); line-height: 1.85; max-width: 520px;
+  background: rgba(44,58,59,0.5);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  padding: 16px 22px; border-radius: 14px;
+  border: 1px solid rgba(93,109,86,0.12);
+  margin-bottom: 32px;
+  animation: fadeUp 0.8s ease-out 0.7s both;
+}
+.hero-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(26,58,40,0.85);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  color: #fff; padding: 14px 32px; border-radius: 30px;
+  font-size: 14px; font-weight: 600; transition: all 0.3s;
+  border: 1px solid rgba(93,109,86,0.25);
+  animation: fadeUp 0.8s ease-out 0.9s both;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(93,109,86,0.15);
+}
+.hero-cta:hover {
+  background: rgba(36,78,55,0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(26,58,40,0.4), 0 0 30px rgba(93,109,86,0.25);
+}
+.hero-stats {
+  display: flex; gap: 36px; margin-top: 48px;
+  animation: fadeUp 0.8s ease-out 1.1s both;
+}
+.hero-stat { text-align: left; }
+.hero-stat-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 28px; font-weight: 700;
+  color: var(--green-main); line-height: 1;
+  text-shadow: 0 0 20px rgba(93,109,86,0.3);
+}
+.hero-stat-label {
+  font-size: 10px; letter-spacing: 2px;
+  color: rgba(184,204,180,0.4); text-transform: uppercase;
+  margin-top: 4px; font-family: 'JetBrains Mono', monospace;
+}
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== NAV ===== */
+header {
+  background: rgba(8,20,16,0.95);
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(93,109,86,0.1);
+}
+.header-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px; height: 64px;
+}
+.logo-img { height: 100px; width: auto; }
+nav { display: flex; gap: 3px; align-items: center; }
+nav a {
+  font-size: 12px; color: rgba(184,204,180,0.45);
+  padding: 6px 12px; border-radius: 8px;
+  transition: all 0.25s; font-family: 'JetBrains Mono', monospace;
+  white-space: nowrap;
+}
+nav a:hover { color: var(--green-glow); background: rgba(93,109,86,0.1); }
+nav a.nav-active { color: var(--green-glow) !important; background: rgba(93,109,86,0.14); }
+nav a.cta-nav {
+  background: rgba(93,109,86,0.12);
+  border: 1px solid rgba(93,109,86,0.2);
+  color: var(--green-glow) !important; padding: 6px 16px; border-radius: 8px;
+}
+nav a.cta-nav:hover { background: rgba(93,109,86,0.22); }
+
+@media (max-width: 768px) {
+  nav { display: none; }
+  .hero h1 { font-size: 30px; }
+  .hero-stats { gap: 20px; flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div class="splash" id="splash">
+  <div class="splash-bg-stars" id="splashStars"></div>
+  <canvas class="splash-canvas" id="splashCanvas"></canvas>
+  <div class="splash-rings">
+    <div class="splash-ring"></div>
+    <div class="splash-ring"></div>
+    <div class="splash-ring"></div>
+    <div class="splash-ring"></div>
+  </div>
+  <div class="splash-countdown-wrap" id="countdownWrap">
+    <div class="countdown-number" id="countdownNum">3</div>
+    <div class="countdown-label">INITIALIZING</div>
+  </div>
+  <div class="splash-welcome" id="splashWelcome">
+    <div class="welcome-line1">WELCOME TO</div>
+    <div class="welcome-title">世必得宇宙</div>
+    <div class="welcome-line2">// YOUR NETWORK WILL BE GUARDIANED</div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero" id="hero" style="display:none;">
+  <div class="hero-bg"></div>
+
+  <!-- Canvas: Light arcs + flowing particles + city nodes -->
+  <canvas id="heroCanvas"></canvas>
+
+  <!-- Glow -->
+  <div class="hero-glow"></div>
+
+  <!-- Particles rising -->
+  <div class="hero-particles" id="particles"></div>
+
+  <!-- Content -->
+  <div class="hero-inner">
+    <div class="hero-eyebrow">// 全球企业网络加速专家</div>
+    <h1>你的网络，<br/><span class="accent">会被守护</span></h1>
+    <p class="hero-sub">十年经验 · 2000+ 企业客户 · 自研 AI 运维系统<br/>从外资入华到中资出海，你的跨国连接，我们来保驾护航。</p>
+    <button class="hero-cta">了解我们 →</button>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">2000+</div><div class="hero-stat-label">Enterprise Clients</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">10+</div><div class="hero-stat-label">Years Experience</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">99.99%</div><div class="hero-stat-label">Uptime SLA</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV (shown after splash) -->
+<header id="mainNav" style="display:none;">
+  <div class="header-inner">
+    <img src="logo_new.png" class="logo-img" alt="SPEEDER">
+    <nav>
+      <a href="#" class="nav-active">首页</a>
+      <a href="#">我们做什么</a>
+      <a href="#">线路融合池</a>
+      <a href="#">信任背书</a>
+      <a href="#">智能运维</a>
+      <a href="#" class="cta-nav">方案价格</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+/* ===== SPLASH ===== */
+(function() {
+  const starsContainer = document.getElementById('splashStars');
+  for (let i = 0; i < 80; i++) {
+    const star = document.createElement('div');
+    star.className = 'splash-star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.setProperty('--dur', (1.5 + Math.random() * 3) + 's');
+    star.style.setProperty('--delay', Math.random() * 4 + 's');
+    star.style.width = star.style.height = (1 + Math.random() * 2) + 'px';
+    starsContainer.appendChild(star);
+  }
+
+  const canvas = document.getElementById('splashCanvas');
+  const ctx = canvas.getContext('2d');
+  let cw, ch;
+  const NUM_NODES = 60;
+  const nodes = [], targetNodes = [];
+  let convergeProgress = 0;
+  let step = 0;
+
+  function resize() { cw = canvas.width = canvas.offsetWidth; ch = canvas.height = canvas.offsetHeight; }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function initNodes() {
+    nodes.length = 0; targetNodes.length = 0;
+    for (let i = 0; i < NUM_NODES; i++) {
+      const edge = Math.floor(Math.random() * 4);
+      let x, y;
+      if (edge === 0) { x = Math.random() * cw; y = -20 - Math.random() * 80; }
+      else if (edge === 1) { x = cw + 20 + Math.random() * 80; y = Math.random() * ch; }
+      else if (edge === 2) { x = Math.random() * cw; y = ch + 20 + Math.random() * 80; }
+      else { x = -20 - Math.random() * 80; y = Math.random() * ch; }
+      nodes.push({
+        x, y,
+        r: 1.5 + Math.random() * 2.5,
+        speed: 0.3 + Math.random() * 1.2,
+        angle: Math.random() * Math.PI * 2,
+        opacity: 0.3 + Math.random() * 0.5,
+        phase: Math.random() * Math.PI * 2
+      });
+      targetNodes.push({
+        x: (0.15 + Math.random() * 0.7) * cw,
+        y: (0.15 + Math.random() * 0.7) * ch
+      });
+    }
+  }
+  initNodes();
+
+  let lastTime = 0;
+  function drawSplash(ts) {
+    const dt = ts - lastTime; lastTime = ts;
+    ctx.clearRect(0, 0, cw, ch);
+    if (step === 0) convergeProgress = Math.min(0.85, convergeProgress + 0.008);
+    else if (step === 1) convergeProgress = Math.min(1, convergeProgress + 0.015);
+
+    for (let i = 0; i < NUM_NODES; i++) {
+      const n = nodes[i], t = targetNodes[i];
+      n.x += (t.x - n.x) * convergeProgress * 0.02;
+      n.y += (t.y - n.y) * convergeProgress * 0.02;
+      n.angle += (Math.random() - 0.5) * 0.03;
+      n.x += Math.cos(n.angle) * n.speed * 0.15;
+      n.y += Math.sin(n.angle) * n.speed * 0.15;
+      n.x = Math.max(-50, Math.min(cw + 50, n.x));
+      n.y = Math.max(-50, Math.min(ch + 50, n.y));
+      const p = Math.sin(ts * 0.001 + n.phase) * 0.5 + 0.5;
+
+      for (let j = i + 1; j < NUM_NODES; j++) {
+        const n2 = nodes[j];
+        const dx = n.x - n2.x, dy = n.y - n2.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 120 * convergeProgress + 40) {
+          const alpha = (1 - dist / (150 * convergeProgress + 50)) * 0.4 * convergeProgress;
+          if (alpha > 0) {
+            ctx.beginPath(); ctx.moveTo(n.x, n.y); ctx.lineTo(n2.x, n2.y);
+            ctx.strokeStyle = `rgba(93,109,86,${alpha})`;
+            ctx.lineWidth = 0.5; ctx.stroke();
+          }
+        }
+      }
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r * (0.7 + p * 0.6), 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(150,186,150,${n.opacity * (0.5 + p * 0.5)})`;
+      ctx.shadowColor = '#5D6D56';
+      ctx.shadowBlur = 6 + p * 8;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+    requestAnimationFrame(drawSplash);
+  }
+  requestAnimationFrame(drawSplash);
+
+  // Countdown logic
+  const countdownEl = document.getElementById('countdownNum');
+  const countdownWrap = document.getElementById('countdownWrap');
+  const splashWelcome = document.getElementById('splashWelcome');
+  const splash = document.getElementById('splash');
+  const mainNav = document.getElementById('mainNav');
+  const hero = document.getElementById('hero');
+
+  let count = 3;
+  function showCount(n) {
+    countdownEl.textContent = n;
+    countdownEl.classList.remove('show');
+    void countdownEl.offsetWidth;
+    countdownEl.classList.add('show');
+  }
+  showCount(count);
+
+  const countInterval = setInterval(() => {
+    count--;
+    if (count > 0) {
+      showCount(count);
+    } else {
+      clearInterval(countInterval);
+      countdownWrap.style.transition = 'opacity 0.5s ease';
+      countdownWrap.style.opacity = '0';
+      setTimeout(() => {
+        countdownWrap.style.display = 'none';
+        step = 1; // start converging to full
+        splashWelcome.classList.add('show');
+        setTimeout(() => {
+          splash.classList.add('fade-out');
+          setTimeout(() => {
+            splash.style.display = 'none';
+            mainNav.style.display = 'block';
+            hero.style.display = 'flex';
+            hero.style.opacity = '0';
+            requestAnimationFrame(() => {
+              hero.style.transition = 'opacity 1s ease';
+              hero.style.opacity = '1';
+              initHero();
+            });
+          }, 1200);
+        }, 2200);
+      }, 500);
+    }
+  }, 1000);
+})();
+
+/* ===== HERO: Light Arc Animation ===== */
+function initHero() {
+  // Particles
+  const particlesContainer = document.getElementById('particles');
+  for (let i = 0; i < 40; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = (5 + Math.random() * 90) + '%';
+    p.style.bottom = '-10px';
+    p.style.setProperty('--dur', (3 + Math.random() * 5) + 's');
+    p.style.setProperty('--delay', Math.random() * 8 + 's');
+    p.style.width = p.style.height = (2 + Math.random() * 2) + 'px';
+    particlesContainer.appendChild(p);
+  }
+
+  // Canvas: Light Arcs
+  const canvas = document.getElementById('heroCanvas');
+  const ctx = canvas.getContext('2d');
+  let width, height;
+
+  function resize() {
+    width = canvas.width = canvas.offsetWidth;
+    height = canvas.height = canvas.offsetHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  // City node positions (sparse, scattered)
+  const cityNodes = [
+    { x: 0.08, y: 0.35 }, // left-low
+    { x: 0.18, y: 0.22 }, // left-upper
+    { x: 0.30, y: 0.55 }, // center-lower
+    { x: 0.42, y: 0.18 }, // center-upper-left
+    { x: 0.50, y: 0.45 }, // center
+    { x: 0.58, y: 0.25 }, // center-upper-right
+    { x: 0.68, y: 0.60 }, // right-lower
+    { x: 0.75, y: 0.30 }, // right-upper
+    { x: 0.85, y: 0.50 }, // right-center
+    { x: 0.92, y: 0.20 }, // far-right-upper
+    { x: 0.15, y: 0.70 }, // bottom-left
+    { x: 0.35, y: 0.80 }, // bottom-center-left
+    { x: 0.65, y: 0.75 }, // bottom-center-right
+    { x: 0.88, y: 0.72 }, // bottom-right
+  ].map(n => ({ x: n.x * width, y: n.y * height }));
+
+  // Arc connections between nodes
+  const arcs = [
+    [0, 1], [1, 3], [3, 5], [5, 7], [7, 9], // upper path
+    [0, 2], [2, 4], [4, 6], [6, 8], [8, 12], // lower path
+    [1, 4], [3, 4], [4, 7], [4, 8], // cross connections
+    [10, 2], [11, 4], [12, 8], // bottom connections
+  ];
+
+  // Flowing particles on arcs
+  const flowParticles = [];
+  const NUM_FLOW = 18;
+  for (let i = 0; i < NUM_FLOW; i++) {
+    const arcIdx = i % arcs.length;
+    const [a, b] = arcs[arcIdx];
+    flowParticles.push({
+      arcIdx,
+      progress: Math.random(),
+      speed: 0.003 + Math.random() * 0.004,
+      size: 2 + Math.random() * 2,
+      opacity: 0.4 + Math.random() * 0.6,
+      color: Math.random() > 0.6 ? '#96b896' : '#5D6D56'
+    });
+  }
+
+  let time = 0;
+
+  function getArcPoint(a, b, t) {
+    // Cubic bezier for organic curve
+    const cx1 = a.x + (b.x - a.x) * 0.3;
+    const cy1 = a.y - 60 - Math.random() * 40;
+    const cx2 = a.x + (b.x - a.x) * 0.7;
+    const cy2 = b.y - 60 - Math.random() * 40;
+    const cx3 = (a.x + b.x) / 2;
+    const cy3 = Math.min(a.y, b.y) - 80 - Math.random() * 60;
+    // Simplified quadratic bezier with control point above
+    const midX = (a.x + b.x) / 2;
+    const midY = Math.min(a.y, b.y) - 80 - Math.random() * 60;
+    const t1 = 1 - t;
+    return {
+      x: t1 * t1 * a.x + 2 * t1 * t * midX + t * t * b.x,
+      y: t1 * t1 * a.y + 2 * t1 * t * midY + t * t * b.y
+    };
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, width, height);
+    time += 0.016;
+
+    // Draw static arcs (faint)
+    ctx.globalAlpha = 0.15;
+    for (const [a, b] of arcs) {
+      const na = cityNodes[a], nb = cityNodes[b];
+      ctx.beginPath();
+      ctx.moveTo(na.x, na.y);
+      const midX = (na.x + nb.x) / 2;
+      const midY = Math.min(na.y, nb.y) - 80 - Math.random() * 30;
+      ctx.quadraticCurveTo(midX, midY, nb.x, nb.y);
+      ctx.strokeStyle = '#5D6D56';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+
+    // Draw flowing particles along arcs
+    for (const fp of flowParticles) {
+      const [a, b] = arcs[fp.arcIdx];
+      const na = cityNodes[a], nb = cityNodes[b];
+      const midX = (na.x + nb.x) / 2;
+      const midY = Math.min(na.y, nb.y) - 80 - Math.random() * 30;
+
+      const t1 = 1 - fp.progress;
+      const px = t1 * t1 * na.x + 2 * t1 * fp.progress * midX + fp.progress * fp.progress * nb.x;
+      const py = t1 * t1 * na.y + 2 * t1 * fp.progress * midY + fp.progress * fp.progress * nb.y;
+
+      // Draw trail
+      const prevT = Math.max(0, fp.progress - 0.15);
+      const pt1 = 1 - prevT;
+      const trailX = pt1 * pt1 * na.x + 2 * pt1 * prevT * midX + prevT * prevT * nb.x;
+      const trailY = pt1 * pt1 * na.y + 2 * pt1 * prevT * midY + prevT * prevT * nb.y;
+
+      const trailGrad = ctx.createLinearGradient(trailX, trailY, px, py);
+      trailGrad.addColorStop(0, 'rgba(93,109,86,0)');
+      trailGrad.addColorStop(1, `rgba(150,186,150,${fp.opacity * 0.8})`);
+
+      ctx.beginPath();
+      ctx.moveTo(trailX, trailY);
+      ctx.lineTo(px, py);
+      ctx.strokeStyle = trailGrad;
+      ctx.lineWidth = fp.size * 0.6;
+      ctx.stroke();
+
+      // Glow head
+      ctx.beginPath();
+      ctx.arc(px, py, fp.size, 0, Math.PI * 2);
+      ctx.fillStyle = fp.color;
+      ctx.shadowColor = fp.color;
+      ctx.shadowBlur = 12;
+      ctx.globalAlpha = fp.opacity;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.shadowBlur = 0;
+
+      fp.progress += fp.speed;
+      if (fp.progress > 1) {
+        fp.progress = 0;
+        // Occasionally switch arc
+        if (Math.random() > 0.7) {
+          fp.arcIdx = Math.floor(Math.random() * arcs.length);
+          const [na2, nb2] = arcs[fp.arcIdx];
+          fp.size = 2 + Math.random() * 2;
+          fp.opacity = 0.4 + Math.random() * 0.6;
+          fp.color = Math.random() > 0.6 ? '#96b896' : '#5D6D56';
+        }
+      }
+    }
+
+    // Draw city nodes with pulse
+    for (let i = 0; i < cityNodes.length; i++) {
+      const n = cityNodes[i];
+      const pulse = Math.sin(time * 2 + i * 1.3) * 0.5 + 0.5;
+      const r = 2.5 + pulse * 1.5;
+
+      // Outer glow
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, r + 4, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(93,109,86,${0.08 + pulse * 0.1})`;
+      ctx.fill();
+
+      // Core
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(150,186,150,${0.5 + pulse * 0.5})`;
+      ctx.shadowColor = '#5D6D56';
+      ctx.shadowBlur = 8 + pulse * 8;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      // Bright center
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, r * 0.4, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(184,204,180,${0.7 + pulse * 0.3})`;
+      ctx.fill();
+    }
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+}
+</script>
+</body>
+</html>
