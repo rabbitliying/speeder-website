@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI智能运维 | SPEEDER NETWORKS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -100,17 +100,20 @@ body {
 
 /* 所有页面内容 - 初始隐藏，等splash结束后再显示 */
 #mainNav, #hero, #stats-strip, #ai-overview, #ai-monitoring, #ai-capabilities, #ai-oms, #contact, footer {
-  display: none !important;
+  min-height: auto;
+  padding: 28px 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(93,109,86,0.1);
+  background: #0a2820;
 }
-body.page-ready #mainNav,
-body.page-ready #ai-overview,
-body.page-ready #ai-monitoring,
-body.page-ready #ai-capabilities,
-body.page-ready #ai-oms,
-body.page-ready #contact {
-  display: flex !important;
+.footer-left { font-size: 12px; color: #B0B0B0; }
+.footer-left a { color: rgba(176,176,176,0.8); text-decoration: none; }
+.footer-left a:hover { color: #96b896; }
+.footer-right { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(176,176,176,0.55);
+  letter-spacing: 1px;
 }
-body.page-ready #mainNav { display: flex !important; }
 body.page-ready #hero { display: flex !important; }
 .splash-bg-stars { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
 .splash-star { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: rgba(150,186,150,0.8); animation: twinkle var(--dur) ease-in-out infinite; animation-delay: var(--delay); }
@@ -157,7 +160,7 @@ header {
   justify-content: space-between;
   padding: 0 48px;
   height: 64px;
-  background: rgba(4,32,24,0.97);
+  background: #0a2119 !important;
   backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(93,109,86,0.12);
 }
@@ -208,7 +211,83 @@ header {
   position: absolute;
   top: 100%; left: 50%; transform: translateX(-50%);
   min-width: 160px;
-  background: rgba(4,32,24,0.97);
+  background: #0a2119 !important;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(93,109,86,0.15);
+  border-radius: 12px;
+  padding: 8px;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.25s, transform 0.25s, visibility 0.25s;
+  transform: translateX(-50%) translateY(-6px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+  z-index: 100;
+  list-style: none;
+}
+.nav-has-sub:hover .nav-sub {
+  opacity: 1; visibility: visible;
+  transform: translateX(-50%) translateY(4px);
+}
+.nav-sub li {}
+.nav-sub a {
+  display: block;
+  padding: 9px 16px !important;
+  font-size: 12px !important;
+  color: rgba(150,186,150,0.6) !important;
+  border-radius: 8px;
+  transition: all 0.15s;
+}
+.nav-sub a:hover {
+  color: var(--light) !important;
+  background: rgba(93,109,86,0.15) !important;
+}
+.logo-wrap { display: flex; align-items: center; height: 64px; }
+.logo-img { height: 100px; width: auto; }
+.nav-links {
+  display: flex;
+  gap: 4px;
+  list-style: none;
+  align-items: center;
+}
+.nav-links a {
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 400;
+  color: rgba(150,186,150,0.5);
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: all 0.25s;
+  white-space: nowrap;
+}
+.nav-links a:hover { color: var(--light); background: rgba(93,109,86,0.12); }
+.nav-btn-outline {
+  background: rgba(93,109,86,0.1) !important;
+  border: 1px solid rgba(150,186,150,0.15) !important;
+  color: var(--light) !important;
+}
+.nav-btn-outline:hover { background: rgba(93,109,86,0.2) !important; }
+.nav-cta {
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  color: var(--bg) !important;
+  background: var(--primary);
+  padding: 8px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.3s, transform 0.2s;
+}
+.nav-cta:hover { background: var(--secondary); transform: scale(1.02); }
+
+/* ── 下拉子目录 ── */
+.nav-has-sub { position: relative; }
+.nav-arrow { font-size: 9px; margin-left: 4px; transition: transform 0.2s; }
+.nav-has-sub:hover .nav-arrow { transform: rotate(180deg); }
+.nav-sub {
+  position: absolute;
+  top: 100%; left: 50%; transform: translateX(-50%);
+  min-width: 160px;
+  background: #0a2119 !important;
   backdrop-filter: blur(20px);
   border: 1px solid rgba(93,109,86,0.15);
   border-radius: 12px;
@@ -303,9 +382,9 @@ section {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   background:
-    linear-gradient(to bottom, transparent 30%, rgba(4,32,24,0.4) 70%, rgba(4,32,24,0.75) 100%),
-    radial-gradient(ellipse at 50% 30%, rgba(4,32,24,0.1) 0%, transparent 60%),
-    linear-gradient(160deg, rgba(4,32,24,0.3) 0%, transparent 30%);
+    linear-gradient(to bottom, transparent 30%, #0a2820 70%, #0a2820 100%),
+    radial-gradient(ellipse at 50% 30%, #0a2820 0%, transparent 60%),
+    linear-gradient(160deg, #0a2820 0%, transparent 30%);
   z-index: 1;
   will-change: transform;
 }
@@ -326,7 +405,7 @@ section {
   content: '';
   position: absolute;
   bottom: 0; left: 0; right: 0; height: 200px;
-  background: linear-gradient(to top, rgba(4,32,24,0.8), transparent);
+  background: linear-gradient(to top, #0a2820, transparent);
   pointer-events: none;
   z-index: 3;
 }
@@ -573,7 +652,7 @@ section {
   position: absolute;
   inset: 0;
   border-radius: 20px;
-  background: linear-gradient(135deg, rgba(4,32,24,0.3), rgba(4,32,24,0.1));
+  background: linear-gradient(to bottom, rgba(10,40,32,0.15) 0%, rgba(10,40,32,0.4) 100%);
   pointer-events: none;
 }
 .module-eyebrow {
@@ -1084,15 +1163,12 @@ footer {
   align-items: center;
   justify-content: space-between;
   border-top: 1px solid rgba(93,109,86,0.1);
-  background: rgba(4,32,24,0.95);
+  background: #0a2119 !important;
 }
-.footer-left { font-size: 12px; color: var(--text-secondary); }
+.footer-left { font-size: 12px; color: #B0B0B0; }
 .footer-left a { color: var(--text-secondary); text-decoration: none; }
 .footer-left a:hover { color: var(--light); }
-.footer-right {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: rgba(122,154,122,0.5);
+.footer-right { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(176,176,176,0.55);
   letter-spacing: 1px;
 }
 
@@ -1166,6 +1242,7 @@ body { animation: page-fade-in 0.8s ease forwards; }
   .hero-actions { flex-direction: column; align-items: center; }
 }
 </style>
+<link rel="stylesheet" href="speeder_animate.css">
 </head>
 <body>
 <script>
@@ -1197,7 +1274,7 @@ body { animation: page-fade-in 0.8s ease forwards; }
     <img src="logo_new.png" class="logo-img" alt="SPEEDER NETWORKS">
   </div>
   <ul class="nav-links">
-    <li class="nav-has-sub"><a href="speeder_v2_combined.html">首页</a></li>
+    <li class="nav-has-sub"><a href="index.html">首页</a></li>
     <li class="nav-has-sub">
       <a href="sdwan.html">线路融合池 <span class="nav-arrow">▼</span></a>
       <ul class="nav-sub">
@@ -1272,7 +1349,8 @@ body { animation: page-fade-in 0.8s ease forwards; }
 <section id="ai-overview">
   <div class="ai-overview-grid">
     <div class="module-visual reveal" data-3d-tilt>
-      <img src="img_pool_1.png" class="ai-visual-img" alt="AI Operations">
+
+      <img src="anime_ai_overview.png" class="ai-visual-img" alt="AI Operations">
       <div class="ai-visual-overlay"></div>
     </div>
     <div class="reveal">
@@ -1302,6 +1380,7 @@ body { animation: page-fade-in 0.8s ease forwards; }
       </div>
     </div>
   </div>
+  <div class="anim-particle-wrap" id="anim-particles-ai" style="margin:40px 0 0;"></div>
 </section>
 
 <!-- ════════════════════════════════════════
@@ -1554,9 +1633,11 @@ body { animation: page-fade-in 0.8s ease forwards; }
 ════════════════════════════════════════ -->
 <footer>
   <div class="footer-left">
-    <a href="index.html">SPEEDER NETWORKS</a> · 苏州世必得科技有限公司 &nbsp;|&nbsp; 版权所有
+    © 2026 世必得网络科技 SPEEDER NETWORKS All rights reserved.
   </div>
-  <div class="footer-right">POWERED BY AI RELAY · SPEEDER NETWORKS</div>
+  <div class="footer-right">
+    苏ICP备2024120577号-2
+  </div>
 </footer>
 
 <script>
@@ -1864,6 +1945,13 @@ function initCardTilt() {
       if (t) t.scrollIntoView({ behavior: 'smooth' });
     });
   });
+})();
+</script>
+<script src="speeder_animate.js"></script>
+<script>
+(function() {
+  var s = document.getElementById('anim-particles-ai');
+  if (s) spawnParticles('anim-particles-ai');
 })();
 </script>
 
