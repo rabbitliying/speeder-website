@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>最简单的动画测试</title>
+<style>
+  body { background: #042018; padding: 40px; }
+  .box {
+    width: 200px; height: 80px; background: #96b896; margin: 20px 0;
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .box.on { opacity: 1; transform: translateX(50px); }
+</style>
+</head>
+<body>
+<h1 style="color:#fff;">最简单的过渡测试</h1>
+<div class="box"></div>
+<button onclick="document.querySelector('.box').classList.add('on')">点我触发</button>
+</body>
+</html>
