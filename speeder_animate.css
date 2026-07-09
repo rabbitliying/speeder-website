@@ -93,10 +93,10 @@
 .anim-card:nth-child(3) { transition-delay: 0.24s; }
 .anim-card:nth-child(4) { transition-delay: 0.36s; }
 
-/* ── 5. 呼吸光晕 ── */
+/* ── 5. 呼吸光晕 + 竖线分割 ── */
 .anim-glow {
-  width: 63px;
-  height: 63px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   background: radial-gradient(circle at 40% 40%, #96b896, #5D6D56);
   opacity: 0;
@@ -111,10 +111,19 @@
 .anim-glow:nth-child(2) { animation-delay: 1.33s; background: radial-gradient(circle at 40% 40%, #A6B58F, #5D6D56); }
 .anim-glow:nth-child(3) { animation-delay: 2.66s; background: radial-gradient(circle at 40% 40%, #7a9a78, #48564e); }
 @keyframes orbPulse {
-  /* 暗夜呼吸灯：大部分时间熄灭/极暗，峰值时短暂亮起 */
   0%,85%,100% { box-shadow: 0 0 4px rgba(150,186,150,0.08), 0 0 8px rgba(93,109,86,0.05); opacity: 0.25; }
   40%,55%      { box-shadow: 0 0 16px rgba(150,186,150,0.5), 0 0 32px rgba(93,109,86,0.2); opacity: 1; }
 }
+
+/* 竖线分割装饰 */
+.anim-sep-line {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(180deg, transparent, rgba(150,186,150,0.25), transparent);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.anim-sep-line.on { opacity: 1; }
 
 /* ── 6. 光点漂浮 ── */
 .anim-particle-wrap {
