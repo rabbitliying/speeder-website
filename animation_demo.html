@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>动画效果演示 | SPEEDER NETWORKS</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap');
+
+:root {
+  --bg: #042018;
+  --primary: #5D6D56;
+  --light: #96b896;
+  --soft: #b8ccb4;
+  --text: #d8e8dc;
+  --accent: #A6B58F;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans SC', 'Space Grotesk', sans-serif;
+}
+
+section {
+  min-height: 100vh;
+  padding: 100px 10% 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--primary);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.desc {
+  font-size: 13px;
+  color: rgba(150,186,150,0.45);
+  line-height: 1.8;
+  max-width: 520px;
+  margin-top: 16px;
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(93,109,86,0.2), transparent);
+}
+
+/* ══════════════════════════════
+   1. 标题 + 划线
+══════════════════════════════ */
+.e1-title {
+  font-size: clamp(26px, 4vw, 46px);
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 14px;
+}
+.e1-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: linear-gradient(90deg, var(--light), rgba(150,186,150,0.1));
+}
+@keyframes lineSlide {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+.e1-title.show .e1-line {
+  animation: lineSlide 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.7s forwards;
+}
+.e1-title.show { animation: fadeUp 0.7s ease forwards; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ══════════════════════════════
+   2. 打字机
+══════════════════════════════ */
+.e2-wrap {
+  overflow: hidden;
+}
+.e2-text {
+  display: inline-block;
+  font-size: clamp(16px, 2.5vw, 24px);
+  font-weight: 500;
+  color: var(--light);
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  opacity: 0;
+}
+.e2-text.show {
+  animation: typeIn 2s steps(24) forwards;
+  opacity: 1;
+}
+@keyframes typeIn {
+  to { width: 100%; }
+}
+
+/* ══════════════════════════════
+   3. 数字滚动
+══════════════════════════════ */
+.e3-grid {
+  display: flex;
+  gap: 48px;
+  flex-wrap: wrap;
+  margin-top: 32px;
+}
+.e3-item {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.e3-item.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.e3-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(40px, 6vw, 68px);
+  font-weight: 700;
+  color: var(--light);
+  line-height: 1;
+}
+.e3-unit {
+  font-size: 0.35em;
+  color: var(--accent);
+}
+.e3-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: rgba(150,186,150,0.45);
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+
+/* ══════════════════════════════
+   4. 卡片依次浮现
+══════════════════════════════ */
+.e4-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin-top: 32px;
+}
+.e4-card {
+  background: rgba(93,109,86,0.07);
+  border: 1px solid rgba(93,109,86,0.12);
+  border-radius: 14px;
+  padding: 24px 18px;
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.55s ease, transform 0.55s ease, background 0.25s, border-color 0.25s;
+}
+.e4-card:hover { background: rgba(93,109,86,0.13); border-color: rgba(93,109,86,0.25); }
+.e4-card.show   { opacity: 1; transform: translateY(0); }
+.e4-card:nth-child(1) { transition-delay: 0s; }
+.e4-card:nth-child(2) { transition-delay: 0.12s; }
+.e4-card:nth-child(3) { transition-delay: 0.24s; }
+.e4-card:nth-child(4) { transition-delay: 0.36s; }
+.e4-icon {
+  width: 34px; height: 34px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, var(--primary), var(--light));
+  margin-bottom: 14px;
+}
+.e4-card-title { font-size: 14px; font-weight: 600; color: var(--soft); margin-bottom: 6px; }
+.e4-card-desc  { font-size: 12px; color: rgba(150,186,150,0.45); line-height: 1.65; }
+
+/* ══════════════════════════════
+   5. 呼吸光晕
+══════════════════════════════ */
+.e5-row {
+  display: flex;
+  gap: 36px;
+  align-items: center;
+  margin-top: 32px;
+}
+.e5-orb {
+  width: 76px; height: 76px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, var(--light), var(--primary));
+  opacity: 0;
+  transform: scale(0.75);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.e5-orb.show { opacity: 1; transform: scale(1); animation: orbPulse 3s ease-in-out infinite; }
+.e5-orb:nth-child(2) { animation-delay: 1s; background: radial-gradient(circle at 40% 40%, var(--accent), var(--primary)); }
+.e5-orb:nth-child(3) { animation-delay: 2s; width: 54px; height: 54px; }
+@keyframes orbPulse {
+  0%,100% { box-shadow: 0 0 18px rgba(150,186,150,0.35), 0 0 36px rgba(93,109,86,0.15); }
+  50%      { box-shadow: 0 0 28px rgba(150,186,150,0.55), 0 0 56px rgba(93,109,86,0.25); }
+}
+
+/* ══════════════════════════════
+   6. 光点漂浮
+══════════════════════════════ */
+.e6-scene {
+  position: relative;
+  height: 180px;
+  background: rgba(10,33,25,0.5);
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(93,109,86,0.1);
+  margin-top: 32px;
+}
+.e6-dot {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--light);
+  bottom: -10px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.e6-dot.show {
+  animation: dotRise var(--dur) ease-in-out infinite;
+  animation-delay: var(--del);
+  opacity: 0.55;
+}
+@keyframes dotRise {
+  0%   { transform: translateY(0) scale(0.4); opacity: 0; }
+  12%  { opacity: 0.55; }
+  88%  { opacity: 0.55; }
+  100% { transform: translateY(calc(-180px - 50px)) scale(1.1); opacity: 0; }
+}
+
+/* ══════════════════════════════
+   7. 细线划入
+══════════════════════════════ */
+.e7-text {
+  display: inline-block;
+  font-size: clamp(15px, 2vw, 20px);
+  color: var(--soft);
+  padding-bottom: 10px;
+  position: relative;
+  opacity: 0;
+  transform: translateX(-16px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.e7-text.show { opacity: 1; transform: translateX(0); }
+.e7-text::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 1px;
+  width: 0;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
+}
+.e7-text.show::after { width: 140px; }
+
+/* ══════════════════════════════
+   综合
+══════════════════════════════ */
+section:last-child { background: rgba(10,33,25,0.25); }
+</style>
+</head>
+<body>
+
+<!-- 1 -->
+<section>
+  <div class="section-label">01 — 标题划线进入</div>
+  <div class="e1-title">
+    告别被动救火，开启主动运维时代
+    <div class="e1-line"></div>
+  </div>
+  <p class="desc">标题淡入同时向上位移，底部线条从左滑出渐变消失，过渡优雅不抢眼。</p>
+  <button onclick="document.querySelector('.e1-title').classList.toggle('show')" style="margin-top:16px;padding:10px 20px;background:#5D6D56;color:#042018;border:none;border-radius:8px;cursor:pointer;font-family:inherit;">手动触发划线</button>
+</section>
+
+<div class="divider"></div>
+
+<!-- 2 -->
+<section>
+  <div class="section-label">02 — 打字机</div>
+  <div class="e2-wrap">
+    <div class="e2-text">预测性分析 · 自动化修复 · 自然语言交互</div>
+  </div>
+  <p class="desc">文字逐字出现，适用于关键标语，配合光标闪烁增强科技感。</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- 3 -->
+<section>
+  <div class="section-label">03 — 数字滚动</div>
+  <div class="e3-grid">
+    <div class="e3-item">
+      <div class="e3-num"><span class="cnt" data-t="99.9">0</span><span class="e3-unit">%</span></div>
+      <div class="e3-label">系统可用性</div>
+    </div>
+    <div class="e3-item">
+      <div class="e3-num"><span class="cnt" data-t="150">0</span><span class="e3-unit">+</span></div>
+      <div class="e3-label">企业客户</div>
+    </div>
+    <div class="e3-item">
+      <div class="e3-num"><span class="cnt" data-t="8">0</span><span class="e3-unit">年</span></div>
+      <div class="e3-label">行业深耕</div>
+    </div>
+  </div>
+  <p class="desc">数字从零滚动到目标值，三次缓动曲线，大数字自动千分位，小数精确一位。</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- 4 -->
+<section>
+  <div class="section-label">04 — 卡片依次浮现</div>
+  <div class="e4-grid">
+    <div class="e4-card">
+      <div class="e4-icon"></div>
+      <div class="e4-card-title">自研AI引擎</div>
+      <div class="e4-card-desc">融合多源监控数据，实时感知网络健康状态</div>
+    </div>
+    <div class="e4-card">
+      <div class="e4-icon"></div>
+      <div class="e4-card-title">预测性分析</div>
+      <div class="e4-card-desc">提前发现潜在故障，将问题扼杀在萌芽阶段</div>
+    </div>
+    <div class="e4-card">
+      <div class="e4-icon"></div>
+      <div class="e4-card-title">自然语言交互</div>
+      <div class="e4-card-desc">任何人均可高效管理复杂网络</div>
+    </div>
+    <div class="e4-card">
+      <div class="e4-icon"></div>
+      <div class="e4-card-title">自动化修复</div>
+      <div class="e4-card-desc">90% 常见问题无需人工介入</div>
+    </div>
+  </div>
+  <p class="desc">四个卡片错开 120ms 依次浮现，悬停时背景和边框微变。</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- 5 -->
+<section>
+  <div class="section-label">05 — 呼吸光晕</div>
+  <div class="e5-row">
+    <div class="e5-orb"></div>
+    <div class="e5-orb"></div>
+    <div class="e5-orb"></div>
+  </div>
+  <p class="desc">三个光球依次脉冲呼吸，渐变背景+光晕扩散，适合高亮关键数据。</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- 6 -->
+<section>
+  <div class="section-label">06 — 光点漂浮</div>
+  <div class="e6-scene" id="p6"></div>
+  <p class="desc">低调的背景装饰，多个光点从底部向上漂移，营造数据流动氛围。</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- 7 -->
+<section>
+  <div class="section-label">07 — 细线划入</div>
+  <div class="e7-text">全球覆盖 · 稳定可靠 · 安全可信</div>
+  <p class="desc">轻盈版本，线条更细，延迟 0.3 秒后划入，适合副标题或功能标签。</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- 综合 -->
+<section>
+  <div class="section-label">ALL — 综合效果</div>
+  <div class="e1-title">
+    世必得 — 凡事尽心竭力，必有所得
+    <div class="e1-line"></div>
+  </div>
+  <br><br>
+  <div class="e2-wrap" style="margin-top:8px;">
+    <div class="e2-text">认真对待每一次连接，真诚服务每一位客户</div>
+  </div>
+  <br>
+  <div class="e3-grid">
+    <div class="e3-item">
+      <div class="e3-num"><span class="cnt" data-t="150">0</span><span class="e3-unit">+</span></div>
+      <div class="e3-label">企业客户</div>
+    </div>
+    <div class="e3-item">
+      <div class="e3-num"><span class="cnt" data-t="99.9">0</span><span class="e3-unit">%</span></div>
+      <div class="e3-label">可用性</div>
+    </div>
+    <div class="e3-item">
+      <div class="e3-num"><span class="cnt" data-t="8">0</span><span class="e3-unit">年</span></div>
+      <div class="e3-label">行业深耕</div>
+    </div>
+  </div>
+  <div class="e4-grid" style="margin-top:28px;">
+    <div class="e4-card">
+      <div class="e4-icon"></div>
+      <div class="e4-card-title">智能运维</div>
+      <div class="e4-card-desc">AI驱动的主动式网络管理</div>
+    </div>
+    <div class="e4-card">
+      <div class="e4-icon"></div>
+      <div class="e4-card-title">全球覆盖</div>
+      <div class="e4-card-desc">多地域节点，分布式部署</div>
+    </div>
+    <div class="e4-card">
+      <div class="e4-icon"></div>
+      <div class="e4-card-title">安全可信</div>
+      <div class="e4-card-desc">端到端加密，可靠保障</div>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ── Reveal on scroll ── */
+(function() {
+  function reveal() {
+    document.querySelectorAll('.e1-title,.e2-text,.e3-item,.e4-card,.e5-orb,.e7-text').forEach(el => {
+      if (el.dataset.seen) return;
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) {
+        el.dataset.seen = '1';
+        el.classList.add('show');
+      }
+    });
+  }
+  reveal();
+  // Fire multiple times to catch elements that need layout
+  setTimeout(reveal, 200);
+  setTimeout(reveal, 600);
+  window.addEventListener('scroll', reveal, { passive: true });
+  window.addEventListener('resize', reveal);
+})();
+
+/* ── Counter ── */
+document.querySelectorAll('.cnt').forEach(el => {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const target = parseFloat(el.dataset.t);
+      const isFloat = String(target).includes('.');
+      const duration = 1800;
+      const start = performance.now();
+      function tick(now) {
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = isFloat ? (target * eased).toFixed(1) : Math.floor(target * eased);
+        if (p < 1) requestAnimationFrame(tick);
+        else el.textContent = target;
+      }
+      requestAnimationFrame(tick);
+      obs.unobserve(el);
+    });
+  }, { threshold: 0.3 });
+  obs.observe(el);
+});
+
+/* ── Particles ── */
+const scene6 = document.getElementById('p6');
+const conf = [
+  [8,  4.2, 0.0], [20, 5.5, 0.9], [33, 4.8, 1.8],
+  [47, 5.0, 0.4], [60, 4.5, 2.1], [74, 5.8, 0.7], [88, 4.0, 3.0]
+];
+conf.forEach(([pos, dur, del]) => {
+  const dot = document.createElement('div');
+  dot.className = 'e6-dot';
+  dot.style.cssText = `left:${pos}%;width:${3 + Math.random()*3}px;height:${3 + Math.random()*3}px;--dur:${dur}s;--del:${del}s`;
+  scene6.appendChild(dot);
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { dot.classList.add('show'); obs.unobserve(dot); }
+    });
+  }, { threshold: 0.1 });
+  obs.observe(dot);
+});
+</script>
+
+</body>
+</html>

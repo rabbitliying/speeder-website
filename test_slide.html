@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>划线测试</title>
+<style>
+:root {
+  --bg: #042018;
+  --light: #96b896;
+}
+body { background: var(--bg); padding: 100px; font-family: sans-serif; }
+
+.test-title {
+  font-size: 32px;
+  color: #d8e8dc;
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 14px;
+}
+
+.test-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: linear-gradient(90deg, var(--light), transparent);
+}
+
+.test-title.show .test-line {
+  animation: slideIn 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes slideIn {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+button {
+  margin-top: 40px;
+  padding: 12px 24px;
+  background: #5D6D56;
+  color: #042018;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<h2 class="test-title">
+  告别被动救火，开启主动运维时代
+  <div class="test-line"></div>
+</h2>
+
+<br><br>
+<button onclick="document.querySelector('.test-title').classList.add('show')">点击触发动画</button>
+
+</body>
+</html>

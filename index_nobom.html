@@ -1,7 +1,7 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>苏州世必得科技 | SPEEDER NETWORKS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -102,20 +102,20 @@ body {
 
 /* 所有页面内容 - 初始隐藏，等splash结束后再显示 */
 #mainNav, #hero, #stats-strip, #sdwan, #sase, #oms, #ai-relay, #products, #contact, footer {
-  min-height: auto;
-  padding: 28px 80px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-top: 1px solid rgba(93,109,86,0.1);
-  background: #0a2820;
+  display: none !important;
 }
-.footer-left { font-size: 12px; color: #B0B0B0; }
-.footer-left a { color: rgba(176,176,176,0.8); text-decoration: none; }
-.footer-left a:hover { color: #96b896; }
-.footer-right { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(176,176,176,0.55);
-  letter-spacing: 1px;
+body.page-ready #mainNav,
+body.page-ready #stats-strip,
+body.page-ready #sdwan,
+body.page-ready #sase,
+body.page-ready #oms,
+body.page-ready #ai-relay,
+body.page-ready #products,
+body.page-ready #contact,
+body.page-ready footer {
+  display: flex !important;
 }
+body.page-ready #mainNav { display: flex !important; }
 body.page-ready #hero { display: flex !important; }
 .splash-bg-stars { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
 .splash-star { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: rgba(150,186,150,0.8); animation: twinkle var(--dur) ease-in-out infinite; animation-delay: var(--delay); }
@@ -162,7 +162,7 @@ header {
   justify-content: space-between;
   padding: 0 48px;
   height: 64px;
-  background: #0a2119 !important;
+  background: rgba(4,32,24,0.97);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(93,109,86,0.12);
 }
@@ -213,7 +213,7 @@ header {
   position: absolute;
   top: 100%; left: 50%; transform: translateX(-50%);
   min-width: 160px;
-  background: #0a2119 !important;
+  background: rgba(4,32,24,0.97);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(93,109,86,0.15);
   border-radius: 12px;
@@ -304,11 +304,11 @@ section {
   top: 0; left: 0; right: 0; bottom: 0;
   background: 
     /* 底部渐变：柔和过渡到深色，隐藏图片硬边缘 */
-    linear-gradient(to bottom, transparent 40%, #0a2820 75%, #0a2820 100%),
+    linear-gradient(to bottom, transparent 40%, rgba(4,32,24,0.7) 75%, rgba(4,32,24,0.95) 100%),
     /* 四角到中心的微弱渐变 */
-    radial-gradient(ellipse at 50% 30%, #0a2820 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 30%, rgba(4,32,24,0.2) 0%, transparent 60%),
     /* 顶部轻微暗角 */
-    linear-gradient(160deg, #0a2820 0%, transparent 30%);
+    linear-gradient(160deg, rgba(4,32,24,0.5) 0%, transparent 30%);
   z-index: 1;
   will-change: transform;
 }
@@ -330,7 +330,7 @@ section {
   content: '';
   position: absolute;
   bottom: 0; left: 0; right: 0; height: 200px;
-  background: linear-gradient(to top, #0a2820, transparent);
+  background: linear-gradient(to top, rgba(4,32,24,0.8), transparent);
   pointer-events: none;
   z-index: 3;
 }
@@ -1147,12 +1147,15 @@ footer {
   align-items: center;
   justify-content: space-between;
   border-top: 1px solid rgba(93,109,86,0.1);
-  background: #0a2119 !important;
+  background: rgba(4,32,24,0.95);
 }
-.footer-left { font-size: 12px; color: #B0B0B0; }
+.footer-left { font-size: 12px; color: var(--text-secondary); }
 .footer-left a { color: var(--text-secondary); text-decoration: none; }
 .footer-left a:hover { color: var(--light); }
-.footer-right { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(176,176,176,0.55);
+.footer-right {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: rgba(122,154,122,0.5);
   letter-spacing: 1px;
 }
 
@@ -1193,10 +1196,10 @@ body { animation: page-fade-in 0.8s ease forwards; }
   .hero-actions { flex-direction: column; align-items: center; }
 }
 </style>
-<link rel="stylesheet" href="speeder_animate.css">
 </head>
 <body>
 
+<!-- 自定义光标（仅Hero区域） -->
 <div id="cursor-ring"></div>
 <div id="cursor-dot"></div>
 
@@ -1229,7 +1232,7 @@ body { animation: page-fade-in 0.8s ease forwards; }
     <img src="logo_new.png" class="logo-img" alt="SPEEDER NETWORKS">
   </div>
   <ul class="nav-links">
-    <li class="nav-has-sub"><a href="index.html">首页</a></li>
+    <li class="nav-has-sub"><a href="speeder_v2_combined.html">首页</a></li>
     <li class="nav-has-sub">
       <a href="sdwan.html">线路融合池 <span class="nav-arrow">▼</span></a>
       <ul class="nav-sub">
@@ -1433,29 +1436,24 @@ body { animation: page-fade-in 0.8s ease forwards; }
      SECTION 2 — STATS STRIP
 ════════════════════════════════════════ -->
 <section id="stats-strip">
-  <div class="anim-title" style="margin-bottom:40px;text-align:center;">
-    数字鉴证实力
-    <div class="anim-line" style="left:50%;transform:translateX(-50%);"></div>
-  </div>
   <div class="stats-grid">
-    <div class="stat-item anim-counter-item">
-      <div class="stat-number"><em><span class="cnt" data-t="600">0</span></em>+</div>
+    <div class="stat-item reveal">
+      <div class="stat-number"><em>600</em>+</div>
       <div class="stat-label">全球POP节点 / Global POP Nodes</div>
     </div>
-    <div class="stat-item anim-counter-item" style="transition-delay:0.1s;">
-      <div class="stat-number"><em><span class="cnt" data-t="38">0</span></em></div>
+    <div class="stat-item reveal reveal-delay-1">
+      <div class="stat-number"><em>38</em></div>
       <div class="stat-label">城市骨干网覆盖 / City Backbone Coverage</div>
     </div>
-    <div class="stat-item anim-counter-item" style="transition-delay:0.2s;">
-      <div class="stat-number"><em><span class="cnt" data-t="150">0</span></em>+</div>
+    <div class="stat-item reveal reveal-delay-2">
+      <div class="stat-number"><em>150</em>+</div>
       <div class="stat-label">安全威胁规则库 / Threat Rules</div>
     </div>
-    <div class="stat-item anim-counter-item" style="transition-delay:0.3s;">
-      <div class="stat-number"><em>&lt;<span class="cnt" data-t="1">0</span></em>ms</div>
+    <div class="stat-item reveal reveal-delay-3">
+      <div class="stat-number"><em>&lt;1</em>ms</div>
       <div class="stat-label">安全处理延时 / Security Latency</div>
     </div>
   </div>
-  <div class="anim-particle-wrap" id="anim-particles-home" style="margin-top:32px;"></div>
 </section>
 
 <!-- ════════════════════════════════════════
@@ -1489,8 +1487,8 @@ body { animation: page-fade-in 0.8s ease forwards; }
     <div class="module-content">
       <p class="section-label">MODULE 01</p>
       <p class="module-eyebrow">SD-WAN线路融合池 / LIGHTWAN</p>
-      <h2 class="module-title-zh anim-title">SD-WAN线路融合池<div class="anim-line"></div></h2>
-      <p class="module-title-en anim-slide-line">SD-WAN LINE CONVERGENCE POOL</p>
+      <h2 class="module-title-zh reveal">SD-WAN线路融合池</h2>
+      <p class="module-title-en reveal reveal-delay-1">SD-WAN LINE CONVERGENCE POOL</p>
       <p class="module-tagline reveal reveal-delay-2">让每一次连接，都恰到好处</p>
       <ul class="module-points reveal reveal-delay-3">
         <li>全球<strong>600+ POP节点</strong>，38+城市骨干网覆盖</li>
@@ -1499,10 +1497,10 @@ body { animation: page-fade-in 0.8s ease forwards; }
         <li>多路径保护，<strong>毫秒级切换</strong>，故障无感知</li>
         <li>国产密码+等保合规，安全可控</li>
       </ul>
-      <div class="module-stats-row">
-        <div class="module-stat-badge anim-counter-item"><div class="module-stat-badge-num"><em><span class="cnt" data-t="600">0</span></em>+</div><div class="module-stat-badge-label">POP节点</div></div>
-        <div class="module-stat-badge anim-counter-item" style="transition-delay:0.1s;"><div class="module-stat-badge-num"><em><span class="cnt" data-t="30">0</span></em>+省</div><div class="module-stat-badge-label">覆盖</div></div>
-        <div class="module-stat-badge anim-counter-item" style="transition-delay:0.2s;"><div class="module-stat-badge-num"><em>当天</em></div><div class="module-stat-badge-label">开通</div></div>
+      <div class="module-stats-row reveal reveal-delay-4">
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>600</em>+</div><div class="module-stat-badge-label">POP节点</div></div>
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>30</em>+省</div><div class="module-stat-badge-label">覆盖</div></div>
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>当天</em></div><div class="module-stat-badge-label">开通</div></div>
       </div>
     </div>
   </div>
@@ -1516,21 +1514,21 @@ body { animation: page-fade-in 0.8s ease forwards; }
     <div class="module-content">
       <p class="section-label">MODULE 02</p>
       <p class="module-eyebrow">UniSASE安全栈 / Unified SASE</p>
-      <h2 class="module-title-zh anim-title">UniSASE安全栈<div class="anim-line"></div></h2>
-      <p class="module-title-en anim-slide-line">UNIFIED SASE SECURITY STACK</p>
+      <h2 class="module-title-zh reveal">UniSASE安全栈</h2>
+      <p class="module-title-en reveal reveal-delay-1">UNIFIED SASE SECURITY STACK</p>
       <p class="module-tagline reveal reveal-delay-2">网络与安全，从不妥协</p>
       <ul class="module-points reveal reveal-delay-3">
         <li><strong>6大组件：</strong>UniAuth · UniCtrl · UniLog · UniPOP · UniGate · UniMobile</li>
         <li><strong>150+全球骨干PoP节点</strong>，4类接入实体</li>
         <li>零信任网络隔离，微隔离分段防护</li>
         <li><strong>180天全量会话日志</strong>，满足公安部151号令</li>
-        <li>DPI识别<strong>11大籋、千种应用</strong>，精准管控</li>
+        <li>DPI识别<strong>11大类、千种应用</strong>，精准管控</li>
       </ul>
-      <div class="module-stats-row">
-        <div class="module-stat-badge anim-counter-item"><div class="module-stat-badge-num"><em><span class="cnt" data-t="150">0</span></em>+</div><div class="module-stat-badge-label">全球PoP节点</div></div>
-        <div class="module-stat-badge anim-counter-item" style="transition-delay:0.1s;"><div class="module-stat-badge-num"><span style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:#96b896;">4类</span></div><div class="module-stat-badge-label">接入实体</div></div>
-        <div class="module-stat-badge anim-counter-item" style="transition-delay:0.2s;"><div class="module-stat-badge-num"><em><span class="cnt" data-t="180">0</span></em>天</div><div class="module-stat-badge-label">合规日志</div></div>
-        <div class="module-stat-badge anim-counter-item" style="transition-delay:0.3s;"><div class="module-stat-badge-num"><em>ZTNA</em></div><div class="module-stat-badge-label">零信任</div></div>
+      <div class="module-stats-row reveal reveal-delay-4">
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>150</em>+</div><div class="module-stat-badge-label">全球PoP节点</div></div>
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>4类</em></div><div class="module-stat-badge-label">接入实体</div></div>
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>180</em>天</div><div class="module-stat-badge-label">合规日志</div></div>
+        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>ZTNA</em></div><div class="module-stat-badge-label">零信任</div></div>
       </div>
     </div>
     <div class="module-visual reveal reveal-delay-2" data-3d-tilt>
@@ -1574,8 +1572,8 @@ body { animation: page-fade-in 0.8s ease forwards; }
     <div class="module-content">
       <p class="section-label">MODULE 03</p>
       <p class="module-eyebrow">OMS智能运维监控平台</p>
-      <h2 class="module-title-zh anim-title">OMS智能运维监控平台<div class="anim-line"></div></h2>
-      <p class="module-title-en anim-slide-line">OMS INTELLIGENT OPERATIONS PLATFORM</p>
+      <h2 class="module-title-zh reveal">OMS智能运维监控平台</h2>
+      <p class="module-title-en reveal reveal-delay-1">OMS INTELLIGENT OPERATIONS PLATFORM</p>
       <p class="module-tagline reveal reveal-delay-2">让IT从成本中心，变成业务引擎</p>
       <ul class="module-points reveal reveal-delay-3">
         <li><strong>MTTR 15分钟</strong>，传统方式需4小时以上</li>
@@ -1654,7 +1652,7 @@ body { animation: page-fade-in 0.8s ease forwards; }
       <ul class="module-points reveal reveal-delay-3">
         <li><strong>IC Intracom</strong>旗下品牌，德国产品管理</li>
         <li>PoE交换机：<strong>5口~54口</strong>，全规格覆盖</li>
-        <li>管理籋型：非管理 / 网管 / <strong>L2+ / L3</strong></li>
+        <li>管理类型：非管理 / 网管 / <strong>L2+ / L3</strong></li>
         <li>工业级宽温 <strong>-40~80°C</strong>，IP65防水</li>
         <li>支持信创：<strong>龙芯 / 飞腾 / 海光</strong></li>
       </ul>
@@ -1662,7 +1660,7 @@ body { animation: page-fade-in 0.8s ease forwards; }
     <div class="reveal reveal-delay-2">
       <table class="products-table">
         <thead>
-          <tr><th>系列</th><th>端口数</th><th>管理籋型</th><th>PoE功率</th><th>规格</th></tr>
+          <tr><th>系列</th><th>端口数</th><th>管理类型</th><th>PoE功率</th><th>规格</th></tr>
         </thead>
         <tbody>
           <tr><td class="td-highlight">LW1000系列</td><td>5 / 8口</td><td><span class="badge badge-green">非管理</span></td><td class="td-mono">65W / 130W</td><td>桌面式 · 紧凑</td></tr>
@@ -1682,13 +1680,6 @@ body { animation: page-fade-in 0.8s ease forwards; }
 ════════════════════════════════════════ -->
 <section id="contact">
   <div class="contact-inner">
-    <div style="flex:0 0 100%;display:flex;justify-content:center;align-items:center;gap:24px;margin:60px auto 64px;">
-      <div class="anim-sep-line"></div>
-      <div class="anim-glow" style="width:64px;height:64px;"></div>
-      <div class="anim-glow" style="width:48px;height:48px;animation-delay:1.33s;"></div>
-      <div class="anim-glow" style="width:32px;height:32px;animation-delay:2.66s;"></div>
-      <div class="anim-sep-line"></div>
-    </div>
     <p class="section-label reveal">LET'S TALK</p>
     <h2 class="contact-title reveal reveal-delay-1">准备好了吗？</h2>
     <p class="contact-sub reveal reveal-delay-2">无论是SD-WAN组网、安全合规，还是AI赋能转型 —<br>我们随时准备为你定制方案。</p>
@@ -2018,15 +2009,18 @@ function init3DEffects() {
   initHeroParallax();
   initCardTilt();
 }
-/* ── 1. 自定义光标（弹簧跟随）────────────────────── */
+
+/* ── 1. 自定义光标（弹簧跟随，仅Hero区域）────────────────── */
 function initCustomCursor() {
   const ring = document.getElementById('cursor-ring');
   const dot  = document.getElementById('cursor-dot');
   if (!ring || !dot) return;
 
   let mx = window.innerWidth / 2, my = window.innerHeight / 2;
-  let cx = mx, cy = my;
-  let dx = 0, dy = 0;
+  let cx = mx, cy = my;        // ring 当前位置（弹簧延迟）
+  let dx = 0, dy = 0;          // ring 速度
+  let inHero = false;
+  let inCard = false;
 
   const STIFF = 0.13;
   const DAMP  = 0.78;
@@ -2034,13 +2028,17 @@ function initCustomCursor() {
   document.addEventListener('mousemove', e => {
     mx = e.clientX;
     my = e.clientY;
+    // 检测是否在Hero区域
     const hero = document.getElementById('hero');
     if (hero) {
       const hr = hero.getBoundingClientRect();
-      ring.classList.toggle('in-hero', mx >= hr.left && mx <= hr.right && my >= hr.top && my <= hr.bottom);
+      inHero = mx >= hr.left && mx <= hr.right && my >= hr.top && my <= hr.bottom;
+      ring.classList.toggle('in-hero', inHero);
     }
+    // 检测是否在3D卡片上
     const card = e.target.closest('[data-3d-tilt], .tilt-card');
-    ring.classList.toggle('in-card', !!card);
+    inCard = !!card;
+    ring.classList.toggle('in-card', inCard);
   });
 
   function animate() {
@@ -2050,6 +2048,7 @@ function initCustomCursor() {
     dy = (dy + fy) * DAMP;
     cx += dx;
     cy += dy;
+
     ring.style.left = cx + 'px';
     ring.style.top  = cy + 'px';
     dot.style.left  = mx + 'px';
@@ -2301,17 +2300,6 @@ function initCardTilt() {
       if (t) t.scrollIntoView({ behavior: 'smooth' });
     });
   });
-
-  // 光标跟随始终激活
-  init3DEffects();
-})();
-</script>
-<script src="speeder_animate.js"></script>
-<script>
-// 首页专属：光点漂浮装饰
-(function() {
-  var scene = document.getElementById('anim-particles-home');
-  if (scene) spawnParticles('anim-particles-home');
 })();
 </script>
 
