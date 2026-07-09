@@ -806,7 +806,7 @@ footer {
     </div>
   </div>
   <div class="security-grid">
-    <div class="security-card">
+    <div class="security-card anim-card">
       <div class="security-icon">🛡</div>
       <h3>零信任访问</h3>
       <p>基于零信任原则，默认不信任任何用户和设备，持续验证身份、终端状态、访问上下文，建立最小权限访问模型，有效收缩攻击面。</p>
@@ -816,7 +816,7 @@ footer {
         <span class="security-tag">微分段</span>
       </div>
     </div>
-    <div class="security-card">
+    <div class="security-card anim-card" style="transition-delay:0.12s;">
       <div class="security-icon">🔐</div>
       <h3>安全运营</h3>
       <p>防病毒 · 入侵防御 · 数据防泄漏，多引擎协同，实时检测已知威胁和异常行为，结合全局威胁情报，实现秒级响应阻断。</p>
@@ -826,7 +826,7 @@ footer {
         <span class="security-tag">DLP</span>
       </div>
     </div>
-    <div class="security-card">
+    <div class="security-card anim-card" style="transition-delay:0.24s;">
       <div class="security-icon">📋</div>
       <h3>合规管理</h3>
       <p>180天全量日志留存，满足公安部151号令、等保2.0、数据安全法合规要求，审计报表一键导出，溯源取证有据可查。</p>
@@ -836,7 +836,7 @@ footer {
         <span class="security-tag">数据安全法</span>
       </div>
     </div>
-    <div class="security-card">
+    <div class="security-card anim-card" style="transition-delay:0.36s;">
       <div class="security-icon">📊</div>
       <h3>风险分析</h3>
       <p>用户实体行为分析（UEBA），机器学习驱动的异常检测，实时风险评分与自动化响应策略联动，实现从被动防御到主动检测的跨越。</p>
@@ -846,6 +846,12 @@ footer {
         <span class="security-tag">风控体系</span>
       </div>
     </div>
+  </div>
+  <div class="anim-particle-wrap" id="p-unisase" style="margin:40px 0;"></div>
+  <div style="display:flex;justify-content:center;gap:48px;margin:32px 0;">
+    <div class="anim-glow"></div>
+    <div class="anim-glow"></div>
+    <div class="anim-glow"></div>
   </div>
 </section>
 
@@ -1107,5 +1113,11 @@ footer {
 })();
 </script>
 <script src="speeder_animate.js"></script>
+<script>
+(function() {
+  var ids = ['p-unisase'];
+  ids.forEach(function(id) { var el = document.getElementById(id); if (el) spawnParticles(id); });
+})();
+</script>
 </body>
 </html>

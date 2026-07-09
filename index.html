@@ -1456,6 +1456,11 @@ body { animation: page-fade-in 0.8s ease forwards; }
     </div>
   </div>
   <div class="anim-particle-wrap" id="anim-particles-home" style="margin-top:32px;"></div>
+  <div style="display:flex;justify-content:center;gap:40px;margin-top:40px;">
+    <div class="anim-glow"></div>
+    <div class="anim-glow"></div>
+    <div class="anim-glow"></div>
+  </div>
 </section>
 
 <!-- ════════════════════════════════════════
@@ -1489,8 +1494,8 @@ body { animation: page-fade-in 0.8s ease forwards; }
     <div class="module-content">
       <p class="section-label">MODULE 01</p>
       <p class="module-eyebrow">SD-WAN线路融合池 / LIGHTWAN</p>
-      <h2 class="module-title-zh reveal">SD-WAN线路融合池</h2>
-      <p class="module-title-en reveal reveal-delay-1">SD-WAN LINE CONVERGENCE POOL</p>
+      <h2 class="module-title-zh anim-title">SD-WAN线路融合池<div class="anim-line"></div></h2>
+      <p class="module-title-en anim-slide-line">SD-WAN LINE CONVERGENCE POOL</p>
       <p class="module-tagline reveal reveal-delay-2">让每一次连接，都恰到好处</p>
       <ul class="module-points reveal reveal-delay-3">
         <li>全球<strong>600+ POP节点</strong>，38+城市骨干网覆盖</li>
@@ -1499,10 +1504,10 @@ body { animation: page-fade-in 0.8s ease forwards; }
         <li>多路径保护，<strong>毫秒级切换</strong>，故障无感知</li>
         <li>国产密码+等保合规，安全可控</li>
       </ul>
-      <div class="module-stats-row reveal reveal-delay-4">
-        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>600</em>+</div><div class="module-stat-badge-label">POP节点</div></div>
-        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>30</em>+省</div><div class="module-stat-badge-label">覆盖</div></div>
-        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>当天</em></div><div class="module-stat-badge-label">开通</div></div>
+      <div class="module-stats-row">
+        <div class="module-stat-badge anim-counter-item"><div class="module-stat-badge-num"><em><span class="cnt" data-t="600">0</span></em>+</div><div class="module-stat-badge-label">POP节点</div></div>
+        <div class="module-stat-badge anim-counter-item" style="transition-delay:0.1s;"><div class="module-stat-badge-num"><em><span class="cnt" data-t="30">0</span></em>+省</div><div class="module-stat-badge-label">覆盖</div></div>
+        <div class="module-stat-badge anim-counter-item" style="transition-delay:0.2s;"><div class="module-stat-badge-num"><em>当天</em></div><div class="module-stat-badge-label">开通</div></div>
       </div>
     </div>
   </div>
@@ -1516,8 +1521,8 @@ body { animation: page-fade-in 0.8s ease forwards; }
     <div class="module-content">
       <p class="section-label">MODULE 02</p>
       <p class="module-eyebrow">UniSASE安全栈 / Unified SASE</p>
-      <h2 class="module-title-zh reveal">UniSASE安全栈</h2>
-      <p class="module-title-en reveal reveal-delay-1">UNIFIED SASE SECURITY STACK</p>
+      <h2 class="module-title-zh anim-title">UniSASE安全栈<div class="anim-line"></div></h2>
+      <p class="module-title-en anim-slide-line">UNIFIED SASE SECURITY STACK</p>
       <p class="module-tagline reveal reveal-delay-2">网络与安全，从不妥协</p>
       <ul class="module-points reveal reveal-delay-3">
         <li><strong>6大组件：</strong>UniAuth · UniCtrl · UniLog · UniPOP · UniGate · UniMobile</li>
@@ -1526,11 +1531,11 @@ body { animation: page-fade-in 0.8s ease forwards; }
         <li><strong>180天全量会话日志</strong>，满足公安部151号令</li>
         <li>DPI识别<strong>11大籋、千种应用</strong>，精准管控</li>
       </ul>
-      <div class="module-stats-row reveal reveal-delay-4">
-        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>150</em>+</div><div class="module-stat-badge-label">全球PoP节点</div></div>
-        <div class="module-stat-badge"><div class="module-stat-badge-num"><span style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:#96b896;">4类</span></div><div class="module-stat-badge-label">接入实体</div></div>
-        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>180</em>天</div><div class="module-stat-badge-label">合规日志</div></div>
-        <div class="module-stat-badge"><div class="module-stat-badge-num"><em>ZTNA</em></div><div class="module-stat-badge-label">零信任</div></div>
+      <div class="module-stats-row">
+        <div class="module-stat-badge anim-counter-item"><div class="module-stat-badge-num"><em><span class="cnt" data-t="150">0</span></em>+</div><div class="module-stat-badge-label">全球PoP节点</div></div>
+        <div class="module-stat-badge anim-counter-item" style="transition-delay:0.1s;"><div class="module-stat-badge-num"><span style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:#96b896;">4类</span></div><div class="module-stat-badge-label">接入实体</div></div>
+        <div class="module-stat-badge anim-counter-item" style="transition-delay:0.2s;"><div class="module-stat-badge-num"><em><span class="cnt" data-t="180">0</span></em>天</div><div class="module-stat-badge-label">合规日志</div></div>
+        <div class="module-stat-badge anim-counter-item" style="transition-delay:0.3s;"><div class="module-stat-badge-num"><em>ZTNA</em></div><div class="module-stat-badge-label">零信任</div></div>
       </div>
     </div>
     <div class="module-visual reveal reveal-delay-2" data-3d-tilt>
@@ -1574,8 +1579,8 @@ body { animation: page-fade-in 0.8s ease forwards; }
     <div class="module-content">
       <p class="section-label">MODULE 03</p>
       <p class="module-eyebrow">OMS智能运维监控平台</p>
-      <h2 class="module-title-zh reveal">OMS智能运维监控平台</h2>
-      <p class="module-title-en reveal reveal-delay-1">OMS INTELLIGENT OPERATIONS PLATFORM</p>
+      <h2 class="module-title-zh anim-title">OMS智能运维监控平台<div class="anim-line"></div></h2>
+      <p class="module-title-en anim-slide-line">OMS INTELLIGENT OPERATIONS PLATFORM</p>
       <p class="module-tagline reveal reveal-delay-2">让IT从成本中心，变成业务引擎</p>
       <ul class="module-points reveal reveal-delay-3">
         <li><strong>MTTR 15分钟</strong>，传统方式需4小时以上</li>

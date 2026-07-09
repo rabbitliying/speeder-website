@@ -987,7 +987,7 @@ header {
       <p>四大技术优势，让网络更智能、更安全、更高效</p>
     </div>
     <div class="tech-grid">
-      <div class="tech-card reveal reveal-delay-1">
+      <div class="tech-card anim-card">
         <div class="tech-card-icon">🌐</div>
         <h3>多路径智能选路</h3>
         <p>基于实时链路质量的动态路由选择，自动规避拥塞和故障路径，保障关键业务体验。</p>
@@ -995,7 +995,7 @@ header {
           <span>MPLS</span><span>Internet</span><span>4G/5G</span><span>毫秒切换</span>
         </div>
       </div>
-      <div class="tech-card reveal reveal-delay-2">
+      <div class="tech-card anim-card" style="transition-delay:0.12s;">
         <div class="tech-card-icon">🔐</div>
         <h3>国密加密传输</h3>
         <p>采用国密SM1/SM2/SM4算法，端到端加密，满足等保2.0合规要求，数据安全可控。</p>
@@ -1003,7 +1003,7 @@ header {
           <span>SM1/SM2/SM4</span><span>等保2.0</span><span>端到端加密</span>
         </div>
       </div>
-      <div class="tech-card reveal reveal-delay-3">
+      <div class="tech-card anim-card" style="transition-delay:0.24s;">
         <div class="tech-card-icon">⚡</div>
         <h3>零接触部署</h3>
         <p>设备上电即用，自动化配置下发，零IT现场操作，当天开通，分钟级业务上线。</p>
@@ -1011,7 +1011,7 @@ header {
           <span>Zero-Touch</span><span>当天开通</span><span>即插即用</span>
         </div>
       </div>
-      <div class="tech-card reveal reveal-delay-4">
+      <div class="tech-card anim-card" style="transition-delay:0.36s;">
         <div class="tech-card-icon">📊</div>
         <h3>可视化运维</h3>
         <p>实时监控全网链路状态、业务流量、应用性能，AI驱动的智能告警与故障预测。</p>
@@ -1020,9 +1020,15 @@ header {
         </div>
       </div>
     </div>
-  </section>
+  <div class="anim-particle-wrap" id="p-sdwan" style="margin:40px 0;"></div>
+  <div style="display:flex;justify-content:center;gap:48px;margin:32px 0;">
+    <div class="anim-glow"></div>
+    <div class="anim-glow"></div>
+    <div class="anim-glow"></div>
+  </div>
+</section>
 
-  <!-- HARDWARE -->
+<!-- HARDWARE -->
   <section id="sdwan-hardware">
     <div class="hardware-section-title anim-title">
       <p class="section-label">HARDWARE MODELS</p>
@@ -1541,5 +1547,11 @@ function initSmoothScroll() {
 }
 </script>
 <script src="speeder_animate.js"></script>
+<script>
+(function() {
+  var ids = ['p-sdwan'];
+  ids.forEach(function(id) { var el = document.getElementById(id); if (el) spawnParticles(id); });
+})();
+</script>
 </body>
 </html>

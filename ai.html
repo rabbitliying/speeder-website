@@ -1405,7 +1405,7 @@ body { animation: page-fade-in 0.8s ease forwards; }
         <span>实时解析</span><span>异常检测</span><span>盲区清零</span>
       </div>
     </div>
-    <div class="monitoring-card reveal reveal-delay-1">
+    <div class="monitoring-card anim-card" style="transition-delay:0.12s;">
       <div class="mc-icon">⚡</div>
       <div>
         <div class="mc-title">智能告警收敛</div>
@@ -1416,7 +1416,7 @@ body { animation: page-fade-in 0.8s ease forwards; }
         <span>告警收敛</span><span>根因分析</span><span>-95%噪音</span>
       </div>
     </div>
-    <div class="monitoring-card reveal reveal-delay-2">
+    <div class="monitoring-card anim-card" style="transition-delay:0.24s;">
       <div class="mc-icon">🧠</div>
       <div>
         <div class="mc-title">预测性故障检测</div>
@@ -1427,7 +1427,7 @@ body { animation: page-fade-in 0.8s ease forwards; }
         <span>提前30分钟预警</span><span>历史数据分析</span><span>趋势预测</span>
       </div>
     </div>
-    <div class="monitoring-card reveal reveal-delay-3">
+    <div class="monitoring-card anim-card" style="transition-delay:0.36s;">
       <div class="mc-icon">🔄</div>
       <div>
         <div class="mc-title">自动化自愈修复</div>
@@ -1438,6 +1438,12 @@ body { animation: page-fade-in 0.8s ease forwards; }
         <span>自动修复</span><span>流量切换</span><span>30秒恢复</span>
       </div>
     </div>
+  </div>
+  <div class="anim-particle-wrap" id="p-ai" style="margin:40px 0;"></div>
+  <div style="display:flex;justify-content:center;gap:48px;margin:32px 0;">
+    <div class="anim-glow"></div>
+    <div class="anim-glow"></div>
+    <div class="anim-glow"></div>
   </div>
 </section>
 
@@ -1950,8 +1956,8 @@ function initCardTilt() {
 <script src="speeder_animate.js"></script>
 <script>
 (function() {
-  var s = document.getElementById('anim-particles-ai');
-  if (s) spawnParticles('anim-particles-ai');
+  var ids = ['anim-particles-ai', 'p-ai'];
+  ids.forEach(function(id) { var el = document.getElementById(id); if (el) spawnParticles(id); });
 })();
 </script>
 
