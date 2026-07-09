@@ -22,7 +22,9 @@
   }
 
   // Title, typewriter, cards, glows, slide-line
-  ['.anim-title', '.anim-type', '.anim-card', '.anim-glow', '.anim-slide-line', '.anim-counter-item'].forEach(addOn);
+  ['.anim-title', '.anim-type', '.anim-card', '.anim-glow', '.anim-slide-line',
+   '.anim-counter-item', '.anim-blur', '.anim-scale', '.anim-gradient-text',
+   '.anim-slide-right', '.anim-sep-line'].forEach(addOn);
 
   // Particles (created dynamically per page)
   function spawnParticles(wrapId, positions) {
