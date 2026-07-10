@@ -443,7 +443,7 @@ section {
   perspective: 800px;
   box-shadow: 0 1px 8px rgba(0,0,0,0.05), 0 0 0 1px rgba(150,220,180,0.02) inset; backdrop-filter: blur(20px);
 }
-.hero-card.anim-slide-right { animation: none !important; }
+
 .hero-card:nth-child(1){animation-delay:0.15s}
 .hero-card:nth-child(2){animation-delay:0.3s}
 .hero-card:nth-child(3){animation-delay:0.45s}
@@ -723,6 +723,8 @@ section {
 .tilt-card:nth-child(2) { animation-delay: 0.1s; }
 .tilt-card:nth-child(3) { animation-delay: 0.2s; }
 .hero-cards .tilt-card { animation: none; }
+/* hero-cards 里的 anim-slide-right 卡片：禁用 cardSpringIn，走滑入过渡 */
+.hero-cards .hero-card.anim-slide-right { animation: none !important; }
 .module-eyebrow {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
