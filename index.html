@@ -442,8 +442,8 @@ section {
   transform-style: preserve-3d;
   perspective: 800px;
   box-shadow: 0 1px 8px rgba(0,0,0,0.05), 0 0 0 1px rgba(150,220,180,0.02) inset; backdrop-filter: blur(20px);
-  animation: cardSpringIn 0.7s cubic-bezier(0.34,1.56,0.64,1) both;
 }
+.hero-card.anim-slide-right { animation: none !important; }
 .hero-card:nth-child(1){animation-delay:0.15s}
 .hero-card:nth-child(2){animation-delay:0.3s}
 .hero-card:nth-child(3){animation-delay:0.45s}
@@ -531,6 +531,14 @@ section {
 .hero-sub {
   font-family: 'Noto Sans SC', sans-serif;
   font-size: clamp(15px, 1.8vw, 20px);
+  line-height: 1.8;
+}
+.type-wrap {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  line-height: inherit;
+}
   color: rgba(255,255,255,0.8);
   margin-bottom: 48px;
   letter-spacing: 1px;
@@ -1392,7 +1400,10 @@ body { animation: page-fade-in 0.8s ease forwards; }
     <div class="hero-text-block">
       <p class="hero-eyebrow">// 连接无忧，守护无虞</p>
       <h1 class="hero-title anim-gradient-text">十年深耕<br/><span class="accent">一站式守护</span></h1>
-      <p class="hero-sub"><span class="anim-blur">专注跨国网络连接与安全一站式服务<br>让每一次连接，都值得信赖</span></p>
+      <p class="hero-sub">
+        <span class="type-wrap"><span class="anim-type">专注跨国网络连接与安全一站式服务</span></span><br>
+        <span class="type-wrap"><span class="anim-type" style="animation-delay:2s;">让每一次连接，都值得信赖</span></span>
+      </p>
       <div class="hero-actions">
         <a href="sdwan.html" class="btn-primary filled anim-scale">探索方案 →</a>
         <a href="about.html#contact" class="btn-primary outline anim-scale">联系我们</a>

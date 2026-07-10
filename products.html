@@ -20,6 +20,7 @@ section{min-height:100vh;display:flex;align-items:center;justify-content:center;
 .hero-title-zh{font-size:clamp(36px,5vw,64px);font-weight:700;margin-bottom:8px;text-shadow:0 4px 30px rgba(0,0,0,0.6)}
 .hero-title-en{font-size:clamp(12px,1.5vw,16px);color:var(--primary);letter-spacing:4px;margin-bottom:20px}
 .hero-tagline{font-size:clamp(14px,1.8vw,18px);color:rgba(150,186,150,0.85);margin-bottom:48px;line-height:1.8}
+.hero-tagline .type-wrap{display:inline-block;overflow:hidden;vertical-align:bottom}
 .hero-cta-group{display:flex;justify-content:center;gap:16px}
 .btn-primary{font-size:14px;font-weight:600;padding:14px 32px;border-radius:30px;text-decoration:none;transition:all 0.3s;display:inline-flex;align-items:center;gap:8px}
 .btn-primary.filled{background:rgba(26,58,40,0.9);color:#fff;border:1px solid rgba(150,186,150,0.25)}
@@ -419,7 +420,10 @@ header {
     <p class="hero-eyebrow">AUTHORIZED DISTRIBUTION</p>
     <h1 class="hero-title-zh">代理产品</h1>
     <p class="hero-title-en">INTELLINET NETWORK SOLUTIONS</p>
-    <p class="hero-tagline">携手全球顶级网络设备品牌，赋能企业数字化转型<br>IC Intracom 授权 · 思科 · 华为 · 深信服 · 新华三</p>
+    <p class="hero-tagline">
+      <span class="type-wrap"><span class="anim-type">携手全球顶级网络设备品牌，赋能企业数字化转型</span></span><br>
+      <span class="type-wrap"><span class="anim-type" style="transition-delay:2s;">IC Intracom 授权 · 思科 · 华为 · 深信服 · 新华三</span></span>
+    </p>
     <div class="hero-cta-group">
       <a href="#products-overview" class="btn-primary filled">查看产品列表 →</a>
       <a href="#contact" class="btn-primary outline">获取咨询方案</a>

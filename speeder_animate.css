@@ -27,6 +27,7 @@
   overflow: hidden;
   width: 0;
   opacity: 0;
+  vertical-align: bottom;
 }
 .anim-type.on { opacity: 1; animation: typeIn 2s steps(26) forwards; }
 @keyframes typeIn { to { width: 100%; } }

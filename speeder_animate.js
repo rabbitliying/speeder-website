@@ -52,6 +52,22 @@
   // Expose globally so pages can call spawnParticles
   window.spawnParticles = spawnParticles;
 
+  // Immediately trigger animations for elements already in viewport (hero)
+  function triggerVisibleImmediately() {
+    var heroEls = document.querySelectorAll('.anim-title,.anim-type,.anim-card,.anim-glow,.anim-slide-line,.anim-counter-item,.anim-blur,.anim-scale,.anim-gradient-text,.anim-slide-right,.anim-sep-line');
+    heroEls.forEach(function(el) {
+      var rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        el.classList.add('on');
+      }
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', triggerVisibleImmediately);
+  } else {
+    triggerVisibleImmediately();
+  }
+
   // Counters
   document.querySelectorAll('.cnt').forEach(function (el) {
     var obs = new IntersectionObserver(function (entries) {
