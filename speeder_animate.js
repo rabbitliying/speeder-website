@@ -56,8 +56,11 @@
   // cardSpringIn animation runs during splash (0.7s), so we must wait
   // for splash to end before adding .on class to get the slide-in effect
   function triggerHeroAnimations() {
+    console.log('[DEBUG] triggerHeroAnimations called');
     var heroSlideRight = document.querySelectorAll('.hero-cards .anim-slide-right');
     var heroType = document.querySelectorAll('.hero-text-block .anim-type');
+    console.log('[DEBUG] heroSlideRight found:', heroSlideRight.length);
+    console.log('[DEBUG] heroType found:', heroType.length);
 
     // First: reset card state so cardSpringIn doesn't interfere
     heroSlideRight.forEach(function(el) {
@@ -84,6 +87,7 @@
         el.style.width = '';
         el.classList.add('on');
       });
+      console.log('[DEBUG] .on class added to all hero elements');
     }, 80);
   }
 
