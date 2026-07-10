@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════
    SPEEDER ANIMATE — 共享JS触发脚本
-   在页面 </body> 前引入即可
+   在页面 </head> 前引入即可（defer 加载，DOM解析完后执行）
    自动给 .anim-* 元素在进入视口时添加 .on 类
 ══════════════════════════════════════════════════════ */
 
@@ -52,9 +52,7 @@
   // Expose globally so pages can call spawnParticles
   window.spawnParticles = spawnParticles;
 
-  // Trigger hero animations AFTER splash screen finishes
-  // cardSpringIn animation runs during splash (0.7s), so we must wait
-  // for splash to end before adding .on class to get the slide-in effect
+  // Trigger hero animations AFTER splash screen finishes (index.html)
   function triggerHeroAnimations() {
     console.log('[DEBUG] triggerHeroAnimations called');
     var heroSlideRight = document.querySelectorAll('.hero-cards .anim-slide-right');
@@ -62,7 +60,6 @@
     console.log('[DEBUG] heroSlideRight found:', heroSlideRight.length);
     console.log('[DEBUG] heroType found:', heroType.length);
 
-    // First: reset card state so cardSpringIn doesn't interfere
     heroSlideRight.forEach(function(el) {
       el.style.opacity = '0';
       el.style.transform = 'translateX(48px)';
@@ -72,10 +69,8 @@
       el.style.width = '0';
     });
 
-    // Force reflow so browser registers the reset
     void document.body.getBoundingClientRect();
 
-    // Then: add .on to trigger slide-in and typewriter
     setTimeout(function() {
       heroSlideRight.forEach(function(el) {
         el.style.opacity = '';
@@ -87,12 +82,11 @@
         el.style.width = '';
         el.classList.add('on');
       });
-      console.log('[DEBUG] .on class added to all hero elements');
+      console.log('[DEBUG] .on class added');
     }, 80);
   }
 
-  // Immediately trigger hero animations for pages WITHOUT splash (products.html, etc.)
-  // On these pages, hero elements are visible immediately, so trigger them right away
+  // For non-splash pages (products.html, etc.), trigger typewriter immediately
   function triggerVisibleImmediately() {
     var heroType = document.querySelectorAll('.hero-text-block .anim-type');
     heroType.forEach(function(el) {
@@ -100,23 +94,13 @@
     });
   }
 
-  // Immediately trigger hero animations for pages WITHOUT splash (products.html, etc.)
-  // On these pages, hero elements are visible immediately, so trigger them right away
-  function triggerVisibleImmediately() {
-    var heroType = document.querySelectorAll('.hero-text-block .anim-type');
-    heroType.forEach(function(el) {
-      el.classList.add('on');
-    });
-  }
-
-  // For non-splash pages, trigger immediately
-  if (!document.getElementById('splash')) {
-    triggerVisibleImmediately();
-  }
-
-  // Expose globally so index.html splash-end script can call it directly
-  // No guard needed - index.html will call it exactly once at splash end
+  // Expose globally so index.html can call it at splash end
   window.triggerHeroAnimations = triggerHeroAnimations;
+
+  // Non-splash pages: trigger typewriter on DOMContentLoaded
+  if (!document.getElementById('splash')) {
+    document.addEventListener('DOMContentLoaded', triggerVisibleImmediately);
+  }
 
   // Counters
   document.querySelectorAll('.cnt').forEach(function (el) {
