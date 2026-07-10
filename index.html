@@ -1901,6 +1901,8 @@ body { animation: page-fade-in 0.8s ease forwards; }
           }, 100);
           // 3D效果初始化（光标+视差+卡片倾斜）
           setTimeout(init3DEffects, 200);
+          // 触发英雄区滑入和打字机动画
+          if (window.triggerHeroAnimations) window.triggerHeroAnimations();
         }
       }
     });
