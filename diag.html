@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>DIAG</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #042018; font-family: monospace; color: #96b896; padding: 40px; font-size: 14px; }
+#log { background: #0a2820; border: 1px solid #48564e; border-radius: 8px; padding: 20px; white-space: pre-wrap; line-height: 1.8; }
+#log .ok { color: #96b896; }
+#log .err { color: #ff6b6b; }
+#log .info { color: #A6B58F; }
+
+.hero-area { margin: 30px 0; }
+.hero-card {
+  display: flex; align-items: center; gap: 20px;
+  padding: 22px 24px;
+  background: rgba(15,45,30,0.08);
+  border: 1px solid rgba(150,220,180,0.05);
+  border-radius: 18px;
+  text-decoration: none; color: #d8e8dc;
+  /* 原始动画 */
+  animation: cardSpringIn 0.7s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes cardSpringIn {
+  0%   { transform: translateY(40px) scale(0.95); opacity: 0; }
+  60%  { transform: translateY(-8px) scale(1.02); opacity: 1; }
+  100% { transform: translateY(0) scale(1); }
+}
+.tilt-card:nth-child(2) { animation-delay: 0.1s; }
+.tilt-card:nth-child(3) { animation-delay: 0.2s; }
+/* cascade override */
+.hero-area .tilt-card { animation: none; }
+/* 我的override */
+.hero-area .hero-card.anim-slide-right { animation: none !important; }
+/* slide-right transition */
+.hero-area .hero-card.anim-slide-right {
+  opacity: 0; transform: translateX(48px);
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.hero-area .hero-card.anim-slide-right.on {
+  opacity: 1; transform: translateX(0);
+}
+</style>
+</head>
+<body>
+
+<h3 style="margin-bottom:20px;">DIAG: CSS Cascade + JS 测试</h3>
+<div id="log"></div>
+
+<div class="hero-area">
+  <a href="#" class="hero-card tilt-card anim-slide-right" id="hc1">Card (hover to test transition)</a>
+</div>
+
+<script>
+// 直接内联测试，不依赖外部JS
+var log = document.getElementById('log');
+function info(msg) {
+  log.innerHTML += '<span class="info">' + msg + '</span>\n';
+  console.log(msg);
+}
+function ok(msg) {
+  log.innerHTML += '<span class="ok">✓ ' + msg + '</span>\n';
+  console.log('✓', msg);
+}
+function err(msg) {
+  log.innerHTML += '<span class="err">✗ ' + msg + '</span>\n';
+  console.error('✗', msg);
+}
+
+var el = document.getElementById('hc1');
+var cs = getComputedStyle(el);
+
+info('=== CSS Computed Values ===');
+info('animation: ' + cs.animation);
+info('animation-name: ' + cs.animationName);
+info('opacity: ' + cs.opacity);
+info('transform: ' + cs.transform);
+
+// 检查.cascade override是否生效
+var cascadeOverride = cs.animation;
+if (cascadeOverride.includes('none')) {
+  ok('cascade override生效: animation = ' + cascadeOverride);
+} else {
+  err('cascade override未生效: animation = ' + cascadeOverride + ' (期望 none)');
+}
+
+// 检查初始opacity是否是0
+if (cs.opacity === '0' || parseFloat(cs.opacity) < 0.1) {
+  ok('初始opacity=0, 正确');
+} else {
+  err('初始opacity=' + cs.opacity + ', 应该是0');
+}
+
+// 手动加.on测试transition
+info('\n=== 手动加.on测试 ===');
+el.classList.add('on');
+var cs2 = getComputedStyle(el);
+info('加.on后 opacity: ' + cs2.opacity);
+info('加.on后 transform: ' + cs2.transform);
+info('加.on后 animation: ' + cs2.animation);
+
+if (parseFloat(cs2.opacity) > 0.9 && cs2.animation.includes('none')) {
+  ok('transition正常触发! animation=none, opacity=1');
+} else {
+  err('transition可能未触发');
+}
+</script>
+
+</body>
+</html>

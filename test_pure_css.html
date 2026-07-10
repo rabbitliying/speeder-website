@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>PURE CSS Test</title>
+<style>
+body { background: #042018; padding: 40px; font-family: sans-serif; color: #96b896; }
+
+/* ===== 测试1：纯 anim-slide-right，没有 tilt-card ===== */
+.test1 { opacity: 0; transform: translateX(48px); transition: opacity 0.55s, transform 0.55s; }
+.test1.on { opacity: 1; transform: translateX(0); }
+
+/* ===== 测试2：tilt-card + anim-slide-right，模拟index.html的cascade ===== */
+.test2-card {
+  animation: cardSpringIn 0.7s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes cardSpringIn {
+  0%   { transform: translateY(40px) scale(0.95); opacity: 0; }
+  60%  { transform: translateY(-8px) scale(1.02); opacity: 1; }
+  100% { transform: translateY(0) scale(1); }
+}
+/* cascade rule 1 */
+.hero-area .test2-card { animation: none; }
+/* cascade rule 2 - override */
+.hero-area .test2-card.anim-slide-right { animation: none !important; }
+/* the slide-right transition */
+.hero-area .test2-card.anim-slide-right {
+  opacity: 0; transform: translateX(48px); transition: opacity 0.55s, transform 0.55s;
+}
+.hero-area .test2-card.anim-slide-right.on { opacity: 1; transform: translateX(0); }
+
+/* layout */
+.test-box { width: 300px; height: 60px; background: rgba(93,109,86,0.3); border-radius: 8px; margin: 12px 0; display:flex; align-items:center; padding:0 20px; }
+h4 { margin: 20px 0 8px; color: #b8ccb4; }
+hr { border-color: #48564e; margin: 16px 0; }
+</style>
+</head>
+<body>
+
+<h3>CSS Cascade 测试（纯CSS，无JS）</h3>
+<p>用 :hover 触发 .on 类，验证transition是否工作</p>
+<hr>
+
+<h4>测试1：纯 anim-slide-right（baseline）</h4>
+<div class="test-box test1">hover me → 应该从右滑入</div>
+
+<h4>测试2：tilt-card + anim-slide-right（模拟hero卡片）</h4>
+<div class="hero-area">
+  <div class="test-box test2-card anim-slide-right">hover me → 应该从右滑入（被tilt-card规则影响）</div>
+</div>
+
+<!-- 手动用JS模拟hover来测试 -->
+<script>
+// 给测试1和测试2的元素手动加.on来模拟动画触发
+document.querySelectorAll('.test-box').forEach(function(el) {
+  el.addEventListener('mouseenter', function() { el.classList.add('on'); });
+  el.addEventListener('mouseleave', function() { el.classList.remove('on'); });
+});
+</script>
+
+</body>
+</html>
