@@ -62,7 +62,7 @@
     // First: reset card state so cardSpringIn doesn't interfere
     heroSlideRight.forEach(function(el) {
       el.style.opacity = '0';
-      el.style.transform = 'translateX(100px)';
+      el.style.transform = 'translateX(48px)';
     });
     heroType.forEach(function(el) {
       el.style.opacity = '0';
@@ -88,31 +88,21 @@
   }
 
   // Wait for splash to finish, then trigger hero animations
-  // SplashObserver already in index.html fires init3DEffects() after splash ends
-  // We hook into that same moment
+  // page-ready is added to body when splash disappears — watch body for this class
   function waitForSplashEnd() {
-    var splash = document.getElementById('splash');
-    if (!splash) {
-      triggerHeroAnimations();
-      return;
-    }
-    var splashObs = new MutationObserver(function(mutations) {
+    var bodyObs = new MutationObserver(function(mutations) {
       mutations.forEach(function(m) {
-        if (m.attributeName === 'style' || m.attributeName === 'class') {
-          var disp = splash.style.display;
-          if (disp === 'none' || disp === '') {
-            splashObs.disconnect();
-            setTimeout(triggerHeroAnimations, 100);
-          }
+        if (m.attributeName === 'class' && document.body.classList.contains('page-ready')) {
+          bodyObs.disconnect();
+          setTimeout(triggerHeroAnimations, 100);
         }
       });
     });
-    splashObs.observe(splash, { attributes: true });
+    bodyObs.observe(document.body, { attributes: true, attributeFilter: ['class'] });
 
-    // Fallback: if splash already gone
-    var disp = splash.style.display;
-    if (disp === 'none' || disp === '') {
-      splashObs.disconnect();
+    // Fallback: if page-ready already present (returning visitor, or synchronous add)
+    if (document.body.classList.contains('page-ready')) {
+      bodyObs.disconnect();
       setTimeout(triggerHeroAnimations, 100);
     }
   }
