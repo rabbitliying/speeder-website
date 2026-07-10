@@ -53,14 +53,34 @@
   window.spawnParticles = spawnParticles;
 
   // Immediately trigger animations for elements already in viewport (hero)
+  // Forces a reflow before adding .on so transitions actually fire
   function triggerVisibleImmediately() {
-    var heroEls = document.querySelectorAll('.anim-title,.anim-type,.anim-card,.anim-glow,.anim-slide-line,.anim-counter-item,.anim-blur,.anim-scale,.anim-gradient-text,.anim-slide-right,.anim-sep-line');
-    heroEls.forEach(function(el) {
-      var rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
-        el.classList.add('on');
-      }
+    var heroSlideRight = document.querySelectorAll('.hero-cards .anim-slide-right');
+    var heroType = document.querySelectorAll('.hero-text-block .anim-type');
+
+    // Step 1: Force cards back to start state (opacity:0, transform:translateX)
+    // This is needed because cardSpringIn may have already finished during splash
+    heroSlideRight.forEach(function(el) {
+      el.style.opacity = '0';
+      el.style.transform = 'translateX(100px)';
     });
+    heroType.forEach(function(el) {
+      el.style.opacity = '0';
+      el.style.width = '0';
+    });
+
+    // Step 2: Force reflow (getBoundingClientRect) to ensure browser registers the reset
+    void document.body.getBoundingClientRect();
+
+    // Step 3: Add .on with a small delay to ensure transition fires
+    setTimeout(function() {
+      heroSlideRight.forEach(function(el) {
+        el.classList.add('on');
+      });
+      heroType.forEach(function(el) {
+        el.classList.add('on');
+      });
+    }, 50);
   }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', triggerVisibleImmediately);
