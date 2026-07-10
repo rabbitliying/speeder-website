@@ -87,30 +87,55 @@
     }, 80);
   }
 
-  // Wait for splash to finish, then trigger hero animations
-  // page-ready is added to body when splash disappears — watch body for this class
-  function waitForSplashEnd() {
-    var bodyObs = new MutationObserver(function(mutations) {
-      mutations.forEach(function(m) {
-        if (m.attributeName === 'class' && document.body.classList.contains('page-ready')) {
-          bodyObs.disconnect();
-          setTimeout(triggerHeroAnimations, 100);
-        }
-      });
+  // Immediately trigger hero animations for pages WITHOUT splash (products.html, etc.)
+  // On these pages, hero elements are visible immediately, so trigger them right away
+  function triggerVisibleImmediately() {
+    var heroType = document.querySelectorAll('.hero-text-block .anim-type');
+    heroType.forEach(function(el) {
+      el.classList.add('on');
     });
-    bodyObs.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+  }
 
-    // Fallback: if page-ready already present (returning visitor, or synchronous add)
-    if (document.body.classList.contains('page-ready')) {
-      bodyObs.disconnect();
-      setTimeout(triggerHeroAnimations, 100);
+  // Wait for splash to finish, then trigger hero animations
+  // Only applies to pages WITH splash screen (index.html)
+  var _heroAnimTriggered = false;
+  function waitForSplashEnd() {
+    // Skip if no splash element (non-splash pages use triggerVisibleImmediately instead)
+    if (!document.getElementById('splash')) {
+      triggerVisibleImmediately();
+      return;
     }
+
+    // If page-ready is already on body (e.g. revisit with sessionStorage),
+    // trigger immediately
+    if (document.body.classList.contains('page-ready')) {
+      if (!_heroAnimTriggered) {
+        _heroAnimTriggered = true;
+        setTimeout(triggerHeroAnimations, 50);
+      }
+      return;
+    }
+    // Otherwise poll until page-ready appears (set by splash screen end script)
+    var pollInterval = setInterval(function() {
+      if (document.body.classList.contains('page-ready') && !_heroAnimTriggered) {
+        _heroAnimTriggered = true;
+        clearInterval(pollInterval);
+        setTimeout(triggerHeroAnimations, 100);
+      }
+    }, 200);
   }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', waitForSplashEnd);
   } else {
     waitForSplashEnd();
   }
+
+  // Expose globally so index.html splash-end script can call it directly
+  window.triggerHeroAnimations = function() {
+    if (_heroAnimTriggered) return;
+    _heroAnimTriggered = true;
+    triggerHeroAnimations();
+  };
 
   // Counters
   document.querySelectorAll('.cnt').forEach(function (el) {

@@ -1751,6 +1751,7 @@ body { animation: page-fade-in 0.8s ease forwards; }
     if (hr) { hr.style.display = "flex"; hr.style.opacity = "1"; }
     if (sp) { sp.style.display = "none"; }
     document.body.classList.add("page-ready");
+    if (window.triggerHeroAnimations) window.triggerHeroAnimations();
     return;
   }
 
