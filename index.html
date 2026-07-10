@@ -1879,6 +1879,8 @@ body { animation: page-fade-in 0.8s ease forwards; }
             hero.style.transition = "opacity 1s ease";
             hero.style.opacity = "1";
             setTimeout(initHero, 50);
+            // 倒计时结束后触发英雄区滑入和打字机动画
+            if (window.triggerHeroAnimations) window.triggerHeroAnimations();
           }, 1200);
         }, 3000);
       }, 500);
@@ -1894,6 +1896,7 @@ body { animation: page-fade-in 0.8s ease forwards; }
         if (splash && splash.style.display === 'none') {
           splashObserver.disconnect();
           document.body.classList.add('page-ready');
+          console.log('[DEBUG index.html] splash ended, calling triggerHeroAnimations');
           // 强制触发scroll-snap对齐到hero
           setTimeout(function() {
             var hero = document.getElementById('hero');
