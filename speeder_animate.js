@@ -52,14 +52,14 @@
   // Expose globally so pages can call spawnParticles
   window.spawnParticles = spawnParticles;
 
-  // Immediately trigger animations for elements already in viewport (hero)
-  // Forces a reflow before adding .on so transitions actually fire
-  function triggerVisibleImmediately() {
+  // Trigger hero animations AFTER splash screen finishes
+  // cardSpringIn animation runs during splash (0.7s), so we must wait
+  // for splash to end before adding .on class to get the slide-in effect
+  function triggerHeroAnimations() {
     var heroSlideRight = document.querySelectorAll('.hero-cards .anim-slide-right');
     var heroType = document.querySelectorAll('.hero-text-block .anim-type');
 
-    // Step 1: Force cards back to start state (opacity:0, transform:translateX)
-    // This is needed because cardSpringIn may have already finished during splash
+    // First: reset card state so cardSpringIn doesn't interfere
     heroSlideRight.forEach(function(el) {
       el.style.opacity = '0';
       el.style.transform = 'translateX(100px)';
@@ -69,23 +69,57 @@
       el.style.width = '0';
     });
 
-    // Step 2: Force reflow (getBoundingClientRect) to ensure browser registers the reset
+    // Force reflow so browser registers the reset
     void document.body.getBoundingClientRect();
 
-    // Step 3: Add .on with a small delay to ensure transition fires
+    // Then: add .on to trigger slide-in and typewriter
     setTimeout(function() {
       heroSlideRight.forEach(function(el) {
+        el.style.opacity = '';
+        el.style.transform = '';
         el.classList.add('on');
       });
       heroType.forEach(function(el) {
+        el.style.opacity = '';
+        el.style.width = '';
         el.classList.add('on');
       });
-    }, 50);
+    }, 80);
+  }
+
+  // Wait for splash to finish, then trigger hero animations
+  // SplashObserver already in index.html fires init3DEffects() after splash ends
+  // We hook into that same moment
+  function waitForSplashEnd() {
+    var splash = document.getElementById('splash');
+    if (!splash) {
+      triggerHeroAnimations();
+      return;
+    }
+    var splashObs = new MutationObserver(function(mutations) {
+      mutations.forEach(function(m) {
+        if (m.attributeName === 'style' || m.attributeName === 'class') {
+          var disp = splash.style.display;
+          if (disp === 'none' || disp === '') {
+            splashObs.disconnect();
+            setTimeout(triggerHeroAnimations, 100);
+          }
+        }
+      });
+    });
+    splashObs.observe(splash, { attributes: true });
+
+    // Fallback: if splash already gone
+    var disp = splash.style.display;
+    if (disp === 'none' || disp === '') {
+      splashObs.disconnect();
+      setTimeout(triggerHeroAnimations, 100);
+    }
   }
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', triggerVisibleImmediately);
+    document.addEventListener('DOMContentLoaded', waitForSplashEnd);
   } else {
-    triggerVisibleImmediately();
+    waitForSplashEnd();
   }
 
   // Counters
