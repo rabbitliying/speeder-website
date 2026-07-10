@@ -124,8 +124,8 @@
 
 .anim-slide-right {
   opacity: 0;
-  transform: translateX(48px);
-  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: translateX(100px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .anim-slide-right.on { opacity: 1; transform: translateX(0); }
 
